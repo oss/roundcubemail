@@ -253,12 +253,12 @@ a.iconbutton.threadmode.selected {
 	right: 6px;
 	min-width: 1.8em;
 	padding: 2px 4px;
-	background: #82acb5;
-	background: -moz-linear-gradient(top, #82acb5 0%, #6a939f 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#82acb5), color-stop(100%,#6a939f));
-	background: -o-linear-gradient(top, #82acb5 0%, #6a939f 100%);
-	background: -ms-linear-gradient(top, #82acb5 0%, #6a939f 100%);
-	background: linear-gradient(top, #82acb5 0%, #6a939f 100%);
+	background: #ff103d;
+	background: -moz-linear-gradient(top, #ff103d 0%, #d21034 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff103d), color-stop(100%,#d21034));
+	background: -o-linear-gradient(top, #ff103d 0%, #d21034 100%);
+	background: -ms-linear-gradient(top, #ff103d 0%, #d21034 100%);
+	background: linear-gradient(top, #ff103d 0%, #d21034 100%);
 	box-shadow: inset 0 1px 1px 0 #536d72;
 	-o-box-shadow: inset 0 1px 1px 0 #536d72;
 	-webkit-box-shadow: inset 0 1px 1px 0 #536d72;
@@ -271,12 +271,12 @@ a.iconbutton.threadmode.selected {
 }
 
 #mailboxlist li.mailbox.selected > a .unreadcount {
-	background: #005d76;
-	background: -moz-linear-gradient(top, #005d76 0%, #004558 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#005d76), color-stop(100%,#004558));
-	background: -o-linear-gradient(top, #005d76 0%, #004558 100%);
-	background: -ms-linear-gradient(top, #005d76 0%, #004558 100%);
-	background: linear-gradient(top, #005d76 0%, #004558 100%);
+	background: #d21034;
+	background: -moz-linear-gradient(top, #d21034 0%, #b40f2e 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d21034), color-stop(100%,#b40f2e));
+	background: -o-linear-gradient(top, #d21034 0%, #b40f2e 100%);
+	background: -ms-linear-gradient(top, #d21034 0%, #b40f2e 100%);
+	background: linear-gradient(top, #d21034 0%, #b40f2e 100%);
 	box-shadow: inset 0 1px 1px 0 #003645;
 	-o-box-shadow: inset 0 1px 1px 0 #003645;
 	-webkit-box-shadow: inset 0 1px 1px 0 #003645;
