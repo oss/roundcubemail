@@ -1,0 +1,327 @@
+/***** RoundCube|Mail settings task styles *****/
+
+
+#tabsbar
+{
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  right: 20px;
+  padding-left: 10px;
+  padding-top: 10px;
+  height: 23px;
+  /*background: #BD0E2E none repeat scroll 0 0;
+  border-color: #C0BDB2 #C0BDB2 #999;
+  border-style: solid;
+  border-width: 1px; 
+  white-space: nowrap;*/
+  /*-moz-border-radius-topleft:10px;
+  -webkit-border-top-left-radius:10px;
+  -moz-border-radius-topright:10px;
+  -webkit-border-top-right-radius:10px;*/
+
+}
+
+span.tablink,
+span.tablink-selected
+{
+  float: left;
+  width: 100px;
+  height: 22px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*background: url('images/tabs.gif') top left no-repeat;*/
+}
+
+span.tablink-selected
+{
+  background-position: -102px 0;
+}
+
+span.tablink a,
+span.tablink-selected a
+{
+  display: block;
+  /*padding-left: 5px;*/
+  padding-top: 5px;
+  text-align: center;
+  color: #303030;
+  text-decoration: none;
+}
+
+span.tablink-selected a
+{
+  color: #000000;
+  cursor: default;
+}
+
+#rcmfd_timezone
+{
+  width: 300px;
+}
+
+#identities-list,
+#folder-manager
+{
+  background: #fff;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  overflow: auto;
+}
+
+#folder-manager
+{
+  width: 600px;
+  bottom: 140px;
+  overflow: auto;
+  border: 1px solid #999999;
+}
+
+#folder-manager.droptarget
+{
+  border: 1px solid #CC3333;
+  background-color: #FFFFA6;
+}
+
+#identities-list
+{
+  bottom: 60px;
+  width: 420px;
+  border: 1px solid #999999;
+}
+
+#listbuttons
+{
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+}
+
+#identities-table
+{
+  width: 420px;
+  table-layout: fixed;
+  background-color: #F9F9F9;
+}
+
+#subscription-table
+{
+  width: 100%;
+}
+
+#subscription-table input
+{
+  font: inherit;
+}
+
+#subscription-table tbody td,
+#identities-table tbody td
+{
+  cursor: default;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#identities-table thead td.name
+{
+  width: 55%;
+}
+
+#identities-table thead td.email
+{
+  width: 45%;
+}
+
+#subscription-table tbody td
+{
+  height: 22px !important;
+  height: 18px;
+}
+
+#subscription-table tr.virtual td
+{
+  color: #666;
+}
+
+#subscription-table tr.selected td,
+#subscription-table tr.selected td a
+{
+  color: #FFFFFF;
+  background-color: #CC3333;
+}
+
+#subscription-table tr.droptarget td,
+#subscription-table tr.droptarget td a
+{
+  background-color: #FFFFA6;
+}
+
+#subscription-table thead td.name
+{
+  width: 360px;
+}
+
+#subscription-table thead td.msgcount
+{
+  width: 90px;
+}
+
+#subscription-table thead td.subscribed
+{
+  width: 90px;
+}
+
+#subscription-table tbody td.subscribed,
+#subscription-table tbody td.rename,
+#subscription-table tbody td.delete
+{
+  padding: 1px 4px;
+}
+
+#subscription-table thead td.rename,
+#subscription-table thead td.delete
+{
+  width: 30px;
+}
+
+#subscription-table td.name input
+{
+  font: inherit;
+  width: 240px;
+}
+
+#identity-frame
+{
+  position: relative;
+  margin-top: 20px;
+  border: 1px solid #999999;
+}
+
+#identity-details
+{
+  background: #fff;
+  position: absolute;
+  top: 10px;
+  left: 450px;
+  right: 10px;
+  bottom: 60px;
+  border: 1px solid #999999;
+  overflow: auto;
+}
+
+#identity-details table td.title
+{
+  font-weight: bold;
+  text-align: right;
+}
+
+input.disabled
+{
+  color: #999999;
+}
+
+#bottomboxes
+{
+  position: absolute;
+  width: 600px;
+  height: 120px;
+  left: 10px;
+  bottom: 20px;
+}
+
+div.settingsbox
+{
+  background: #fff;
+  width: 600px;
+  margin-top: 20px;
+  border: 1px solid #999999;
+}
+
+fieldset 
+{
+  margin-bottom: 0.5em;
+  border: 1px solid #999999;
+  padding: 4px 8px 9px 8px; 
+}
+
+legend
+{
+  color: #999999;
+}
+
+#prefsscreen
+{
+  background: #E9E6DC none repeat scroll 0 0;
+  border-bottom: 1px solid #C0BDB2;
+  border-left: 1px solid #C0BDB2;
+  border-right: 1px solid #C0BDB2;
+  position: absolute;
+  top: 105px;
+  right: 20px;
+  bottom: 30px;
+  left: 20px;
+  -moz-border-radius-bottomleft:10px;
+  -webkit-border-bottom-left-radius:10px;
+  -moz-border-radius-bottomright:10px;
+  -webkit-border-bottom-right-radius:10px;
+}
+
+#sectionslist
+{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  border: 1px solid #999999;
+  background-color: #F9F9F9;
+  overflow: auto;
+}
+
+#sections-table
+{
+  width: 100%;
+  table-layout: fixed;
+}
+
+#sections-table tbody td
+{
+  cursor: default;
+}
+
+#prefs-box
+{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid #999999;
+  overflow: hidden;
+}
+
+body.iframe,
+#prefs-frame
+{
+  background-color: #F9F9F9;
+  border: none;
+}
+
+#formfooter
+{
+  width: 100%;
+}
+
+#formfooter .footerleft
+{
+  padding-left: 15px;
+  white-space: nowrap;
+  float: left;
+}
+
+#formfooter .footerright
+{
+  padding-right: 15px;
+  white-space: nowrap;
+  text-align: right;
+  float: right;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Open Systems Support -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head>
+                <title><roundcube:object name="pagetitle" /></title>
+                <meta name="language" content="en" />
+                <meta name="author" content="Rutgers University" />
+                <meta name="description" content="Rutgers Webmail" />
+                <meta name="keywords" content="webmail, ruwebmail, roundcube" />
+
+                <link rel="stylesheet" type="text/css" href="https://www.nbcs.rutgers.edu/css/style.css" media="screen" />
+                <link rel="icon" type="image/vnd.microsoft.icon" href="/images/favicon.ico" />
+<script type="text/javascript" src="jquery/jquery.js"></script>
+<script type="text/javascript" src="build/dist/jquery.jfeed.pack.js"></script>
+
+<script type="text/javascript">
+
+jQuery(function() {
+
+    jQuery.getFeed({
+        url: 'proxy.php?url=http://css.rutgers.edu/news/feed',
+        success: function(feed) {
+        
+            jQuery('#rss-all-header').append('<div id="rss-all-title">CSS News</div><div id="rss-icon"><a href="'
+            + feed.link
+            + '" target="_parent"><img src="https://www.nbcs.rutgers.edu/css/newimages/feed.png" alt="RSS Feed" border="0" /></a></div>');
+            
+            var html;
+            var maxitems = 5;
+	    var maxchars = 55;
+
+            // do we have any RSS items?
+            if (feed.items.length == 0) {
+                html = '<tr><td colspan="1" class="news-footer">No news to report...</td></tr>'
+                jQuery('#rss-all-foot-item').append(html);
+            }
+            
+            // if bozos set maxitems more than we have?
+            if (maxitems > feed.items.length)
+                maxitems = feed.items.length;
+
+            for(var i = 0; i < maxitems; i++) {
+            
+                var item = feed.items[i];
+                var html;
+
+                // handle titles too long by finding last whole word before
+                // maxchars and replace everything after with elipses.
+                if(item.title.length > maxchars) {
+                    var pos;
+                    var index = item.title.length;
+                    while (index > maxchars) {
+                        pos = item.title.lastIndexOf(' ', index);
+                        index = pos - 1;
+                    }
+                    if (pos != -1)
+                        item.title = item.title.substr(0, pos) + '...';
+                }
+ 
+
+                // are we the last item?
+                if (i == maxitems-1) {
+                    html = '<tr><td colspan="1" class="news-footer">'
+                    + '<a href="'
+                    + item.link
+                    + '" target="_parent">'
+                    + item.title
+                    + '</a>'
+                    + '</td></tr>';
+		    jQuery('#rss-all-foot-item').append(html);
+                } else {
+                    html = '<tr><td colspan="1"><a href="'
+                    + item.link
+                    + '" target="_parent">'
+                    + item.title
+                    + '</a>'
+                    + '</td></tr>';
+		    jQuery('#rss-all-body-item').append(html);
+                }
+            }
+        }    
+    });
+});
+</script>
+        </head>
+        <body>
+			 <div id="right_top">
+                                        <table id="news">
+                                            <thead>
+                                                <tr>
+                                                        <th id="rss-all-header" scope="col" class="news-header"></th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot id="rss-all-foot-item">
+                                            </tfoot>
+                                            <tbody id="rss-all-body-item">
+                                            </tbody>
+                                        </table>
+                                </div>
+        </body>
+</html>
