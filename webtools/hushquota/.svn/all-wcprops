@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/hushquota
+END
+hushquota_post.js
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/hushquota/hushquota_post.js
+END
+hushquota_post_handler.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/hushquota/hushquota_post_handler.php
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/hushquota/index.php
+END

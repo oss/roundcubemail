@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/roundcube/!svn/ver/65/branches/0.4/src/plugins/webtools/webtools/forward
+END
+functions.inc
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/forward/functions.inc
+END
+functions.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/roundcube/!svn/ver/65/branches/0.4/src/plugins/webtools/webtools/forward/functions.js
+END
+list-add.png
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/forward/list-add.png
+END
+delete.png
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/forward/delete.png
+END
+list-remove.png
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/forward/list-remove.png
+END
+ajax.inc
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/roundcube/!svn/ver/36/branches/0.4/src/plugins/webtools/webtools/forward/ajax.inc
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/roundcube/!svn/ver/65/branches/0.4/src/plugins/webtools/webtools/forward/index.php
+END
