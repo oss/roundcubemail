@@ -1,106 +1,99 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<roundcube:object name="doctype" value="html5" />
+<html>
 <head>
 <title><roundcube:object name="pagetitle" /></title>
 <roundcube:include file="/includes/links.html" />
-<!--<link rel="stylesheet" type="text/css" href="/addresses.css" />-->
-<link rel="stylesheet" type="text/css" href="/jquery-ui-1.7.2.custom.css" />
-<script type="text/javascript" src="/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="/splitter.js"></script>
-<script type="text/javascript" src="/functions.js"></script>
-<style type="text/css">
-<roundcube:if condition="count(env:address_sources) &lt;= 1" />
-#abookcountbar { left: 20px; }
-#addressscreen { left: 20px;
-<roundcube:exp expression="browser:ie ? 'width:expression((parseInt(document.documentElement.clientWidth)-40)+\\'px\\');' : ''" />
-}
-#addresslist { min-width: 180px; width: <roundcube:exp expression="!empty(cookie:addressviewsplitter) ? cookie:addressviewsplitter-5 : 290" />px; }
-#contacts-box { left: <roundcube:exp expression="!empty(cookie:addressviewsplitter) ? cookie:addressviewsplitter+5 : 300" />px;
-top: 20384523423045px;
-}
-<roundcube:else />
-#addresslist { min-width: 180px; width: <roundcube:exp expression="!empty(cookie:addressviewsplitter) ? cookie:addressviewsplitter-5 : 290" />px; }
-#contacts-box { left: <roundcube:exp expression="!empty(cookie:addressviewsplitter) ? cookie:addressviewsplitter+5 : 300" />px;
-}
-<roundcube:endif />
-#bluebox
-{
-  width: expression((parseInt(document.documentElement.clientWidth)-25)+'px');
-  height: expression((parseInt(document.documentElement.clientHeight)-120)+'px');
-}
-</style>
-
 </head>
-<body onload="rcube_init_mail_ui()">
-
-        <roundcube:include file="/includes/taskbar.html" />
+<body class="noscroll">
 
 <roundcube:include file="/includes/header.html" />
 
+<div id="mainscreen">
 
-<div id="bluebox" class="ui-corner-bottom" style="left: 13px; right: 13px; top: 106px;"></div>
+<div id="addressview-left">
 
-<div id="abooktoolbar" class="ui-widget-header ui-corner-top">
-<div id="quicksearchbar" style="right: 0px; left: 20px; top: 5px;">
-<roundcube:object name="searchform" id="quicksearchbox" style="left: 7px;"/>
-<roundcube:button command="reset-search" id="searchreset" image="/images/icons/reset.gif" title="resetsearch" />
+<!-- search box -->
+<div id="quicksearchbar">
+<roundcube:object name="searchform" id="quicksearchbox" />
+<roundcube:button name="searchmenulink" id="searchmenulink" class="iconbutton searchoptions" onclick="UI.show_popup('searchmenu');return false" title="searchmod" content=" " />
+<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
 </div>
 
-<roundcube:button command="add" imageSel="/images/buttons/contact_sel.gif" imageAct="/images/buttons/contact_act.gif" imagePas="/images/buttons/contact_pas.gif" width="22" height="22" title="newcontact" label="newcontact" align="absmiddle" />
-<roundcube:button command="delete" imageSel="/images/buttons/delete_sel.gif" imageAct="/images/buttons/delete_act.gif" imagePas="/images/buttons/delete_pas.gif" width="22" height="22" title="deletecontact" label="deletecontact" align="absmiddle" />
-<roundcube:button command="compose" imageSel="/images/buttons/compose_sel.gif" imageAct="/images/buttons/compose_act.gif" imagePas="/images/buttons/compose_pas.gif" width="22" height="22" title="composeto" label="composeto" align="absmiddle" />
-<!--<roundcube:button command="print" imageSel="/images/buttons/print_sel.gif" imageAct="/images/buttons/print_act.gif" imagePas="/images/buttons/print_pas.gif" width="22" height="22" title="print" label="print" align="absmiddle" />-->
+<!-- sources/groups list -->
+<div id="directorylistbox" class="uibox listbox">
+<h2 id="directorylist-header" class="boxtitle"><roundcube:label name="groups" /></h2>
+<div id="directorylist-content" class="scroller withfooter">
+	<roundcube:object name="directorylist" id="directorylist" class="listing" />
 </div>
-
-<div id="directorylistbox">
-<div id="groups-title" class="boxtitle"><roundcube:label name="groups" /></div>
-<div id="directorylistwarp">
-  <roundcube:object name="directorylist" id="directorylist" />
-  <roundcube:object name="groupslist" id="contactgroupslist" />
-</div>
-<div id="directoylistbuttons">
-  <roundcube:button command="group-create" type="link" title="newcontactgroup" class="buttonPas addgroup" classAct="button addgroup" content=" " />
-  <roundcube:button name="groupactions" id="groupactionslink" type="link" title="groupactions" class="button groupactions" onclick="rcmail_ui.show_groupmenu();return false" content=" " />
+<div id="directorylist-footer" class="boxfooter">
+	<roundcube:button command="group-create" type="link" title="newcontactgroup" class="listbutton add disabled" classAct="listbutton add" innerClass="inner" content="+" /><roundcube:button name="groupoptions" id="groupoptionslink" type="link" title="moreactions" class="listbutton groupactions" onclick="UI.show_popup('groupoptions');return false" innerClass="inner" content="&#9881;" />
 </div>
 </div>
 
-<div id="groupoptionsmenu" class="popupmenu">
-  <ul>
-    <li><roundcube:button command="group-rename" label="rename" classAct="active" /></li>
-    <li><roundcube:button command="group-delete" label="delete" classAct="active" /></li>
-  </ul>
+</div><!-- end addressview-left -->
+
+<div id="addressview-right">
+
+<!-- toolbar -->
+<div id="addressbooktoolbar" class="toolbar">
+	<roundcube:button command="advanced-search" type="link" class="button search disabled" classAct="button search" classSel="button search pressed" label="advanced" title="advsearch" />
+	<roundcube:button command="compose" type="link" class="button compose disabled" classAct="button compose" classSel="button compose pressed" label="compose" title="writenewmessage" />
+	<roundcube:button command="import" type="link" class="button import disabled" classAct="button import" classSel="button import pressed" label="import" title="importcontacts" />
+	<roundcube:button command="export" type="link" class="button export disabled" classAct="button export" classSel="button export pressed" label="export" title="exportvcards" />
+	<roundcube:container name="toolbar" id="addressbooktoolbar" />
 </div>
 
-<div id="addressscreen">
-
-<div id="addresslist">
-<roundcube:object name="addresslist" id="contacts-table" class="records-table" cellspacing="0" summary="Contacts list" />
+<!-- contacts list -->
+<div id="addresslist" class="uibox listbox">
+<h2 class="boxtitle"><roundcube:label name="contacts" /></h2>
+<div class="scroller withfooter">
+<roundcube:object name="addresslist" id="contacts-table" class="listing" noheader="true" />
+</div>
+<div class="boxfooter">
+	<roundcube:button command="add" type="link" title="newcontact" class="listbutton add disabled" classAct="listbutton add" innerClass="inner" content="+" /><roundcube:button command="delete" type="link" title="deletecontact" class="listbutton delete disabled" classAct="listbutton delete" innerClass="inner" content="x" /><roundcube:button command="group-remove-selected" type="link" title="groupremoveselected" class="listbutton removegroup disabled" classAct="listbutton removegroup" innerClass="inner" content="-" />
+	<roundcube:object name="recordsCountDisplay" class="countdisplay" label="fromtoshort" />
+</div>
+<div class="boxpagenav">
+	<roundcube:button command="firstpage" type="link" class="icon firstpage disabled" classAct="icon firstpage" title="firstpage" content="|&amp;lt;" />
+	<roundcube:button command="previouspage" type="link" class="icon prevpage disabled" classAct="icon prevpage" title="previouspage" content="&amp;lt;" />
+	<roundcube:button command="nextpage" type="link" class="icon nextpage disabled" classAct="icon nextpage" title="nextpage" content="&amp;gt;" />
+	<roundcube:button command="lastpage" type="link" class="icon lastpage disabled" classAct="icon lastpage" title="lastpage" content="&amp;gt;|" />
+</div>
 </div>
 
 
-
-<script type="text/javascript">
-<roundcube:if condition="browser:ie" />
-<roundcube:else />
-  var addrviewsplit = new rcube_splitter({id:'addressviewsplitter', p1: 'addresslist', p2: 'contacts-box', orientation: 'v', relative: true, start: 250});
-  rcmail.add_onload('addrviewsplit.init()');
-<roundcube:endif />
-</script>
-
-<div id="contacts-box">
-<roundcube:object name="addressframe" id="contact-frame" width="100%" height="100%" frameborder="0" src="/watermark.html" />
+<div id="contacts-box" class="uibox">
+	<roundcube:object name="addressframe" id="contact-frame" style="width:100%; height:96%" frameborder="0" src="/watermark.html" />
+	<roundcube:object name="message" id="message" class="statusbar" />
 </div>
 
+
+</div><!-- end addressview-right -->
+
+</div><!-- end mainscreen -->
+
+
+<div id="searchmenu" class="popupmenu">
+	<ul class="toolbarmenu">
+		<li><label><input type="checkbox" name="s_mods[]" value="name" id="s_mod_name" onclick="UI.set_searchmod(this)" /> <roundcube:label name="name" /></label></li>
+		<li><label><input type="checkbox" name="s_mods[]" value="firstname" id="s_mod_firstname" onclick="UI.set_searchmod(this)" /> <roundcube:label name="firstname" /></label></li>
+		<li><label><input type="checkbox" name="s_mods[]" value="surname" id="s_mod_surname" onclick="UI.set_searchmod(this)" /> <roundcube:label name="surname" /></label></li>
+		<li><label><input type="checkbox" name="s_mods[]" value="email" id="s_mod_email" onclick="UI.set_searchmod(this)" /> <roundcube:label name="email" /></label></li>
+		<li><label><input type="checkbox" name="s_mods[]" value="*" id="s_mod_all" onclick="UI.set_searchmod(this)" /> <roundcube:label name="allfields" /></label></li>
+	</ul>
 </div>
 
-<div id="abookcountbar" class="pagenav">
-  <roundcube:button command="firstpage" type="link" class="buttonPas firstpage" classAct="button firstpage" classSel="button firstpageSel" title="firstpage" content=" " />
-  <roundcube:button command="previouspage" type="link" class="buttonPas prevpage" classAct="button prevpage" classSel="button prevpageSel" title="previouspage" content=" " />
-  <roundcube:object name="recordsCountDisplay" style="padding:0 .5em; float:left" />
-  <roundcube:button command="nextpage" type="link" class="buttonPas nextpage" classAct="button nextpage" classSel="button nextpageSel" title="nextpage" content=" " />
-  <roundcube:button command="lastpage" type="link" class="buttonPas lastpage" classAct="button lastpage" classSel="button lastpageSel" title="lastpage" content=" " />
+<div id="groupoptions" class="popupmenu">
+	<ul id="groupoptionsmenu" class="toolbarmenu">
+		<li><roundcube:button command="group-rename" label="grouprename" classAct="active" /></li>
+		<li><roundcube:button command="group-delete" label="groupdelete" classAct="active" /></li>
+		<li><roundcube:button command="search-create" label="searchsave" classAct="active" /></li>
+		<li><roundcube:button command="search-delete" label="searchdelete" classAct="active" /></li>
+		<roundcube:container name="groupoptions" id="groupoptionsmenu" />
+	</ul>
 </div>
 
+<roundcube:include file="/includes/footer.html" />
 
 </body>
 </html>
