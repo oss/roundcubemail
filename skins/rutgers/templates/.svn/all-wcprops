@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates
+END
+mail.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/mail.html
+END
+message.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/message.html
+END
+loginactivity.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/loginactivity.html
+END
+messagepreview.html
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/messagepreview.html
+END
+header.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/header.html
+END
+error.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/error.html
+END
+showcontact.html
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/showcontact.html
+END
+footer.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/footer.html
+END
+messageerror.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/messageerror.html
+END
+plugin.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/plugin.html
+END
+editidentity.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/editidentity.html
+END
+addressbook.html
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/addressbook.html
+END
+settings.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/settings.html
+END
+identities.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/identities.html
+END
+editcontact.html
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/editcontact.html
+END
+printmessage.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/printmessage.html
+END
+addcontact.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/addcontact.html
+END
+compose.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/compose.html
+END
+settingsedit.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/settingsedit.html
+END
+managefolders.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/managefolders.html
+END
+login.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/login.html
+END
+importcontacts.html
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/importcontacts.html
+END
+content.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/content.html
+END
+mail.raph.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/mail.raph.html
+END
+messagepart.html
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/roundcube/!svn/ver/19/branches/0.4/src/skins/rutgers/templates/messagepart.html
+END
