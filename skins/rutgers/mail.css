@@ -406,7 +406,7 @@ a.iconbutton.threadmode.selected {
 
 #messagelist thead tr td.sortedASC a,
 #messagelist thead tr td.sortedDESC a {
-	color: #004458;
+	color: #000;
 	text-decoration: underline;
 	background: url(images/listicons.png) right -912px no-repeat;
 }
