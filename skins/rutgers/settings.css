@@ -1,327 +1,236 @@
-/***** RoundCube|Mail settings task styles *****/
+/**
+ * Roundcube webmail styles for the Settings section
+ *
+ * Copyright (c) 2012, The Roundcube Dev Team
+ * Screendesign by FLINT / Büro für Gestaltung, bueroflint.com
+ *
+ * The contents are subject to the Creative Commons Attribution-ShareAlike
+ * License. It is allowed to copy, distribute, transmit and to adapt the work
+ * by keeping credits to the original autors in the README file.
+ * See http://creativecommons.org/licenses/by-sa/3.0/ for details.
+ *
+ * $Id$
+ */
 
-
-#tabsbar
-{
-  position: absolute;
-  top: 70px;
-  left: 20px;
-  right: 20px;
-  padding-left: 10px;
-  padding-top: 10px;
-  height: 23px;
-  /*background: #BD0E2E none repeat scroll 0 0;
-  border-color: #C0BDB2 #C0BDB2 #999;
-  border-style: solid;
-  border-width: 1px; 
-  white-space: nowrap;*/
-  /*-moz-border-radius-topleft:10px;
-  -webkit-border-top-left-radius:10px;
-  -moz-border-radius-topright:10px;
-  -webkit-border-top-right-radius:10px;*/
-
+#settings-sections {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 220px;
+	bottom: 0;
 }
 
-span.tablink,
-span.tablink-selected
-{
-  float: left;
-  width: 100px;
-  height: 22px !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /*background: url('images/tabs.gif') top left no-repeat;*/
+#pluginbody,
+#settings-right {
+	position: absolute;
+	top: 0;
+	left: 232px;
+	right: 0;
+	bottom: 0;
 }
 
-span.tablink-selected
-{
-  background-position: -102px 0;
+#sectionslist {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 260px;
+	bottom: 0;
 }
 
-span.tablink a,
-span.tablink-selected a
-{
-  display: block;
-  /*padding-left: 5px;*/
-  padding-top: 5px;
-  text-align: center;
-  color: #303030;
-  text-decoration: none;
+#preferences-box {
+	position: absolute;
+	top: 0;
+	left: 272px;
+	right: 0;
+	bottom: 0;
 }
 
-span.tablink-selected a
-{
-  color: #000000;
-  cursor: default;
+#preferences-frame {
+	border: 0;
+	border-radius: 4px 4px 0 0;
 }
 
-#rcmfd_timezone
-{
-  width: 300px;
+#sections-table tbody td.section,
+#settings-sections span.listitem a,
+#settings-sections span.tablink a {
+	padding-left: 36px;
+	background: url(images/listicons.png) -100px 0 no-repeat;
 }
 
-#identities-list,
-#folder-manager
-{
-  background: #fff;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  overflow: auto;
+/* note: support span.tablink because this is used by plugins */
+#settings-sections span.listitem a,
+#settings-sections span.tablink a {
+	background-position: 6px -862px;
 }
 
-#folder-manager
-{
-  width: 600px;
-  bottom: 140px;
-  overflow: auto;
-  border: 1px solid #999999;
+#settings-sections span.selected a,
+#settings-sections span.tablink.selected a {
+	background-position: 6px -887px;
 }
 
-#folder-manager.droptarget
-{
-  border: 1px solid #CC3333;
-  background-color: #FFFFA6;
+#settings-sections span.preferences a {
+	background-position: 6px -431px;
 }
 
-#identities-list
-{
-  bottom: 60px;
-  width: 420px;
-  border: 1px solid #999999;
+#settings-sections span.preferences.selected a {
+	background-position: 6px -455px;
 }
 
-#listbuttons
-{
-  position: absolute;
-  left: 20px;
-  bottom: 18px;
+#settings-sections span.folders a,
+#sections-table #rcmrowfolders td.section {
+	background-position: 6px 2px;
 }
 
-#identities-table
-{
-  width: 420px;
-  table-layout: fixed;
-  background-color: #F9F9F9;
+#settings-sections span.folders.selected a,
+#sections-table #rcmrowfolders.selected td.section {
+	background-position: 6px -22px;
 }
 
-#subscription-table
-{
-  width: 100%;
+#settings-sections span.identities a {
+	background-position: 6px -478px;
 }
 
-#subscription-table input
-{
-  font: inherit;
+#settings-sections span.identities.selected a {
+	background-position: 6px -502px;
 }
 
-#subscription-table tbody td,
-#identities-table tbody td
-{
-  cursor: default;
-  overflow: hidden;
-  text-overflow: ellipsis;
+#settings-sections span.filter a {
+	background-position: 6px -1746px;
 }
 
-#identities-table thead td.name
-{
-  width: 55%;
+#settings-sections span.filter.selected a {
+	background-position: 6px -1770px;
 }
 
-#identities-table thead td.email
-{
-  width: 45%;
+#settings-sections span.password a {
+	background-position: 6px -1795px;
 }
 
-#subscription-table tbody td
-{
-  height: 22px !important;
-  height: 18px;
+#settings-sections span.password.selected a {
+	background-position: 6px -1819px;
 }
 
-#subscription-table tr.virtual td
-{
-  color: #666;
+#sections-table #rcmrowgeneral td.section {
+	background-position: 6px -573px;
 }
 
-#subscription-table tr.selected td,
-#subscription-table tr.selected td a
-{
-  color: #FFFFFF;
-  background-color: #CC3333;
+#sections-table #rcmrowgeneral.selected td.section {
+	background-position: 6px -598px;
 }
 
-#subscription-table tr.droptarget td,
-#subscription-table tr.droptarget td a
-{
-  background-color: #FFFFA6;
+#sections-table #rcmrowmailbox td.section {
+	background-position: 6px -621px;
 }
 
-#subscription-table thead td.name
-{
-  width: 360px;
+#sections-table #rcmrowmailbox.selected td.section {
+	background-position: 6px -646px;
 }
 
-#subscription-table thead td.msgcount
-{
-  width: 90px;
+#sections-table #rcmrowcompose td.section {
+	background-position: 6px -670px;
 }
 
-#subscription-table thead td.subscribed
-{
-  width: 90px;
+#sections-table #rcmrowcompose.selected td.section {
+	background-position: 6px -695px;
 }
 
-#subscription-table tbody td.subscribed,
-#subscription-table tbody td.rename,
-#subscription-table tbody td.delete
-{
-  padding: 1px 4px;
+#sections-table #rcmrowmailview td.section {
+	background-position: 6px -718px;
 }
 
-#subscription-table thead td.rename,
-#subscription-table thead td.delete
-{
-  width: 30px;
+#sections-table #rcmrowmailview.selected td.section {
+	background-position: 6px -742px;
 }
 
-#subscription-table td.name input
-{
-  font: inherit;
-  width: 240px;
+#sections-table #rcmrowaddressbook td.section {
+	background-position: 6px -766px;
 }
 
-#identity-frame
-{
-  position: relative;
-  margin-top: 20px;
-  border: 1px solid #999999;
+#sections-table #rcmrowaddressbook.selected td.section {
+	background-position: 6px -791px;
 }
 
-#identity-details
-{
-  background: #fff;
-  position: absolute;
-  top: 10px;
-  left: 450px;
-  right: 10px;
-  bottom: 60px;
-  border: 1px solid #999999;
-  overflow: auto;
+#sections-table #rcmrowserver td.section {
+	background-position: 6px -814px;
 }
 
-#identity-details table td.title
-{
-  font-weight: bold;
-  text-align: right;
+#sections-table #rcmrowserver.selected td.section {
+	background-position: 6px -838px;
 }
 
-input.disabled
-{
-  color: #999999;
+#sections-table #rcmrowcalendar td.section {
+	background-position: 6px -526px;
 }
 
-#bottomboxes
-{
-  position: absolute;
-  width: 600px;
-  height: 120px;
-  left: 10px;
-  bottom: 20px;
+#sections-table #rcmrowcalendar.selected td.section {
+	background-position: 6px -550px;
 }
 
-div.settingsbox
-{
-  background: #fff;
-  width: 600px;
-  margin-top: 20px;
-  border: 1px solid #999999;
+#folderslist,
+#identitieslist {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 260px;
+	bottom: 0;
 }
 
-fieldset 
-{
-  margin-bottom: 0.5em;
-  border: 1px solid #999999;
-  padding: 4px 8px 9px 8px; 
+#identities-table {
+	width: 100%;
+	table-layout: fixed;
 }
 
-legend
-{
-  color: #999999;
+#identities-table tbody td.mail {
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-#prefsscreen
-{
-  background: #E9E6DC none repeat scroll 0 0;
-  border-bottom: 1px solid #C0BDB2;
-  border-left: 1px solid #C0BDB2;
-  border-right: 1px solid #C0BDB2;
-  position: absolute;
-  top: 105px;
-  right: 20px;
-  bottom: 30px;
-  left: 20px;
-  -moz-border-radius-bottomleft:10px;
-  -webkit-border-bottom-left-radius:10px;
-  -moz-border-radius-bottomright:10px;
-  -webkit-border-bottom-right-radius:10px;
+#folder-details,
+#identity-details {
+	position: absolute;
+	top: 0;
+	left: 272px;
+	right: 0;
+	bottom: 0;
 }
 
-#sectionslist
-{
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  bottom: 10px;
-  border: 1px solid #999999;
-  background-color: #F9F9F9;
-  overflow: auto;
+#subscription-table {
+	table-layout: fixed;
 }
 
-#sections-table
-{
-  width: 100%;
-  table-layout: fixed;
+#subscription-table tr.root td {
+	font-size: 5%;
+	height: 5px;
+	padding: 2px;
 }
 
-#sections-table tbody td
-{
-  cursor: default;
+#subscription-table td.name {
+	width: 85%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-#prefs-box
-{
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  bottom: 10px;
-  border: 1px solid #999999;
-  overflow: hidden;
+#subscription-table td.subscribed {
+	min-width: 30px;
+	padding: 3px 12px 3px 3px;
+	text-align: right;
 }
 
-body.iframe,
-#prefs-frame
-{
-  background-color: #F9F9F9;
-  border: none;
+#pluginlist td.version {
+	width: 5em;
 }
 
-#formfooter
-{
-  width: 100%;
+.webkit #pluginlist td.version {
+	width: 6em;
 }
 
-#formfooter .footerleft
-{
-  padding-left: 15px;
-  white-space: nowrap;
-  float: left;
+#pluginlist td.license,
+#pluginlist td.source {
+	width: 8em;
 }
 
-#formfooter .footerright
-{
-  padding-right: 15px;
-  white-space: nowrap;
-  text-align: right;
-  float: right;
+.webkit #pluginlist td.license,
+.webkit #pluginlist td.source {
+	width: 9em;
 }
