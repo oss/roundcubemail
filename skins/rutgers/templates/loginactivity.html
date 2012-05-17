@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><roundcube:object name="pagetitle" /></title>
+<roundcube:include file="/includes/links.html" />
+<link rel="stylesheet" type="text/css" href="/this/webtools.css" />
+<link rel="stylesheet" type="text/css" href="/settings.css" />
+</head>
+<body>
+
+<roundcube:include file="/includes/taskbar.html" />
+<roundcube:include file="/includes/header.html" />
+
+<div id="tabsbar" class="ui-widget-header ui-widget-content ui-corner-top" style="border-bottom: 1px solid #000000;">
+<center><span>Login History Details</span></center>
+</div>
+
+<div id="bluebox" class="ui-corner-bottom" style="left: 20px; right: 20px; top: 105px;">
+    <div id="webtools-box" class="ui-corner-all">
+        <roundcube:object name="loginactivitycontent" id="loginactivitycontentframe" width="100%" height="100%" frameborder="0" src="/watermark.html" />
+    </div>
+</div>
+
+</body>
+</html>
