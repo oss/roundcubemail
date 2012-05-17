@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/roundcube/!svn/ver/38/branches/0.4/src/plugins/webtools/webtools/vacation
+END
+vacation_post.js
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/vacation/vacation_post.js
+END
+vacation_post_handler.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/roundcube/!svn/ver/19/branches/0.4/src/plugins/webtools/webtools/vacation/vacation_post_handler.php
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/roundcube/!svn/ver/38/branches/0.4/src/plugins/webtools/webtools/vacation/index.php
+END

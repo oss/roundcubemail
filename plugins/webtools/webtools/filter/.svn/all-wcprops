@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/roundcube/!svn/ver/83/branches/0.4/src/plugins/webtools/webtools/filter
+END
+functions.inc
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/roundcube/!svn/ver/83/branches/0.4/src/plugins/webtools/webtools/filter/functions.inc
+END
+functions.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/roundcube/!svn/ver/82/branches/0.4/src/plugins/webtools/webtools/filter/functions.js
+END
+ajax.inc
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/roundcube/!svn/ver/41/branches/0.4/src/plugins/webtools/webtools/filter/ajax.inc
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/roundcube/!svn/ver/77/branches/0.4/src/plugins/webtools/webtools/filter/index.php
+END
