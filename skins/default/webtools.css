@@ -36,27 +36,6 @@ p
 	bottom: 0;
 }
 
-#tabsbar span.listitem a,
-#tabsbar span.tablink a {
-	padding-left: 36px;
-	background: url(images/listicons.png) -100px 0 no-repeat;
-}
-
-#tabsbar span.listitem a,
-#tabsbar span.tablink a {
-	background-position: 6px -862px;
-}
-
-#tabsbar span.selected a,
-#tabslist span.tablink.selected a {
-	background-position: 6px -862px;
-}
-
-#tabsbar span.webtoolsforward a {
-	background-position: 6px -887px;
-}
-
-
 #webtools-box
 {
     position: absolute;
