@@ -36,6 +36,10 @@ p
 	bottom: 0;
 }
 
+#webtools-tabs span.ui-state-activetab {
+	font-weight: bold;
+}
+
 #webtools-box
 {
     position: absolute;
