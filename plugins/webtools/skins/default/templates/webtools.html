@@ -23,23 +23,45 @@ function webtools_init_settings_tabs()
 <roundcube:include file="/includes/taskbar.html" />
 <roundcube:include file="/includes/header.html" />
 
-<div id="tabsbar" class="ui-widget-header ui-widget-content ui-corner-top" style="border-bottom: 1px solid #000000;">
-<span id="webtoolstabdefault" class="tablink ui-corner-top ui-state-inactivetab"><roundcube:button name="webtoolsdefault" href="?_task=dummy&_action=plugin.webtools" type="link" label="webtools.webtools" title="webtools.webtools" /></span>
-<span id="webtoolstabforward" class="tablink ui-corner-top ui-state-inactivetab"><roundcube:button name="webtoolsforward" href="?_task=dummy&_action=plugin.webtoolsforward" type="link" label="webtools.forward" title="webtools.forward" /></span>
-<span id="webtoolstabvacation" class="tablink ui-corner-top ui-state-inactivetab"><roundcube:button name="webtoolsvacation" href="?_task=dummy&_action=plugin.webtoolsvacation" type="link" label="webtools.vacation" title="webtools.vacation" /></span>
-<span id="webtoolstabfilter" class="tablink ui-corner-top ui-state-inactivetab"><roundcube:button name="webtoolsfilter" href="?_task=dummy&_action=plugin.webtoolsfilter" type="link" label="webtools.filter" title="webtools.filter" /></span>
-<span id="webtoolstabspam" class="tablink ui-corner-top ui-state-inactivetab"><roundcube:button name="webtoolsspam" href="?_task=dummy&_action=plugin.webtoolsspam" type="link" label="webtools.spam" title="webtools.spam" /></span>
-<span id="webtoolstabquota" class="tablink ui-corner-top ui-state-inactivetab"><roundcube:button name="webtoolsquota" href="?_task=dummy&_action=plugin.webtoolsquota" type="link" label="webtools.quota" title="webtools.quota" /></span>
-<span id="webtoolstabhushquota" class="tablink ui-corner-top ui-state-inactivetab"><roundcube:button name="webtoolshushquota" href="?_task=dummy&_action=plugin.webtoolshushquota" type="link" label="webtools.hushquota" title="webtools.hushquota" /></span>
-<span id="webtoolstabrestore" class="tablink ui-corner-top ui-state-inactivetab"><roundcube:button name="webtoolsrestore" href="?_task=dummy&_action=plugin.webtoolsrestore" type="link" label="webtools.restore" title="webtools.restore" /></span>
-<roundcube:container name="webtoolstabs" id="webtoolstabsbar" />
-<script type="text/javascript"> if (window.rcmail) rcmail.add_onload(webtools_init_settings_tabs);</script>
-</div>
+<div id="mainscreen" class="offset">
+	<div id="mainview-left" style="width=220px;">
+	<div id="tabsbar" class="uibox listbox">
+		<h2 class="boxtitle" type="link"> <a href="?_task=dummy&_action=plugin.webtools">Webtools</a></h2>
+		<div id="webtools-tabs" class="scroller">
+			<span id="webtoolstabforward" class="listitem forward">
+				<roundcube:button name="webtoolsforward" href="?_task=dummy&_action=plugin.webtoolsforward" type="link" label="webtools.forward" title="webtools.forward" />
+			</span>
+			<span id="webtoolsvacation" class="listitem vacation">
+				<roundcube:button name="webtoolsvacation" href="?_task=dummy&_action=plugin.webtoolsvacation" type="link" label="webtools.vacation" title="webtools.vacation" />
+			</span>
+			<span id="webtoolsfilter" class="listitem filter">
+				<roundcube:button name="webtoolsfilter" href="?_task=dummy&_action=plugin.webtoolsfilter" type="link" label="webtools.filter" title="webtools.filter" />
+			</span>
+			<span id="webtoolsspam" class="listitem spam">
+				<roundcube:button name="webtoolsspam" href="?_task=dummy&_action=plugin.webtoolsspam" type="link" label="webtools.spam" title="webtools.spam" />
+			</span>
+			<span id="webtoolsquota" class="listitem quota">
+				<roundcube:button name="webtoolsquota" href="?_task=dummy&_action=plugin.webtoolsquota" type="link" label="webtools.quota" title="webtools.quota" />
+			</span>
+			<span id="webtoolshushquota" class="listitem hushquota">
+				<roundcube:button name="webtoolshushquota" href="?_task=dummy&_action=plugin.webtoolshushquota" type="link" label="webtools.hushquota" title="webtools.hushquota" />
+			</span>
+			<span id="webtoolsrestore" class="listitem restore">
+				<roundcube:button name="webtoolsrestore" href="?_task=dummy&_action=plugin.webtoolsrestore" type="link" label="webtools.restore" title="webtools.restore" />
+			</span>
+			<script type="text/javascript"> if(window.rcmail) rcmail.add_onload(webtools_init_settings_tabs);</script>
+			</div>
+		</div>
+	</div>
 
-<div id="bluebox" class="ui-corner-bottom" style="left: 20px; right: 20px; top: 105px;">
-    <div id="webtools-box" class="ui-corner-all">
-        <roundcube:object name="webtoolscontent" id="webtoolscontentframe" width="100%" height="100%" frameborder="0" src="/watermark.html" />
-    </div>
+
+	<div id="mainview-right" style="left:232px">
+		<!--<div id="bluebox" class="ui-corner-bottom" style="left: 20px; right: 20px; top: 0px;"> -->
+			<div id="webtools-box" class="ui-corner-all">
+        		<roundcube:object name="webtoolscontent" id="webtoolscontentframe" width="100%" height="100%" frameborder="0" src="/watermark.html" />
+    		</div>
+		<!--</div> -->
+	</div>
 </div>
 
 </body>
