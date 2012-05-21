@@ -12,61 +12,16 @@ p
    font-size: inherit;
 }
 
-#mainview-left {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	top: 0;
-	width: 220px;
-}
-
-#mainview-right {
-	position: absolute;
-	bottom: 0;
-	left: 232px;
-	right: 0;
-	top: 0;
-}
-
-#tabsbar {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 220px;
-	bottom: 0;
-}
-
-#tabsbar span.listitem a,
-#tabsbar span.tablink a {
-	padding-left: 36px;
-	background: url(images/listicons.png) -100px 0 no-repeat;
-}
-
-#tabsbar span.listitem a,
-#tabsbar span.tablink a {
-	background-position: 6px -862px;
-}
-
-#tabsbar span.selected a,
-#tabslist span.tablink.selected a {
-	background-position: 6px -862px;
-}
-
-#tabsbar span.webtoolsforward a {
-	background-position: 6px -887px;
-}
-
-
 #webtools-box
 {
     position: absolute;
-    bottom: 0;
-	top: 0;
+    bottom: 30px; 
+    top: 10px;
     left: 20px;
     right: 20px;
     border: 1px solid #999999;
     overflow: auto;
-   	background-color: #F2F2F2;
+    background-color: #F2F2F2;
     /* IE hack */
     height: expression((parseInt(document.documentElement.clientHeight)-190)+'px');
     width: expression((parseInt(document.documentElement.clientWidth)-120)+'px');
