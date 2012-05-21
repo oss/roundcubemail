@@ -1,1507 +1,1188 @@
-***** RoundCube|Mail mail task styles *****/
+/**
+ * Roundcube webmail styles for the Email section
+ *
+ * Copyright (c) 2012, The Roundcube Dev Team
+ * Screendesign by FLINT / Büro für Gestaltung, bueroflint.com
+ *
+ * The contents are subject to the Creative Commons Attribution-ShareAlike
+ * License. It is allowed to copy, distribute, transmit and to adapt the work
+ * by keeping credits to the original autors in the README file.
+ * See http://creativecommons.org/licenses/by-sa/3.0/ for details.
+ *
+ * $Id$
+ */
 
-/** mailbox list styles */
-
-#composeBtn {
-	top: 79px;
-	left: 17px;
-	width: 190px;
+#mailview-left {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 220px;
+	bottom: 0;
 }
 
-#composeBtn a {
-	display: block;
-	float: left;
-	padding: 3px;
-	text-decoration: none;
-	font-size: 12px;
-	color: #0066cc;
-	border: 1px solid #ffffff;
-	width: 174px;
+#mailview-right {
+	position: absolute;
+	top: 0;
+	left: 232px;
+	right: 0;
+	bottom: 0;
+}
+
+#mailview-top {
+	position: absolute;
+	top: 42px;
+	left: 0;
+	width: 100%;
+	bottom: 28px;
+}
+
+#mailview-bottom {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 26px;
+}
+
+#mailviewsplitter {
+	right: 30px;
+	width: 30px;
+	left: auto !important;
+}
+
+#folderlist-header {
+	width: 100%;
+	height: 12px;
+	top: 32px;
+}
+
+#mailboxcontainer,
+#messagelistcontainer {
+	position: absolute;
+	top: 42px;
+	left: 0;
+	width: 100%;
+	bottom: 0;
+}
+
+#messagelistcontainer {
+	top: 0;
+	bottom: 32px;
+	overflow: auto;
+}
+
+#messagelistfooter {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 26px;
+	padding: 2px;
+}
+
+#messagelistfooter.rightalign {
+	text-align: right;
+}
+
+#messagelistfooter #countcontrols {
+	display: inline-block;
+}
+
+#messagelistfooter #listcontrols,
+#messagelistfooter #listselectors {
+	display: inline-block;
+	margin-right: 2em;
+}
+
+a.iconbutton.listmode {
+	width: 26px;
+	height: 20px;
+	background-position: 0 -477px;
+}
+
+a.iconbutton.threadmode {
+	width: 26px;
+	height: 20px;
+	background-position: 0 -497px;
+}
+
+a.iconbutton.listmode.selected {
+	background-position: -26px -477px;
+}
+
+a.iconbutton.threadmode.selected {
+	background-position: -26px -497px;
+}
+
+#mailboxlist li.mailbox {
+	position: relative;
+	background-repeat: no-repeat;
+	background-position: 6px 2px;
+}
+
+#mailboxlist li.mailbox a {
+	padding-left: 36px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	background-image: url(images/listicons.png);
+	background-repeat: no-repeat;
+	background-position: 6px 3px;
+}
+
+#mailboxlist li.mailbox.unread a {
+	padding-right: 36px;
+}
+
+#mailboxlist li.mailbox.selected > a {
+	background-position: 6px -21px;
+}
+
+#mailboxlist li.mailbox.inbox > a {
+	background-position: 6px -189px;
+}
+
+#mailboxlist li.mailbox.inbox.selected > a {
+	background-position: 6px -213px;
+}
+
+#mailboxlist li.mailbox.drafts > a {
+	background-position: 6px -238px;
+}
+
+#mailboxlist li.mailbox.drafts.selected > a {
+	background-position: 6px -262px;
+}
+
+#mailboxlist li.mailbox.sent > a {
+	background-position: 6px -286px;
+}
+
+#mailboxlist li.mailbox.sent.selected > a {
+	background-position: 6px -310px;
+}
+
+#mailboxlist li.mailbox.junk > a {
+	background-position: 6px -334px;
+}
+
+#mailboxlist li.mailbox.junk.selected > a {
+	background-position: 6px -358px;
+}
+
+#mailboxlist li.mailbox.trash > a {
+	background-position: 6px -382px;
+}
+
+#mailboxlist li.mailbox.trash.selected > a {
+	background-position: 6px -406px;
+}
+
+#mailboxlist li.mailbox.archive > a {
+	background-position: 6px -1699px;
+}
+
+#mailboxlist li.mailbox.archive.selected > a {
+	background-position: 6px -1723px;
+}
+
+#mailboxlist li.virtual > a {
+	color: #aaa;
+}
+
+#mailboxlist li.recent > a {
+	color: #017cb4;
+}
+
+#mailboxlist li.mailbox ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid #bbd3da;
+}
+
+#mailboxlist li.mailbox ul li {
+	padding-left: 26px;
+}
+
+#mailboxlist li.mailbox ul li a {
+	background-position: 6px -93px;
+}
+
+#mailboxlist li.mailbox ul li.selected > a {
+	background-position: 6px -117px;
+}
+
+#mailboxlist li.mailbox ul li:last-child {
+	border-bottom: 0;
+}
+
+#mailboxlist li.mailbox div.collapsed,
+#mailboxlist li.mailbox div.expanded {
+	position: absolute;
+	top: 13px;
+	left: 19px;
+	width: 13px;
+	height: 13px;
+	background: url(images/listicons.png) -3px -144px no-repeat;
+	cursor: pointer;
+}
+
+#mailboxlist li.mailbox div.expanded {
+	background-position: -3px -168px;
+}
+
+#mailboxlist li.mailbox.selected > div.collapsed {
+	background-position: -23px -144px;
+}
+
+#mailboxlist li.mailbox.selected > div.expanded {
+	background-position: -23px -168px;
 }
 
 
-#composeBtn a:hover {
-	background: #ffffff url(images/buttons/btn_bg.gif) bottom left repeat-x;
-	border: 1px solid #c0bdb2;
+#mailboxlist li.mailbox ul li div.collapsed,
+#mailboxlist li.mailbox ul li div.expanded {
+	left: 43px;
+	top: 14px;
 }
 
-#checkMail-container {
-    /*-moz-border-radius-topleft:10px;
-    -webkit-border-top-left-radius:10px;
-    -moz-border-radius-topright:10px;
-    -webkit-border-top-right-radius:10px;*/
-	top: 121px;
-	/*background: #bd0e2e;*/
-    height: 25px;
-    width: 100%;
-    text-align: center;
-    font-weight: normal;
-}
-
-#checkMail-container a {
-	display: block;
-	text-decoration: none;
-	font-size: 11px;
+#mailboxlist li.mailbox .unreadcount {
+	position: absolute;
+	top: 3px;
+	right: 6px;
+	min-width: 1.8em;
+	padding: 2px 4px;
+	background: #ff103d;
+	background: -moz-linear-gradient(top, #ff103d 0%, #d21034 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff103d), color-stop(100%,#d21034));
+	background: -o-linear-gradient(top, #ff103d 0%, #d21034 100%);
+	background: -ms-linear-gradient(top, #ff103d 0%, #d21034 100%);
+	background: linear-gradient(top, #ff103d 0%, #d21034 100%);
+	box-shadow: inset 0 1px 1px 0 #536d72;
+	-o-box-shadow: inset 0 1px 1px 0 #536d72;
+	-webkit-box-shadow: inset 0 1px 1px 0 #536d72;
+	-moz-box-shadow: inset 0 1px 1px 0 #536d72;
+	border-radius: 9px;
 	color: #fff;
-}
-
-#checkMail-container a:hover {
-	color: #999999;
-}
-
-img.checkBtn {
-	padding-right: 4px;
-}
-
-#bottom {
-	background-color: #000;
-}
-
-#folderToolbox {
-        width: 100%;
-        top: 100px;
-	    height: 25px;
-        background: #E9E6DC;
-        border-left: 1px solid #999;
-        border-right: 1px solid #999;
-        border-bottom: 1px solid #999;
-	    /*-moz-border-radius-bottomleft:10px;
-  	    -webkit-border-bottom-left-radius:10px;
-  	    -moz-border-radius-bottomright:10px;
-  	    -webkit-border-bottom-right-radius:10px;*/
-}
-
-#folderToolbox ul {
-        margin: 4px;
-        list-style: none;
-        padding: 0;
-        padding-top: 0px;
-}
-
-#folderToolbox li {
-        margin: 0;
-        padding: 0;
-        display: inline; /* IE6 fix */
-}
-
-
-#folderToolbox li a {
-        text-decoration: none;
-        color: #0066cc;
-        display: block;
-        font-size: 11px;
-	padding-top: 5px;
 	text-align: center;
+	font-weight: bold;
+	text-shadow: none;
 }
 
-#folderToolbox li a:hover {
-        background: #ffffff url(images/buttons/btn_bg.gif) bottom left repeat-x;
+#mailboxlist li.mailbox.selected > a .unreadcount {
+	background: #d21034;
+	background: -moz-linear-gradient(top, #d21034 0%, #b40f2e 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d21034), color-stop(100%,#b40f2e));
+	background: -o-linear-gradient(top, #d21034 0%, #b40f2e 100%);
+	background: -ms-linear-gradient(top, #d21034 0%, #b40f2e 100%);
+	background: linear-gradient(top, #d21034 0%, #b40f2e 100%);
+	box-shadow: inset 0 1px 1px 0 #003645;
+	-o-box-shadow: inset 0 1px 1px 0 #003645;
+	-webkit-box-shadow: inset 0 1px 1px 0 #003645;
+	-moz-box-shadow: inset 0 1px 1px 0 #003645;
 }
 
-
-
-#messagetoolbar
-{
-  /*-moz-border-radius-topleft:10px;
-  -webkit-border-top-left-radius:10px;
-  -moz-border-radius-topright:10px;
-  -webkit-border-top-right-radius:10px;*/
-  top: 47px;
-  left: 205px;
-  right: 10px;
-  height: 33px;
-  white-space: nowrap;
-  /*background: #BD0E2E;
-  border-top: 1px solid #C0BDB2;
-  border-left: 1px solid #C0BDB2;
-  border-right: 1px solid #C0BDB2;*/
-  border-bottom: 1px solid #000;
-  padding-left: 10px;
-  padding-top: 3px;
-  font-weight: normal;
-}
-
-#messagetoolbar a {
-        display: block;
-        float: left;
-        margin-right: 8px;
-        padding: 3px;
-        padding-right: 6px;
-        text-decoration: none;
-        font-size: 11px;
-        color: #fff;
-	/*border: 1px solid #BD0E2E;*/ 
-	border: 1px solid transparent;
-}
-
-#messagetoolbar a:hover {
-        background: #ffffff url(images/buttons/btn_bg.gif) bottom left repeat-x;
-        border: 1px solid #c0bdb2;
-        color: #000;
-}
-
-
-#messagetoolbar select,
-#compose-container select
-{
-  font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  color: #333333;
-  height: 21px;
-}
-
-#messagetoolbar select.mboxlist
-{
-  position: relative;
-  margin: 0 8px;
-  top: 6px;
-}
-
-#messagetoolbar select.mboxlist option
-{
-  padding-left: 15px;
-}
-
-#messagetoolbar select.mboxlist option[value="0"]
-{
-  padding-left: 2px;
-}
-
-#messagetoolbar .countcontrolstop
-{
-  height: 15px;
-  bottom: 0;
-  right: 0;
-  min-width: 25em;
-  white-space: nowrap;
-  font-size: 11px;
-}
-
-#messagetoolbar .countcontrolstop a.button,
-#messagetoolbar .countcontrolstop a.buttonPas
-{
-  float: right;
-}
-
-#messagetoolbar a.buttonPas {
-  opacity: 0.35;
-}
-
-#messagetoolbar a.checkmailSel {
-  background-position: 0 -32px;
-}
-
-#messagetoolbar a.back {
-  background-position: -32px 0;
-}
-
-#messagetoolbar a.backSel {
-  background-position: -32px -32px;
-}
-
-#messagetoolbar a.compose {
-  background-position: -64px 0;
-}
-
-#messagetoolbar a.composeSel {
-  background-position: -64px -32px;
-}
-
-#messagetoolbar a.reply {
-  background-position: -96px 0;
-}
-
-#messagetoolbar a.replySel {
-  background-position: -96px -32px;
-}
-
-#messagetoolbar a.replyAll {
-  background-position: -128px 0;
-}
-
-#messagetoolbar a.replyAllSel {
-  background-position: -128px -32px;
-}
-
-#messagetoolbar a.forward {
-  background-position: -160px 0;
-}
-
-#messagetoolbar a.forwardSel {
-  background-position: -160px -32px;
-}
-
-#messagetoolbar a.delete {
-  background-position: -192px 0;
-}
-
-#messagetoolbar a.deleteSel {
-  background-position: -192px -32px;
-}
-
-#messagetoolbar a.markmessage {
-  background-position: -256px 0;
-}
-
-#messagetoolbar a.messagemenu {
-  background-position: -288px 0;
-}
-
-#messagetoolbar a.spellcheck {
-  background-position: -384px 0;
-}
-
-#messagetoolbar a.spellcheckSel {
-  background-position: -384px -32px;
-}
-
-#messagetoolbar a.attach {
-  background-position: -352px 0;
-}
-
-#messagetoolbar a.attachSel {
-  background-position: -352px -32px;
-}
-
-#messagetoolbar a.insertsig {
-  background-position: -448px 0;
-}
-
-#messagetoolbar a.insertsigSel {
-  background-position: -448px -32px;
-}
-
-#messagetoolbar a.savedraft {
-  background-position: -322px 0;
-}
-
-#messagetoolbar a.savedraftSel {
-  background-position: -322px -32px;
-}
-
-#messagetoolbar a.send {
-  background-position: -416px 0;
-}
-
-#messagetoolbar a.sendSel {
-  background-position: -416px -32px;
-}
-
-#messagetoolbar a.markmessage
-{
-   height:22px;
-}
-
-#markmenulink
-{
-   height:22px;
-}
-
-#markmessagemenu
-{
-  position: absolute;
-  top: 32px;
-  left: 90px;
-  width: auto;
-  display: none;
-  background-color: #F9F9F9;
-  border: 1px solid #CCC;
-  padding: 1px;
-  opacity: 0.9;
-  z-index: 240;
-  color: #000;
-}
-
-#markmessagemenu a
-{
-   color: #000;
-   padding-left: 25px;
-}
-
-#searchmenu,
-#messagemenu
-{
-  position: absolute;
-  top: 32px;
-  left: 90px;
-  width: auto;
-  display: none;
-  background-color: #F9F9F9;
-  border: 1px solid #CCC;
-  padding: 1px;
-  opacity: 0.9;
-  z-index: 240;
-}
-
-#searchmenu
-{
-  width: 172px;
-}
-
-#messagemenu li a.active:hover,
-#markmessagemenu li a.active:hover
-{
-  color: #fff;
-  background-color: #c00;
-}
-
-#messagemenu li a
-{
-  background: url('images/messageactions.png') no-repeat 1px 0;
-  background-position: 0px 20px;
-}
-
-#messagemenu li a.printlink
-{
-  background-position: 1px 1px;
-}
-
-#messagemenu li a.downloadlink
-{
-  background-position: 1px -17px;
-}
-
-#messagemenu li a.sourcelink
-{
-  background-position: 1px -35px;
-}
-
-#messagemenu li a.openlink
-{
-  background-position: 7px -53px;
-}
-
-#messagemenu li a.editlink
-{
-  background-position: 7px -71px;
-}
-
-#markmessagemenu a.readlink
-{
-  background: url('images/icons/dot.png') no-repeat 7px 2px;
-}
-
-#markmessagemenu a.unreadlink
-{
-  background: url('images/icons/unread.png') no-repeat 7px 2px;
-}
-
-#markmessagemenu a.flaggedlink
-{
-  background: url('images/icons/flagged.png') no-repeat 7px 2px;
-}
-
-#markmessagemenu a.unflaggedlink
-{
-  background: url('images/icons/unflagged.png') no-repeat 7px 2px;
-}
-
-#filtering
-{
-  white-space: nowrap;
-  position: absolute;
-  vertical-align: middle;
-  font-size: 11px;
-  top: -6px;
-  left: 460px;
-}
-
-
-#searchfilter
-{
-  white-space: nowrap;
-  position: absolute;
-  right: 250px;
-  vertical-align: middle;
-  font-size: 11px;
-  top: -2px;
-}
-
-#searchfilter label
-{
-  font-size: 11px;
-}
-
-#searchfiltertext
-{
-  white-space: nowrap;
-  position: absolute;
-  top: 3px;
-  right: 185px;
-  vertical-align: middle;
-  font-size: 11px;
-}
-
-#searchfiltertext label
-{
-  font-size: 11px;
-}
-
-
-
-td.formlinks a,
-td.formlinks a:visited
-{
-  color: #999999;
-  font-size: 11px;
-  text-decoration: none;
-}
-
-td.formlinks a,
-td.formlinks a:visited
-{
-  color: #CC0000;
-}
-
-#mainscreen
-{
-  position: absolute;
-  top: 70px;
-  right: 20px;
-  bottom: 16px;
-  left: 20px;
-}
-
-#mailleftcontainer
-{
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  width: 195px;
-}
-
-#mailrightcontainer
-{
-  position: absolute;
-  top: 0px;
-  left: 170px;
-  bottom: 0px;
-  right: 0px;
-}
-
-#mailrightcontent
-{
-  border-left: 1px solid #C0BDB2;
-  border-right: 1px solid #C0BDB2;
-  border-bottom: 1px solid #C0BDB2; 
-  background: #E9E6DC;
-  position: absolute;
-  top: 38px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  padding: 10px;
-  /*-moz-border-radius-bottomleft:10px;
-  -webkit-border-bottom-left-radius:10px;
-  -moz-border-radius-bottomright:10px;
-  -webkit-border-bottom-right-radius:10px;*/
-}
-
-#messagepartcontainer
-{
-  position: absolute;
-  top: 80px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-}
-
-#mailcontframe
-{
-  position: absolute;
-  width: 100%;
-  top: 20px;
-  left: 0px;
-  bottom: 0px;
-  border: 1px solid #999;
-  background-color: #fff;
-  overflow: auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-#mailpreviewframe
-{
-  position: absolute;
-  width: 100%;
-  top: 205px;
-  left: 0px;
-  bottom: 0;
-  border: 1px solid #999999;
-  background-color: #F9F9F9;
-}
-
-#messagecontframe
-{
-  position: relative;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  width: 100%;
-  height: 100%;
-}
-
-#messagepartframe
-{
-  width: 100%;
-  height: 100%;
-  border: 1px solid #999999;
-  background-color: #F9F9F9;
-}
-
-
-#partheader
-{
-  position: absolute;
-  top: 10px;
-  left: 220px;
-  right: 20px;
-  height: 40px;
-}
-
-#partheader table td
-{
-  padding-left: 2px;
-  padding-right: 4px;
-  vertical-align: middle;
-  font-size: 11px;
-}
-
-#partheader table td.title
-{
-  color: #666666;
-  font-weight: bold;
-}
-
-
-/** mailbox list styles */
-
-#mailboxlist-header
-{
-  display: block;
-  height: 12px;
-  margin: 0;
-  padding: 3px 10px 4px 10px;
-  background: url('images/listheader.gif') top left repeat-x #CCC;
-  border-bottom: 1px solid #999;
-  color: #333333;
-  font-size: 11px;
-  font-weight: bold;  
-}
-
-#mailboxlist-container
-{
-  left: 0px;
-  width: 100%;
-  bottom: 20px;
-  border: 1px solid #999;
-  background-color: #F9F9F9;
-  overflow: auto;
-  
-}
-
-#mailboxlist
-{
-  position:relative;
-  height: auto;
-  margin: 0px;
-  padding: 0px;
-  list-style-image: none;
-  list-style-type: none;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-#mailboxlist li
-{
-  display: block;
-  position: relative;
-  font-size: 11px;
-  background: url('images/icons/folders.png') 5px 1px no-repeat;
-  border-bottom: 1px solid #EBEBEB;
-}
-
-#mailboxlist li div
-{
-  position: absolute;
-  left: 8px !important;
-  left: -16px;
-  top: 2px;
-  width: 14px;
-  height: 16px;
-}
-
-#mailboxlist li div.collapsed,
-#mailboxlist li div.expanded
-{
-  cursor: pointer;
-}
-
-#mailboxlist li div.collapsed
-{
-  background: url('images/icons/collapsed.png') bottom right no-repeat;
-}
-
-#mailboxlist li div.expanded
-{
-  background: url('images/icons/expanded.png') bottom right no-repeat;
-}
-
-#mailboxlist li.inbox
-{
-  background-position: 5px -19px;
+#mailboxlist li.mailbox.recent > a .unreadcount {
+	background: #017cb4;
+	background: -moz-linear-gradient(top, #017cb4 0%, #006ca4 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#017cb4), color-stop(100%,#006ca4));
+	background: -o-linear-gradient(top, #017cb4 0%, #006ca4 100%);
+	background: -ms-linear-gradient(top, #017cb4 0%, #006ca4 100%);
+	background: linear-gradient(top, #017cb4 0%, #006ca4 100%);
+	box-shadow: inset 0 1px 1px 0 #005080;
+	-o-box-shadow: inset 0 1px 1px 0 #005080;
+	-webkit-box-shadow: inset 0 1px 1px 0 #005080;
+	-moz-box-shadow: inset 0 1px 1px 0 #005080;
 }
 
-#mailboxlist li.drafts
-{
-  background-position: 5px -40px;
+#searchfilter {
+	width: 16em;
 }
 
-#mailboxlist li.sent
-{
-  background-position: 5px -60px;
+#mailview-left select.mailboxlist {
+	position: relative;
+	top: 10px;
+	width: 100%;
 }
 
-#mailboxlist li.junk
-{
-  background-position: 5px -80px;
+#messagetoolbar {
+	position: absolute;
+	top: -6px;
+	right: 0;
+	left: 15em;
+	height: 40px;
+	white-space: nowrap;
 }
 
-#mailboxlist li.trash
-{
-  background-position: 5px -100px;
+#messagetoolbar.fullwidth {
+	left: 0;
 }
 
-#mailboxlist li a
-{
-  cursor: default;
-  display: block;
-  position: relative;
-  padding-left: 25px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  text-decoration: none;
+#mailtoolbar {
+	text-align: right;
 }
 
-#mailboxlist li.unread
-{
-  font-weight: bold;
+#mailpreviewtoggle {
+	display: block;
+	position: absolute;
+	top: 4px;
+	right: 2px;
+	width: 20px;
+	height: 18px;
+	background: url(images/buttons.png) -3px -458px no-repeat;
 }
 
-#mailboxlist li.virtual > a
-{
-  color: #666;
+#mailpreviewtoggle.enabled {
+	background-position: -28px -458px;
 }
 
-#mailboxlist li.selected,
-#mailboxlist li.droptarget li.selected
-{
-  background-color: #929292;
-}
-
-#mailboxlist li.selected > a,
-#mailboxlist li.droptarget li.selected a
-{
-  color: #FFF;
-  font-weight: bold;
-}
-
-#mailboxlist li.droptarget
-{
-  background-color: #FFFFA6;
-}
-
-/* styles for nested folders */
-#mailboxlist ul {
-  list-style: none;
-  padding: 0;
-  margin:0;
-  border-top: 1px solid #EBEBEB;  
-  padding-left: 15px;
-  background-position: 25px 1px;
-  background-color: #F9F9F9;
-  color: blue;
-  font-weight: normal;
-}
-
-/* top bar */
-#listcontrolstop a,
-#listcontrolstop a:active,
-#listcontrolstop a:visited,
-#mailboxcontrols a,
-#mailboxcontrols a:active,
-#mailboxcontrols a:visited,
-td.formlinks a,
-td.formlinks a:visited
-{ 
-  color: #999999;
-  font-size: 11px;
-  text-decoration: none;
-}
-
-#listcontrolstop a.active,
-#listcontrolstop a.active:active,
-#listcontrolstop a.active:visited,
-#mailboxcontrols a.active,
-#mailboxcontrols a.active:active,
-#mailboxcontrols a.active:visited,
-td.formlinks a,
-td.formlinks a:visited
-{
-  color: #0066CC;
-} 
-
-#listcontrolstop a.active:hover,
-#mailboxcontrols a.active:hover
-{
-  text-decoration: underline;
-} 
-  
-#listcontrolstop
-{
-  padding-right: 2em;
-  display: inline;
-  float: left;
-  font-size: 11px;
-}
-
-#mailboxcontrols{
-  text-align: center;
-}
-
-
-#countcontrolstop
-{
-  height: 15px;
-  bottom: 0;
-  right: 0;
-  min-width: 25em;
-  white-space: nowrap;
-  font-size: 11px;
-  display: inline;
-}
-
-#countcontrolstop a.button,
-#countcontrolstop a.buttonPas
-{
-  float: right;
-}
-
-/** message list styles */
-
-body.messagelist
-{
-  margin: 0px;
-  background-color: #F9F9F9;
-}
-
-#messagelist
-{
-  width: 100%;
-  display: table;
-  table-layout: fixed;
-}
-
-#messagelist thead tr td
-{
-  height: 20px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: 2px;
-  padding-right: 4px;
-  vertical-align: middle;
-  border-bottom: 1px solid #999999;
-  color: #333333;
-  background: url('images/listheader.gif') top left repeat-x #CCC;
-  font-size: 11px;
-  font-weight: bold;
-}
-
-#messagelist thead tr td.sortedASC,
-#messagelist thead tr td.sortedDESC
-{
-  background-position: 0 -22px;
-}
 
-#messagelist thead tr td.sortedASC a
-{
-  background: url('images/icons/sort.gif') right 0 no-repeat;
-}
-
-#messagelist thead tr td.sortedDESC a
-{
-  background: url('images/icons/sort.gif') right -14px no-repeat;
-}
-
-#messagelist thead tr td a
-{
-  display: block;
-  width: auto !important;
-  width: 100%;
-  color: #333333;
-  text-decoration: none;
-}
-
-#messagelist tbody tr td
-{
-  height: 16px;
-  padding: 2px;
-  padding-right: 4px;
-  font-size: 11px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  border-bottom: 1px solid #EBEBEB;
-  cursor: default;
-}
-
-#messagelist tbody tr td a
-{
-  color: #000;
-  text-decoration: none;
-  white-space: nowrap;
-  cursor: inherit;
-}
-
-#messagelist tbody tr td.subject a
-{
-  cursor: default;
-}
-
-#messagelist col
-{
-  display: table-column;
-  text-align: left;
-  vertical-align: middle;
-}
-
-#messagelist thead tr td.subject
-{
-  padding-left: 22px;
-}
-
-#messagelist thead tr td.icon,
-#messagelist thead tr td.flag,
-#messagelist thead tr td.threads
-{
-  width: 22px;
-  padding: 0;
-  text-align: center;
-}
-
-#messagelist thead tr td.threads
-{
-  width: 18px;
-}
-
-#messagelist tbody tr td.flag
-{
-  padding: 2px 3px 2px 3px;
-  vertical-align: middle;
-  cursor: pointer;
-}
+/*** message list ***/
 
-#messagelist tr td span.branch
-{
-  display: inline-block;
-  width: 15px;
-  height: 15px;
+#messagelist tr td.attachment,
+#messagelist tr td.threads,
+#messagelist tr td.status,
+#messagelist tr td.flag,
+#messagelist tr td.priority {
+	width: 20px;
+	padding: 2px 3px;
 }
 
-#messagelist tbody td img.msgicon
-{
-  vertical-align: middle;
-  position: relative;
-  top: 0px;
-  margin-right: 5px;
+.webkit #messagelist tr td.attachment,
+.webkit #messagelist tr td.threads,
+.webkit #messagelist tr td.status,
+.webkit #messagelist tr td.flag,
+.webkit #messagelist tr td.priority {
+	width: 26px;
 }
 
-#messagelist tr td div.collapsed,
-#messagelist tr td div.expanded,
-#messagelist tr td img.flagicon,
-#messagelist tr td img.msgicon
-{
-  cursor: pointer;
+#messagelist tr td.threads {
+	width: 26px;
 }
 
-#messagelist tr td div.collapsed
-{
-  background: url(images/messageactions.png) -1px -91px no-repeat;
+.webkit #messagelist tr td.threads {
+	width: 30px;
 }
 
-#messagelist tr td div.expanded
-{
-  background: url(images/messageactions.png) -1px -109px no-repeat;
+#messagelist tr td.threads,
+#messagelist tr td.threads + td {
+	border-left: 0;
 }
 
-#messagelist tbody tr td.flag img:hover,
-#messagelist thead tr td.flag img
-{
-  background: url(images/icons/unflagged.png) center no-repeat;
-}
-
-#messagelist tr td.subject
-{
-  overflow: hidden;
-  vertical-align: middle;
-  width: 99%;
-}
-
-/* thread parent message with unread children */
-#messagelist tbody tr.unroot td.subject a
-{
-  text-decoration: underline;
-}
-
-#messagelist tr td.size
-{
-  width: 70px;
-  text-align: right;
-  vertical-align: middle;
-}
 
-#messagelist thead tr td.size
-{
-  text-align: left;
+#messagelist tr td.size {
+	width: 60px;
 }
 
 #messagelist tr td.from,
 #messagelist tr td.to,
 #messagelist tr td.cc,
-#messagelist tr td.replyto
-{
-  width: 180px;
-  vertical-align: middle;
+#messagelist tr td.replyto {
+	width: 200px;
 }
 
-#messagelist tr td.date
-{
-  width: 118px;
-  vertical-align: middle;
+#messagelist tr td.date {
+	width: 125px;
 }
 
-#messagelist tr.message
-{
-  background-color: #FFFFFF;
+#messagelist tr.message {
+/*	background-color: #fff; */
 }
 
+#messagelist tr.thread.expanded td {
+	background-color: #ededed;
+}
 
-#messagelist tr.unread
-{
-  font-weight: bold;
-  background-color: #FFFFFF;
+#messagelist tr.unread {
+	font-weight: bold;
+/*	background-color: #fff; */
 }
 
 #messagelist tr.flagged td,
-#messagelist tr.flagged td a
-{
-  color: #CC0000;
+#messagelist tr.flagged td a {
+	color: #f30;
 }
 
-#messagelist tr.selected td
-{
-   background-color: #C2DBED;
+#messagelist thead tr td.sortedASC a,
+#messagelist thead tr td.sortedDESC a {
+	color: #000;
+	text-decoration: underline;
+	background: url(images/listicons.png) right -912px no-repeat;
 }
 
-#messagelist tr.unfocused td
-{
-  color: #FFFFFF;
-  background-color: #929292;
+#messagelist thead tr td.sortedASC a {
+	background-position: right -944px;
 }
 
-#messagelist tr.selected td a
-{
-  color: #000;
+#messagelist td img {
+	vertical-align: middle;
+	display: inline-block;
 }
 
-#messagelist tr.unfocused td a
-{
-  color: #FFFFFF;
+#messagelist tbody td a {
+	color: #333;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: default;
 }
 
-#messagelist tr.deleted td,
-#messagelist tr.deleted td a
-{
-  color: #CCCCCC;
+#messagelist tbody tr td.flag,
+#messagelist tbody tr td.status,
+#messagelist tbody tr td.subject span.status {
+	cursor: pointer;
 }
 
-.quota_text {
-  text-align: center;
-  font-size: 10px;
-  color: #666;
-  border: 1px solid #999;
-  cursor: default;
-}
-.quota_bg { background-color: white; }
-.quota_high { background-color: #F33131; }
-.quota_mid { background-color: #F5AD3C; }
-.quota_low { background-color: #91E164; }
-.quota_text_high { color: white; }
-.quota_text_mid { color: #666; }
-.quota_text_low { color: #666; }
-	  
-
-/** message view styles */
-#messagecountbar
-{
-  position: absolute;
-  top: 0px;
-  width: 480px;
-  right: 0;
-  height: 20px;
-  padding: 10px;
-  text-align: right;
-  white-space: nowrap;
+#messagelist tr td.flag span,
+#messagelist tr td.status span,
+#messagelist tr td.attachment span,
+#messagelist tr td.priority span {
+	display: block;
+	width: 20px;
 }
 
-
-body#messageTpl #messagecountbar {
-        top: 124px;
+#messagelist tr td div.collapsed,
+#messagelist tr td div.expanded,
+#messagelist tr td.threads div.listmenu,
+#messagelist tr td.attachment span.attachment,
+#messagelist tr td.attachment span.report,
+#messagelist tr td.priority span.priority,
+#messagelist tr td.priority span.prio1,
+#messagelist tr td.priority span.prio2,
+#messagelist tr td.priority span.prio3,
+#messagelist tr td.priority span.prio4,
+#messagelist tr td.priority span.prio5,
+#messagelist tr td.flag span.flagged,
+#messagelist tr td.flag span.unflagged,
+#messagelist tr td.flag span.unflagged:hover,
+#messagelist tr td.status span.status,
+#messagelist tr td.status span.msgicon,
+#messagelist tr td.status span.deleted,
+#messagelist tr td.status span.unread,
+#messagelist tr td.status span.unreadchildren,
+#messagelist tr td.subject span.msgicon,
+#messagelist tr td.subject span.deleted,
+#messagelist tr td.subject span.unread,
+#messagelist tr td.subject span.replied,
+#messagelist tr td.subject span.forwarded,
+#messagelist tr td.subject span.unreadchildren {
+	display: inline-block;
+	vertical-align: middle;
+	height: 18px;
+	width: 20px;
+	padding: 0;
+	background: url(images/listicons.png) -100px 0 no-repeat;
 }
 
-#messagecountbar span
-{
-  font-size: 11px;
-  color: #333333;
+#messagelist tbody tr td.attachment span.attachment {
+	background-position: 0 -996px;
+}
+#messagelist thead tr td.attachment span.attachment {
+	background-position: -24px -997px;
 }
 
-
-#messageframe
-{
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0;
-  border: 1px solid #999;
-  background-color: #FFF;
-  overflow: auto;
-  z-index: 1;
-  margin: 10px;
-  margin-top: 40px;
+#messagelist tr td.priority {
+	padding-right: 0;
 }
 
-div.messageheaderbox
-{
-  margin: 6px 8px 0px 8px;
-  border: 1px solid #ccc;
+#messagelist tr td.priority span.prio5 {
+	background-position: right -1905px;
 }
 
-table.headers-table
-{
-  width: 100%;
-  background-color: #EBEBEB;
-  table-layout: fixed;
+#messagelist tr td.priority span.prio4 {
+	background-position: right -1885px;
 }
 
-#messagebody table.headers-table
-{
-  width: auto;
-  margin: 6px 8px;
-  background-color: #F4F4F4;
-  border: 1px solid #ccc;
+#messagelist tr td.priority span.prio2 {
+	background-position: right -1865px;
 }
 
-#messageframe table.headers-table
-{
-  border-bottom: 1px solid #ccc;
+#messagelist tr td.priority span.prio1 {
+	background-position: right -1845px;
 }
 
-table.headers-table tr td
-{
-  font-size: 11px;
-  border-bottom:1px solid #FFFFFF;
+#messagelist tbody tr td.flag span.flagged {
+	background-position: 0 -1036px;
 }
 
-table.headers-table td.header-title
-{
-  width: 80px;
-  color: #666666;
-  font-weight: bold;
-  text-align: right;
-  white-space: nowrap;
-  padding-right: 4px;
+#messagelist thead tr td.flag span.flagged {
+	background-position: -24px -1036px;
 }
 
-table.headers-table tr td.subject
-{
-  width: 90%;
-  font-weight: bold;
+#messagelist tr td.status span.msgicon:hover {
+	background-position: -23px -1056px;
 }
 
-table.headers-table tr td.all
-{
-  width: 100%;
-  color: #666666;
-  text-align: left;
-  padding-right: 10px;
-  text-align: center;
-  padding: 2px 6px 4px 6px;
-  border-bottom: 0;
+#messagelist tr td.flag span.unflagged:hover {
+	background-position: -23px -1076px;
 }
 
-table.headers-table tr td.more-headers
-{
-  cursor: pointer;
-  width: 100%;
-  height: 8px;
-  border-bottom: 0;
+#messagelist tr td.subject span.msgicon,
+#messagelist tr td.subject span.unreadchildren {
+	background-position: 0 -1056px;
+	margin: 0 1px 0 0;
+	width: 24px;
 }
 
-#attachment-list
-{
-  margin: 0px;
-  padding: 0px 0px 0px 72px;
-  min-height: 16px;
-  list-style-image: none;
-  list-style-type: none;
-  background: url(images/icons/attachment.png) 60px 2px no-repeat #DFDFDF;
+#messagelist tr td.subject span.replied {
+	background-position: 0 -1076px;
 }
 
-#attachment-list:after
-{
-  content: ".";
-  display: block;
-  height: 0;
-  font-size: 0;
-  clear: both;
-  visibility: hidden;
+#messagelist tr td.subject span.forwarded {
+	background-position: 0 -1096px;
 }
 
-#attachment-list li
-{
-  float: left;
-  height: 18px;
-  font-size: 11px;
-  padding: 2px 0px 0px 15px;
-  white-space: nowrap;
+#messagelist tr td.subject span.replied.forwarded {
+	background-position: 0 -1116px;
 }
 
-#attachment-list li a
-{
-  text-decoration: none;
+#messagelist tr td.status span.msgicon,
+#messagelist tr td.flag span.unflagged,
+#messagelist tr td.status span.unreadchildren {
+	background-position: 0 1056px; /* no icon */
+}
+/*
+#messagelist tr td.status span.msgicon:hover {
+	background-position: 0 -272px;
+}
+*/
+#messagelist tr td.status span.deleted,
+#messagelist tr td.status span.deleted:hover,
+#messagelist tr td.subject span.deleted {
+	background-position: -22px -1096px;
 }
 
-#attachment-list li a:hover
-{
-  text-decoration: underline;
+#messagelist tr td.status span.status,
+#messagelist tr td.status span.unread,
+#messagelist tr td.subject span.unread,
+#messagelist tr td.status span.unread:hover {
+	background-position: 0 -1016px;
 }
 
-#messagebody
-{
-  position:relative;
-  padding-bottom: 10px;
-  background-color: #FFFFFF;
+#messagelist thead tr td.status span.status {
+	background-position: -24px -1016px;
 }
 
-div.message-part
-{
-  padding: 10px 8px;
-  border-top: 1px solid #ccc;
-/*  overflow: hidden; */
+#messagelist tr td div.collapsed {
+	background-position: 0 -1136px;
+	cursor: pointer;
 }
 
-#messagebody div:first-child
-{
-  border-top: 0;
+#messagelist tr td div.expanded {
+	background-position: 0 -1156px;
+	cursor: pointer;
 }
 
-div.message-part a,
-div.message-htmlpart a
-{
-  color: #0000CC;
+#messagelist tr td.threads div.listmenu {
+	background-position: 0 -976px;
+	cursor: pointer;
+	width: 26px;
+}
+
+#messagelist thead tr td.subject,
+#messagelist tbody tr td.subject {
+	width: 99%;
+	white-space: nowrap;
+}
+
+#messagelist tbody tr td.subject a {
+	cursor: default;
+	vertical-align: middle; /* #1487091 */
+}
+
+/* thread parent message with unread children */
+#messagelist tbody tr.unroot td.subject a {
+	text-decoration: underline;
+}
+
+/**** tree indicators ****/
+
+#messagelist tbody tr td span.branch div {
+	display: inline-block;
+}
+
+#messagelist tbody tr td span.branch div.tree {
+	width: 15px;
+}
+
+#listoptions ul.proplist {
+	min-width: 16em;
+}
+
+/**** message view ****/
+
+#mailpreviewframe {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	bottom: 28px;
+}
+
+#messagecontframe {
+	border: 0;
+	border-radius: 4px 4px 0 0;
+}
+
+#messagecontent {
+	position: absolute;
+	top: 140px;
+	left: 0;
+	width: 100%;
+	bottom: 0;
+	overflow: auto;
+	border-radius: 4px 4px 0 0;
+}
+
+#messageheader,
+#partheader,
+#composeheaders {
+	position: relative;
+	padding: 3px 0;
+	background: #f9f9f9;
+	background: -moz-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(100%,#e9e9e9));
+	background: -o-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+	background: -ms-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+	background: linear-gradient(top, #fff 0%, #e9e9e9 100%);
+}
+
+h2.subject {
+	font-size: 15px;
+	margin: 0 15em 0 0;
+	padding: 4px 8px 2px 8px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+h3.subject {
+	font-size: 14px;
+	margin: 0 8em 0 0;
+	padding: 8px 8px 4px 8px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.headers-table td {
+	color: #666;
+	padding: 2px 8px;
+}
+
+.headers-table td.header {
+	font-weight: bold;
+}
+
+.headers-table td.header a {
+	color: #666;
+	text-decoration: none;
+}
+
+.headers-table td.header a:hover {
+	text-decoration: underline;
+}
+
+.headers-table td.subject {
+	color: #333;
+	font-size: 110%;
+	font-weight: bold;
+}
+
+.headers-table td.header span {
+	white-space: nowrap;
+}
+
+.rcmaddcontact {
+	position: relative;
+	top: 1px;
+	margin-left: 0.5em;
+}
+
+.rcmaddcontact imp {
+	width: 20px;
+	height: 13px;
+}
+
+#preview-allheaders {
+	display: none;
+}
+
+#preview-shortheaders td.header-title {
+	padding-right: 0;
+}
+
+#preview-shortheaders td.header {
+	padding-right: 12px;
+}
+
+#previewheaderstoggle {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin-top: 5px;
+    position: absolute;
+    outline: none;
+}
+
+#previewheaderstoggle.iconlink.add {
+	background-position: -32px -227px;
+}
+
+#previewheaderstoggle.iconlink.remove {
+	background-position: -32px -242px;
+}
+
+div.more-headers {
+	cursor: pointer;
+	height: 10px;
+	background: url(images/buttons.png) center -1619px no-repeat;
+}
+
+div.hide-headers {
+	background-position: center -1629px;
+}
+
+#all-headers {
+    position: relative;
+	margin: 0 10px;
+	padding: 0;
+	height: 180px;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	background: #fff;
+}
+
+#headers-source {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 2px 5px;
+	overflow: auto;
+	text-align: left;
+	color: #333;
+}
+
+#messagepreviewheader {
+	margin: 0 8px;
+	padding-bottom: 8px;
+	border-bottom: 2px solid #f0f0f0;
+}
+
+#messagepreviewheader .headers-table {
+	margin-left: 8px;
+}
+
+#messagepreviewheader h3.subject {
+	padding-left: 0;
+}
+
+#messagepreviewheader #countcontrols,
+#messageheader #countcontrols {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: 18em;
+	text-align: right;
+	white-space: nowrap;
+}
+
+#messageheader .pagenav .countdisplay {
+	min-width: 0;
+	padding-right: 0.5em;
+	white-space: nowrap;
+}
+
+#messagecontent .leftcol,
+#messagepreview .leftcol {
+	margin-right: 250px;
+}
+
+#messagecontent .rightcol,
+#messagepreview .rightcol {
+	float: right;
+/*
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 90%;
+*/
+	width: 230px;
+	margin: 8px;
+	min-height: 200px;
+	background: #f0f0f0;
+	padding: 8px;
+}
+
+#messagebody {
+	margin: 8px;
+}
+
+#message-objects div,
+#messagebody span.part-notice {
+	margin: 8px;
+}
+
+#message-objects div.notice,
+#message-buttons div.notice {
+	display: block;
+	color: #960;
+	border: 1px solid #ffdf0e;
+	background-color: #fef893;
+	background-position: 5px -85px;
+	padding: 6px 12px 4px 30px;
+	white-space: normal;
+}
+
+#message-objects div a.button,
+#messagebody span.part-notice a.button {
+	margin-left: 10px;
+}
+
+div.message-part,
+div.message-htmlpart {
+	padding: 10px 2px;
+	border-top: 2px solid #f0f0f0;
+}
+
+#messagebody div:first-child {
+	border-top: 0;
 }
 
 div.message-part pre,
 div.message-htmlpart pre,
-div.message-part div.pre
-{
-  margin: 0px;
-  padding: 0px;
-  font-family: monospace;
-  white-space: -moz-pre-wrap !important;
-  white-space: pre-wrap !important;
-  white-space: pre;
+div.message-part div.pre {
+	margin: 0px;
+	padding: 0px;
+	font-family: monospace;
+	white-space: -moz-pre-wrap !important;
+	white-space: pre-wrap !important;
+	white-space: pre;
 }
 
-div.message-part span.sig
-{
-  color: #666666;
+div.message-part span.sig {
+	color: #666666;
 }
 
-div.message-part blockquote
-{
-  color: blue;
-  border-left: 2px solid blue;
-  border-right: 2px solid blue;
-  background-color: #F6F6F6;
-  margin: 2px 0px 2px 0px;
-  padding: 1px 8px 1px 10px;
+div.message-part blockquote {
+	color: blue;
+	border-left: 2px solid blue;
+	border-right: 2px solid blue;
+	background-color: #F6F6F6;
+	margin: 2px 0px 2px 0px;
+	padding: 1px 8px 1px 10px;
 }
 
-div.message-part blockquote blockquote
-{
-  color: green;
-  border-left: 2px solid green;
-  border-right: 2px solid green;
+div.message-part blockquote blockquote {
+	color: green;
+	border-left: 2px solid green;
+	border-right: 2px solid green;
 }
 
-div.message-part blockquote blockquote blockquote
-{
-  color: #990000;
-  border-left: 2px solid #bb0000;
-  border-right: 2px solid #bb0000;
+div.message-part blockquote blockquote blockquote {
+	color: #990000;
+	border-left: 2px solid #bb0000;
+	border-right: 2px solid #bb0000;
 }
 
-body.iframe div.message-htmlpart
-{
-  margin: 8px;
+#messagebody > hr {
+	color: #fff;
+	background: #fff;
+	border: 0;
+	border-bottom: 2px solid #f0f0f0;
 }
 
-div.message-htmlpart div.rcmBody
-{
-  margin: 8px;
+#messagebody > p > img {
+	max-width: 80%;
 }
 
-#remote-objects-message
-{
-  display: none;
-  margin: 8px;
-  min-height: 20px;
-  padding: 10px 10px 6px 46px;
+#messagepartcontainer {
+	position: absolute;
+	top: 60px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
 }
 
-#remote-objects-message a
-{
-  color: #666666;
-  padding-left: 10px;
+#messagepartframe {
+	border: 0;
 }
 
-#remote-objects-message a:hover
-{
-  color: #333333;
+/*** message composition ***/
+
+#composeview-left {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 250px;
+	bottom: 0;
 }
 
-#messageviewlink
-{
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  width: 15px;
-  height: 15px;
-  border: 0;
+#composeview-right {
+	position: absolute;
+	top: 0;
+	left: 262px;
+	right: 0;
+	bottom: 0;
 }
 
-/** message compose styles */
-
-#compose-toolbar
-{
-  white-space: nowrap;
+#compose-contacts {
+	position: absolute;
+	top: 42px;
+	left: 0;
+	width: 100%;
+	bottom: 0;
 }
 
-#priority-selector,
-#receipt-selector
-{
-  padding-left: 30px;
-  white-space: nowrap;
-  display: none;
+#compose-contacts #directorylist {
+	border-bottom: 4px solid #c7e3ef;
 }
 
-#compose-container
-{
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 20px;
-  bottom: 30px;
-  margin: 0px;
+#compose-contacts .scroller {
+	top: 65px;
+	border-top: 1px solid #fff;
 }
 
-#spellcheck-control
-{
-  text-align: right;
-  padding-top: 3px;
+#contacts-table {
+	table-layout: fixed;
 }
 
-#editor-select
-{
-  float: left;
+#contacts-table td {
+	width: 100%;
 }
 
-#compose-div
-{
-  position: absolute;
-  top: 130px;
-  bottom: 30px;
-  width: 100%;
-  vertical-align: top;
-  padding-top: 2px;
+#contacts-table td span {
+	display: block;
 }
 
-#compose-headers
-{
-  width: 100%;
+#compose-contacts li a, #contacts-table td {
+	background: url(images/listicons.png) -100px 0 no-repeat;
+	overflow: hidden;
+	padding-left: 36px;
+	text-overflow: ellipsis;
 }
 
-#compose-headers td.top
-{
-  vertical-align: top;
+#contacts-table tr:first-child td {
+	border-top: 0;
 }
 
-#compose-headers td.title,
-#compose-subject td.title
-{
-  width: 80px !important;
-  color: #666666;
-  font-size: 11px;
-  font-weight: bold;
-  padding-right: 10px;
-  white-space: nowrap;
+#compose-contacts li.addressbook a {
+	background-position: 6px -766px;
 }
 
-#compose-body,
-#compose-headers td textarea,
-#compose-headers td input
-{
-  width: 100%;
+#compose-contacts li.addressbook.selected a {
+	background-position: 6px -791px;
 }
 
-#compose-headers td textarea
-{
-  height: 38px;
+#contacts-table td.contactgroup {
+	background-position: 6px -1555px;
 }
 
-#compose-cc,
-#compose-bcc,
-#compose-replyto
-{
-  display: none;
+#contacts-table tr.unfocused td.contactgroup,
+#contacts-table tr.selected td.contactgroup {
+	background-position: 6px -1579px;
 }
 
-#compose-body
-{
-  min-height: 100px;
-  height: 100%;
-  font-size: 9pt;
-  font-family: "Courier New", Courier, monospace;
+#contacts-table td.contact {
+	background-position: 6px -1603px;
 }
 
-#compose-attachments
-{
-  position: absolute;
-  top: 100px;
-  left: 20px;
-  width: 175px;
+#contacts-table tr.unfocused td.contact,
+#contacts-table tr.selected td.contact {
+	background-position: 6px -1627px;
 }
 
-#compose-attachments ul
-{
-  margin: 0px;
-  padding: 0px;
-  border: 1px solid #CCCCCC;
-  background-color: #F9F9F9;
-  list-style-image: none;
-  list-style-type: none;
+
+#compose-content {
+	position: absolute;
+	top: 42px;
+	left: 0;
+	width: 100%;
+	bottom: 28px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	overflow: hidden;
 }
 
-#compose-attachments ul li
-{
-  height: 18px;
-  font-size: 11px;
-  padding-left: 2px;
-  padding-top: 2px;
-  padding-right: 4px;
-  border-bottom: 1px solid #EBEBEB;
-  white-space: nowrap;
-  overflow: hidden;
+#composeheaders {
+	border-radius: 4px 4px 0 0;
+	-webkit-box-shadow: 0 2px 3px 0 #999;
+	-moz-box-shadow: 0 2px 3px 0 #999;
+	box-shadow: 0 2px 3px 0 #999;
 }
 
-#compose-attachments ul li img
-{
-  padding-right: 2px;
-  vertical-align: middle;
+#composebuttons {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: auto;
+	white-space: nowrap;
+	z-index: 100;
 }
 
-#attachment-title
-{
-  color: #666666;
-  font-weight: bold;
-  font-size: 11px;
-  background: url(images/icons/attachment.png) top left no-repeat;
-  padding: 0px 0px 3px 18px;
-  margin-left: 3px;
+.compose-headers {
+	width: 99%;
+	margin: 4px 0;
 }
 
-#attachment-form
-{
-  padding: 6px;
+.compose-headers td {
+	padding: 4px 4px 4px 8px;
 }
 
-#attachment-form div
-{
-  padding: 2px;
+.compose-headers td.title {
+	width: 11%;
+	white-space: nowrap;
 }
 
-#attachment-form div.buttons
-{
-  margin-top: 4px;
+.compose-headers td.title label {
+	float: left;
 }
 
-td.show-headers
-{
-  background: url(images/icons/down_small.gif) no-repeat center;
+.compose-headers td.title a.iconbutton {
+	float: right;
+	position: relative;
+	top: -2px;
+	width: 15px;
 }
 
-td.hide-headers
-{
-  background: url(images/icons/up_small.gif) no-repeat center;
+.compose-headers td.editfield {
+	width: 90%;
+	padding-left: 4px;
 }
 
-#all-headers
-{
-  height: 150px;
-  display: none;
+.compose-headers td.editfield a.iconlink {
+	margin-left: 0.5em;
 }
 
-#headers-source
-{
-  margin: 0 5px;
-  padding: 0.5em;
-  height: 145px;
-  background: white;
-  overflow: auto;
-  font-size: 11px;
-  white-space: nowrap;
-  border: 1px solid #999999;
-  display: none;
-  text-align: left;
-  color: #333;
+.compose-headers td.formlinks {
+	padding: 0 4px;
 }
 
-#listmenu
-{
-  padding: 6px;
+.compose-headers td.top {
+	vertical-align: top;
+	padding-top: 10px;
 }
 
-#listmenu legend
-{
-  color: #999999;
+.compose-headers td textarea,
+.compose-headers td input {
+	width: 100%;
+	resize: none;
 }
 
-#listmenu fieldset
-{
-  border: 1px solid #999999;
-  margin: 0 5px;
-  float: left;
+#compose-cc, #compose-bcc, #compose-replyto, #compose-followupto {
+	display: none;
 }
 
-#listmenu div
-{
-  padding: 8px 0 3px 0;
-  text-align: center;
-  clear: both;
+#composeoptionsbox {
+	padding: 4px 8px 0 8px;
+	background: #d2d2d2;
+	border-bottom: 1px solid #e8e8e8;
+	-webkit-box-shadow: 0 2px 3px 0 #999;
+	-moz-box-shadow: 0 2px 3px 0 #999;
+	box-shadow: 0 2px 3px 0 #999;
+	white-space: nowrap;
+}
+
+#composeoptions {
+	display: none;
+	padding: 2px 0;
+	white-space: normal;
+}
+
+.composeoption {
+	padding-right: 22px;
+	white-space: nowrap;
+}
+
+#composeoptions .composeoption {
+	display: inline-block;
+	padding: 4px 28px 4px 0;
+}
+
+#composeoptions .composeoption:last-child {
+	padding-right: 4px;
+}
+
+#composeoptionstoggle {
+	display: inline-block;
+	position: relative;
+	top: -1px;
+	left: 6px;
+	width: 20px;
+	height: 18px;
+	background: url(images/buttons.png) -3px -1640px no-repeat;
+	text-decoration: none;
+}
+
+#composeoptionstoggle.enabled {
+	background-position: -28px -1640px;
+}
+
+#composeview-bottom {
+	position: relative;
+	width: 100%;
+	height: 200px;
+}
+
+#composebodycontainer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 260px;
+	bottom: 0;
+}
+
+#composebody {
+	position: absolute;
+	top: 1px;
+	left: 0;
+	bottom: 0;
+	width: 99%;
+	border: 0;
+	border-radius: 0;
+	padding: 8px 0 8px 8px;
+	box-shadow: none;
+	resize: none;
+	font-family: monospace;
+	font-size: 9pt;
+	outline: none;
+}
+
+#composebody:active,
+#composebody:focus {
+}
+
+#compose-attachments {
+	position: absolute;
+	right: 0;
+	top: 1px;
+	bottom: 0;
+	width: 240px;
+	background: #f0f0f0;
+	border-left: 1px solid #ddd;
+	padding: 8px;
+	overflow: auto;
+}
+
+.defaultSkin table.mceLayout,
+.defaultSkin table.mceLayout tr.mceLast td {
+	border: 0 !important;
+}
+
+#composebody_toolbargroup {
+	border-bottom: 1px solid #ddd;
+}
+
+#uploadform a.iconlink {
+	margin-left: 1em;
+	text-indent: -1000px;
+}
+
+#uploadform form div {
+	margin: 4px 0;
 }
 

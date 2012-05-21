@@ -1,268 +1,153 @@
-/* CSS hacks for IE versions <= 8 */
+/**
+ * Roundcube webmail CSS hacks for IE < 9
+ *
+ * Copyright (c) 2012, The Roundcube Dev Team
+ *
+ * The contents are subject to the Creative Commons Attribution-ShareAlike
+ * License. It is allowed to copy, distribute, transmit and to adapt the work
+ * by keeping credits to the original autors in the README file.
+ * See http://creativecommons.org/licenses/by-sa/3.0/ for details.
+ *
+ * $Id$
+ */
 
-input, textarea
-{
-  border-style: expression(this.type=='checkbox' || this.type=='radio' || this.id=='quicksearchbox' ? 'none' : 'solid');
-  border-width: expression(this.type=='checkbox' || this.type=='radio' ? '0' : '1px');
-  border-color: expression(this.type=='checkbox' || this.type=='radio' ? '' : '#666666');
-  background-color: expression(this.type=='checkbox' || this.type=='radio' ? 'transparent' : '#ffffff');
+input.button {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e6e6e6', GradientType=0);
 }
 
-#login-form form
-{
-  margin-top: 0;
+.formbuttons input.button {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7b7b7b', endColorstr='#606060', GradientType=0);
 }
 
-.pagenav a.buttonPas
-{
-  filter: alpha(opacity=35);
+.formbuttons input.button:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5c5c5c', endColorstr='#7b7b7b', GradientType=0);
 }
 
-#message
-{
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";
-  filter: alpha(opacity=85);
+input.button.mainaction {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#505050', endColorstr='#2a2e31', GradientType=0);
 }
 
-#markmessagemenu,
-#searchmenu,
-#messagemenu
-{
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-  filter: alpha(opacity=90);
-
+input.button.mainaction:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2a2e31', endColorstr='#505050', GradientType=0);
 }
 
-#tabsbar
-{
-  width: expression((parseInt(document.documentElement.clientWidth)-240)+'px');
+a.button {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e6e6e6', GradientType=0);
 }
 
-#folder-manager
-{
-  height: expression((parseInt(document.documentElement.clientHeight)-235)+'px');
+a.button.pressed,
+a.button:active,
+input.button:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6e6e6', endColorstr='#f9f9f9', GradientType=0);
 }
 
-#identities-list
-{
-  height: expression((parseInt(document.documentElement.clientHeight)-155)+'px');
+.pagenav.dark a.button {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d8d8d8', endColorstr='#bababa', GradientType=0);
 }
 
-#messagetoolbar
-{
- width: expression((parseInt(document.documentElement.clientWidth)-215)+'px');
-  z-index: 240;
+.pagenav.dark a.button.pressed {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bababa', endColorstr='#d8d8d8', GradientType=0);
 }
 
-#messagetoolbar select.mboxlist
-{
-  top: -8px;
+#message.statusbar {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaeaea', endColorstr='#c8c8c8', GradientType=0);
 }
 
-#abooktoolbar a.buttonPas
-{
-  filter: alpha(opacity=35);
-  background-image: url('images/abook_toolbar.gif');
+.ui-dialog.popupmessage .ui-dialog-titlebar {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e3e3e3', endColorstr='#cfcfcf', GradientType=0);
 }
 
-#messagetoolbar a.buttonPas
-{
-  filter: alpha(opacity=35);
-  background-image: url('images/mail_toolbar.gif');
+.ui-dialog.popupmessage .ui-widget-content {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#dcdcdc', GradientType=0);
 }
 
-#listcontrols a.buttonPas,
-#mailboxcontrols a.buttonPas
-{
-  filter: alpha(opacity=35);
-  background-image: url('images/mail_footer.png');
+#topnav {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#404040', endColorstr='#060606', GradientType=0);
 }
 
-#messagetoolbar select.mboxlist
-{
-  margin: 0 8px;
-  top: 8px;
+.records-table tr.selected td {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#019bc6', endColorstr='#017cb4', GradientType=0);
 }
 
-#quicksearchbar
-{
+.contentbox .boxtitle,
+body.iframe .boxtitle {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#dfdfdf', GradientType=0);
 }
 
-#mainscreen
-{
-  width: expression((parseInt(document.documentElement.clientWidth)-40)+'px');
-  height: expression((parseInt(document.documentElement.clientHeight)-101)+'px');
+#login-form input.button {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e2e2e2', GradientType=0);
 }
 
-#directorylist
-{
-  height: expression((parseInt(document.documentElement.clientHeight)-125)+'px');  
+#login-form input.button:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dcdcdc', endColorstr='#f9f9f9', GradientType=0);
 }
 
-#addresslist,
-#sectionslist
-{
-  height: expression(parseInt(this.parentNode.offsetHeight)+'px');
+.toolbar a.button {
+	filter: none;
 }
 
-#mailleftcontainer
-{
-  height: expression(parseInt(this.parentNode.offsetHeight)+'px');
+a.menuselector {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f8', endColorstr='#dddddd', GradientType=0);
 }
 
-#mailrightcontainer
-{
-  width: expression((parseInt(this.parentNode.offsetWidth)-170)+'px');
-  height: expression(parseInt(this.parentNode.offsetHeight)+'px');
+a.menuselector:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#f8f8f8', GradientType=0);
 }
 
-#bluebox
-{
-  height: auto;
+.googie_list td.googie_list_onhover,
+ul.toolbarmenu li a.active:hover,
+#rcmKSearchpane ul li.selected {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00aad6', endColorstr='#008fc9', GradientType=0);
 }
 
-#messagepartcontainer
-{
-  width: expression((parseInt(document.documentElement.clientWidth)-40)+'px');
-  height: expression((parseInt(document.documentElement.clientHeight)-100)+'px');
+.tabsbar .tablink {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f8', endColorstr='#d3d3d3 50%, #f8f8f8', GradientType=0);
 }
 
-#mailcontframe
-{
-  height: expression(parseInt(this.parentNode.offsetHeight)+'px');
+.tabsbar .selected a {
+	background-color: #fff;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#efefef', GradientType=0);
 }
 
-#mailrightcontent
-{
-  height: expression((parseInt(this.parentNode.offsetHeight)-20)+'px');
+.toolbar a.button.disabled,
+.boxpagenav a.icon.disabled,
+.pagenav a.button.disabled span.inner,
+.boxfooter .listbutton.disabled .inner,
+.dropbutton a.button.disabled + .dropbuttontip {
+	background-image: url(images/buttons.gif);
 }
 
-#partheader
-{
-  width: expression((parseInt(document.documentElement.clientWidth)-240)+'px');
+/*** addressbook.css ***/
+
+.contactfieldgroup {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eeeeee', GradientType=0);
 }
 
-#mailboxlist-container
-{
-  height: expression((parseInt(this.parentNode.offsetHeight)-20)+'px');
+.contactfieldgroup legend {
+	margin: -8px -8px 8px -8px;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f0f0', endColorstr='#d6d6d6', GradientType=0);
 }
 
-#subscription-table
-{
-  width: auto;
+
+/*** mail.css ***/
+
+#mailboxlist li.mailbox .unreadcount {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#82acb5', endColorstr='#6a939f', GradientType=0);
 }
 
-#messagelist
-{
-  width: inherit;
-  *width: auto; /* IE6/7 conditional hack */
-  border-collapse: collapse;
+#mailboxlist li.mailbox.selected > a .unreadcount {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#005d76', endColorstr='#004558', GradientType=0);
 }
 
-#messageframe
-{
-  width: expression((parseInt(this.parentNode.offsetWidth)-180)+'px');
-  height: expression((parseInt(this.parentNode.offsetHeight)-20)+'px');
+#messageheader, #partheader, #composeheaders {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e9e9e9', GradientType=0);
 }
 
-#messagecanvas 
-{
-  width: expression((parseInt(this.parentNode.offsetWidth)-20)+'px');
+#composeoptionsbox {
+	border-top: 1px solid #999;
 }
 
-#countcontrols
-{
-  width: 24em;
-}
-
-body.iframe 
-{
-  width: expression((parseInt(document.documentElement.clientWidth))+'px');
-}
-
-#compose-container
-{
-  width: expression((parseInt(document.documentElement.clientWidth)-230)+'px');
-  height: expression((parseInt(document.documentElement.clientHeight)-120)+'px');
-}
-
-#compose-body,
-#compose-headers td textarea,
-#compose-headers td input
-{
-  width: 99%;
-}
-
-div.message-part pre,
-div.message-htmlpart pre,
-div.message-part div.pre
-{
-  word-wrap: break-word;
-}
-
-#addressscreen
-{
-  width: expression((parseInt(document.documentElement.clientWidth)-220)+'px');
-  height: expression((parseInt(document.documentElement.clientHeight)-125)+'px');
-}
-
-#prefsscreen
-{
-  width: expression((parseInt(document.documentElement.clientWidth)-40)+'px');
-  height: expression((parseInt(document.documentElement.clientHeight)-125)+'px');
-}
-
-#importbox
-{
-  height: expression((parseInt(document.documentElement.clientHeight)-135)+'px');
-}
-
-#contacts-table
-{
-  width: expression(document.getElementById('addresslist').clientWidth);
-}
-
-#contacts-box,
-#prefs-box
-{
-  height: expression(parseInt(this.parentNode.offsetHeight)+'px');
-  width: expression((parseInt(this.parentNode.offsetWidth)-575)+'px');
-}
-
-#identity-details
-{
-  width: expression((parseInt(document.documentElement.clientWidth)-470)+'px');
-  height: expression((parseInt(document.documentElement.clientHeight)-155)+'px');
-}
-
-#rcmdraglayer
-{
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-  filter: alpha(opacity=70);
-}
-
-ul.toolbarmenu li
-{
-  min-width: auto;
-}
-
-ul.toolbarmenu li a
-{
-  min-height: auto;
-}
-
-#console
-{
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-  filter: alpha(opacity=80);
-}
-
-#countcontrols
-{
-  padding-right: 10px;
-}
-
-table.records-table thead tr td
-{
-  height: 19px;
+#messagelist tbody tr td span.branch div {
+	float: left;
+	height: 18px;
 }
