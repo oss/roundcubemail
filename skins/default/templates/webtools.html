@@ -13,7 +13,8 @@ function webtools_init_settings_tabs()
 	var action = rcmail.env.action.replace(/^plugin\.webtools/, '');
 	tab = '#webtoolstab' + (action ? action : 'default');
     }
-    $(tab).removeClass('ui-state-inactivetab');
+    //not using this for now
+	//$(tab).removeClass('ui-state-inactivetab');
     $(tab).addClass('ui-state-activetab');
 }	       
 </script>
@@ -31,22 +32,22 @@ function webtools_init_settings_tabs()
 			<span id="webtoolstabforward" class="listitem forward">
 				<roundcube:button name="webtoolsforward" href="?_task=dummy&_action=plugin.webtoolsforward" type="link" label="webtools.forward" title="webtools.forward" />
 			</span>
-			<span id="webtoolsvacation" class="listitem vacation">
+			<span id="webtoolstabvacation" class="listitem vacation">
 				<roundcube:button name="webtoolsvacation" href="?_task=dummy&_action=plugin.webtoolsvacation" type="link" label="webtools.vacation" title="webtools.vacation" />
 			</span>
-			<span id="webtoolsfilter" class="listitem filter">
+			<span id="webtoolstabfilter" class="listitem filter">
 				<roundcube:button name="webtoolsfilter" href="?_task=dummy&_action=plugin.webtoolsfilter" type="link" label="webtools.filter" title="webtools.filter" />
 			</span>
-			<span id="webtoolsspam" class="listitem spam">
+			<span id="webtoolstabspam" class="listitem spam">
 				<roundcube:button name="webtoolsspam" href="?_task=dummy&_action=plugin.webtoolsspam" type="link" label="webtools.spam" title="webtools.spam" />
 			</span>
-			<span id="webtoolsquota" class="listitem quota">
+			<span id="webtoolstabquota" class="listitem quota">
 				<roundcube:button name="webtoolsquota" href="?_task=dummy&_action=plugin.webtoolsquota" type="link" label="webtools.quota" title="webtools.quota" />
 			</span>
-			<span id="webtoolshushquota" class="listitem hushquota">
+			<span id="webtoolstabhushquota" class="listitem hushquota">
 				<roundcube:button name="webtoolshushquota" href="?_task=dummy&_action=plugin.webtoolshushquota" type="link" label="webtools.hushquota" title="webtools.hushquota" />
 			</span>
-			<span id="webtoolsrestore" class="listitem restore">
+			<span id="webtoolstabrestore" class="listitem restore">
 				<roundcube:button name="webtoolsrestore" href="?_task=dummy&_action=plugin.webtoolsrestore" type="link" label="webtools.restore" title="webtools.restore" />
 			</span>
 			<script type="text/javascript"> if(window.rcmail) rcmail.add_onload(webtools_init_settings_tabs);</script>
