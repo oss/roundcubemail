@@ -1,9 +1,0 @@
-&copy;
-      <script type="text/javascript">
-      now = new Date
-      theYear=now.getYear()
-      if (theYear < 1900)
-      theYear=theYear+1900
-      document.write(theYear)
-      </script> <a
-href="http://www.rutgers.edu">Rutgers, The State University of New Jersey</a> - Contact us (<a href="mailto:help@webmail.rutgers.edu">help@webmail.rutgers.edu</a>)
