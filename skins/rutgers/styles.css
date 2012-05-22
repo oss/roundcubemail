@@ -1505,6 +1505,7 @@ html.opera select.decorated {
 	height: auto;
 }
 
+
 select.decorated option {
 	color: #fff;
 	background: #444;
@@ -1516,6 +1517,12 @@ select.decorated option {
 	outline: none;
 }
 
+/* added to hide bug with the selected attribute not dynamically changing
+ * to the currently selected item. should be changed once this is fixed.
+ */
+select.decorated option[selected="selected"] {
+	background: #444 !important;
+}
 
 /*** quota indicator ***/
 
