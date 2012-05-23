@@ -51,10 +51,17 @@ class webtools extends rcube_plugin
       $this->register_action('plugin.webtools.filter.rename', 'filter_handle_rename');
       $this->register_action('plugin.webtools.quota.load', 'quota_handle_load');
 
+		// hack to change webtools icon background when on the webtools page
+		$class = 'button-webtools';
+		if(isset($_REQUEST['_action']) && fnmatch("*webtools*", $_REQUEST['_action']))
+		{
+			$class = 'button-webtools button-selected';
+		}
+
       // add taskbar button
       $this->add_button(array(
 	    'name' 	=> 'webtoolstask',
-	    'class'	=> 'button-webtools',
+	    'class'	=> $class,
 	    'label'	=> 'webtools.webtools',
 		 'href'	=> './?_task=dummy&_action=plugin.webtools',
       ), 'taskbar');
