@@ -56,7 +56,7 @@ class webtools extends rcube_plugin
 	    'name' 	=> 'webtoolstask',
 	    'class'	=> 'button-webtools',
 	    'label'	=> 'webtools.webtools',
-	    'href'	=> './?_task=dummy&_action=plugin.webtools',
+		 'href'	=> './?_task=dummy&_action=plugin.webtools',
       ), 'taskbar');
 
       $skin = rcmail::get_instance()->config->get('skin');
