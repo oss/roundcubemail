@@ -311,10 +311,10 @@ class rcube_imap_cache
             $uid          = intval($sql_arr['uid']);
             $result[$uid] = $this->build_message($sql_arr);
 
-            // save memory, we don't need message body here (?)
-            $result[$uid]->body = null;
-
             if (!empty($result[$uid])) {
+                // save memory, we don't need message body here (?)
+                $result[$uid]->body = null;
+
                 unset($msgs[$uid]);
             }
         }
@@ -1146,3 +1146,6 @@ class rcube_imap_cache
         return $index;
     }
 }
+
+// for backward compat.
+class rcube_mail_header extends rcube_message_header { }
