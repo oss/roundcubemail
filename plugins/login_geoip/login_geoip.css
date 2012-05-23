@@ -1,0 +1,46 @@
+#login_time{
+	width: 100%;
+	margin-left:auto;
+	margin-right:auto;
+	padding-top: 10px;
+}
+
+.login_history {
+	border-width: 1px;
+	border-spacing: 2px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: separate;
+	background-color: white;
+   width: 95%;
+   margin-left: auto;
+   margin-right: auto;
+   padding:0px;
+}
+
+.login_history th {
+ /*  background-color: #d30f33; */
+   font-weight: bold;
+   text-align: center;
+   font-size: 10pt;
+   color: #ffffff;
+   padding: 0px;
+   margin:0px;
+   padding-top: 5px; padding-bottom: 5px;
+}
+
+.login_history td {
+   font-weight: normal;
+   font-size: 13pt;
+}
+
+.login_history img {
+   padding: 3px;
+   vertical-align: text-top;
+}
+
+.login_bad {
+   font-size: 10px;
+   cursor: pointer;
+}
+
