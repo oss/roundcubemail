@@ -267,7 +267,8 @@ function check_email($email, $dns_check=true)
 
 function console()
 {
-    call_user_func_array(array('rcmail', 'console'), func_get_args());
+	$args = func_get_args();
+    call_user_func_array(array('rcmail', 'console'), $args);
 }
 
 function write_log($name, $line)
