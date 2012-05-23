@@ -708,7 +708,7 @@ a.iconlink.upload {
 	height: 20px;  /* doesn't affect table-cells in FF */
 	margin: 0;
 	text-shadow: 0px 1px 1px #fff;
-	border-bottom: 1px solid #bbd3da;
+	border-bottom: 1px solid #b9b9b9;
 	white-space: nowrap;
 }
 
@@ -730,7 +730,7 @@ a.iconlink.upload {
 .listing li {
 	display: block;
 	border-top: 1px solid #fff;
-	border-bottom: 1px solid #bbd3da;
+	border-bottom: 1px solid #b9b9b9;
 	cursor: default;
 	font-weight: normal;
 }
@@ -805,7 +805,7 @@ table.layout td {
 	left: 0;
 	width: 100%;
 	height: 42px;
-	border-top: 1px solid #ccdde4;
+	border-top: 1px solid #ddd;
 	background: #f5f5f5;
 	-webkit-box-shadow: inset 0 1px 0 0 #fff;
 	-moz-box-shadow: inset 0 1px 0 0 #fff;
