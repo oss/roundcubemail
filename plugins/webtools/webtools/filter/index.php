@@ -59,7 +59,6 @@ if (have_file (".mailfilter", $result))
    else 
    {
       $parsed = parse_main_config($result); // its not the old config so just parse it
-      console("parsed main conf");
    }
 ?>
 <form method="post" action="?_task=dummy&_action=plugin.webtoolsfilter" id="edit-filter">

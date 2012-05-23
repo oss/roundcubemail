@@ -359,7 +359,6 @@ function sanitize_filter_name($input) {
 }
 
 function sanitize_filter_email($email) {
-	console("this function was called");
 	$result=true;
 	$emailValid=email_valid($email);
 	if(!$emailValid) $result=false;
