@@ -15,14 +15,12 @@ p
 a.button-webtools {
 	text-shadow: 0px 1px 1px black;
 	width: 50px;
-	background: url('webtools.png') no-repeat;
-	background-position-y: 8px;
+	background: url('webtools.png') no-repeat 0 8px;
 	padding-left: 35px !important;
 }
 
 a.button-webtools:hover {
-	background: url('webtools.dark.png') no-repeat;
-	background-position-y: 8px;
+	background: url('webtools.dark.png') no-repeat 0 8px;
 }
 
 #mainview-left {
