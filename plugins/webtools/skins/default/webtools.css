@@ -36,6 +36,14 @@ a.button-webtools:hover {
 	width: 220px;
 }
 
+#mainview-left a{
+	color: #4e4e4e;
+}
+
+#mainview-left a.visited{
+	color: #4e4e4e;
+}
+
 #mainview-right {
 	position: absolute;
 	bottom: 0;
