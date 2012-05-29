@@ -28,16 +28,16 @@ class bounce extends rcube_plugin
 
 			// rfranknj sept 30 : button added by skin
 
-			//$this->add_button(
-			//  array(
-			//      'command' => 'plugin.bounce.box',
-			//      'title'   => 'bouncemessage',
-			//      'domain'  =>  $this->ID,
-			//      'imagepas' => $skin_path.'/bounce_pas.png',
-			//      'imageact' => $skin_path.'/bounce_act.png',
-			//      'class' => 'bounce-ico'
-			//  ),
-			//  'toolbar');
+			$this->add_button(
+			  array(
+			      'command' => 'plugin.bounce.box',
+			      'title'   => 'bouncemessage',
+			      'domain'  =>  $this->ID,
+			      'imagepas' => $skin_path.'/bounce_pas.png',
+			      'imageact' => $skin_path.'/bounce_act.png',
+			      'class' => 'bounce-ico'
+			  ),
+			  'toolbar');
 			$this->add_hook('render_page', array($this, 'render_box'));
 
 		}
