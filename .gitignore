@@ -4,3 +4,4 @@ temp/*
 config/*
 *.swp
 plugins/*/config.inc.php
+!*.inc.php.dist
