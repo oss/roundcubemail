@@ -55,9 +55,9 @@ if (window.rcmail) {
 		var bounce_cc = $('#bounce_cc');
 		var bounce_bcc = $('#bounce_bcc');
 
-		rcmail.init_address_input_events_bounce(bounce_to);
-		rcmail.init_address_input_events_bounce(bounce_cc);
-		rcmail.init_address_input_events_bounce(bounce_bcc);
+		rcmail.init_address_input_events(bounce_to);
+		rcmail.init_address_input_events(bounce_cc);
+		rcmail.init_address_input_events(bounce_bcc);
 
 		if (bounce_to.val() == '')
 			bounce_to.focus();
