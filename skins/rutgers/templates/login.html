@@ -4,6 +4,8 @@
 <title><roundcube:object name="pagetitle" /></title>
 <meta name="Robots" content="noindex,nofollow" />
 <roundcube:include file="/includes/links.html" />
+<script type="text/javascript" src="/includes/browserdetect.js"></script>
+<script type="text/javascript"src="/includes/browserupgrade.js"></script>
 </head>
 <body>
 
@@ -46,6 +48,9 @@
   /images/splitter.png
   /images/watermark.png
 " />
+
+<script type="text/javascript">document.write("<div id='welcome_modal' title='Browser Upgrade Required' style='display: none'>Please upgrade your browser to a newer version to view the pages correctly.</div>"); </script>
+<script type="text/javascript"> if (BrowserUpgrade.needupgrade) { $(document).ready(function() {$('#welcome_modal').dialog ({ modal:true, resizable:false, buttons: { Close:function() { $(this).dialog('close');}  }}); });} </script>
 
 </body>
 </html>
