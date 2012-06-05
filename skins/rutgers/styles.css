@@ -956,7 +956,7 @@ table.records-table {
 	background: -o-linear-gradient(left, #d1d1d1 0, #d1d1d1 14px, #d1d1d1 100%);
 	background: -ms-linear-gradient(left, #d1d1d1 0, #d1d1d1 14px ,#d1d1d1 100%);
 	background: linear-gradient(left, #d1d1d1 0, #d1d1d1 14px, #d1d1d1 100%);
-	border-left: 1px solid #bbd3da;
+	border-left: 1px solid #aaa;
 	padding: 8px 7px;
 	overflow: hidden;
 	text-overflow: ellipsis;
