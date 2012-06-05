@@ -389,7 +389,7 @@ function template_object_loginactivity ($args)
    }
    $flagsdir = ($_SERVER['SERVER_PORT'] == 443?"https://":"http://") . $this->rc->config->get('flags_dir');
    $cur = $res[0]; $prev = $res[1];
-   $r  = "\n<div id='login_time'>\n" .
+   $r  = "\n<div id='login_time' style='position: absolute'>\n" .
          "\n<div style='padding: 5px; font-size:8pt' class='ui-widget-header ui-corner-top'>Account Activity</div>" .
          "<div style='border-left: 1px solid #999; border-right: 1px solid #999; padding:5px; background-color:#F9F9F9;" .
          "font-size:8pt'><b>Current Login:</b><table>";

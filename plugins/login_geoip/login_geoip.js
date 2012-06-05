@@ -10,3 +10,7 @@ function make_popup (msg)
    });
 }
 
+$(window).resize( function resize() {
+	var mbox=$("#mailboxcontainer");
+	$("#login_time").css("top", (mbox.position().top + mbox.height() + 10)+"px");
+});
