@@ -6710,7 +6710,7 @@ function rcube_webmail()
       url = '?_task=utils&_action=html2text',
       lock = this.set_busy(true, 'converting');
 
-    this.log('HTTP POST: ' + url);
+    //this.log('HTTP POST: ' + url);
 
     $.ajax({ type: 'POST', url: url, data: htmlText, contentType: 'application/octet-stream',
       error: function(o, status, err) { rcmail.http_error(o, status, err, lock); },
@@ -6826,7 +6826,7 @@ function rcube_webmail()
     url += '&_remote=1';
 
     // send request
-    this.log('HTTP GET: ' + url);
+    //this.log('HTTP GET: ' + url);
 
     // reset keep-alive interval
     this.start_keepalive();
@@ -6861,7 +6861,7 @@ function rcube_webmail()
     }
 
     // send request
-    this.log('HTTP POST: ' + url);
+    //this.log('HTTP POST: ' + url);
 
     // reset keep-alive interval
     this.start_keepalive();
@@ -6907,7 +6907,7 @@ function rcube_webmail()
 
     // if we get javascript code from server -> execute it
     if (response.exec) {
-      this.log(response.exec);
+      //this.log(response.exec);
       eval(response.exec);
     }
 
