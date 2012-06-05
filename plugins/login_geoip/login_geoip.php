@@ -389,9 +389,10 @@ function template_object_loginactivity ($args)
    }
    $flagsdir = ($_SERVER['SERVER_PORT'] == 443?"https://":"http://") . $this->rc->config->get('flags_dir');
    $cur = $res[0]; $prev = $res[1];
-   $r  = "\n<div id='login_time' style='position: absolute'>\n" .
-         "\n<div style='padding: 5px; font-size:8pt' class='ui-widget-header ui-corner-top'>Account Activity</div>" .
-         "<div style='border-left: 1px solid #999; border-right: 1px solid #999; padding:5px; background-color:#F9F9F9;" .
+   $r  = "\n<div id='login_time' class='uibox listbox' style='position: absolute'>\n" .
+         //"\n<div style='padding: 5px; font-size:8pt' class='ui-widget-header ui-corner-top'>Account Activity</div>" .
+         //"<div style='border-left: 1px solid #999; border-right: 1px solid #999; padding:5px; background-color:#F9F9F9;" .
+		 "<div style='padding:5px;" .
          "font-size:8pt'><b>Current Login:</b><table>";
    $r .= "<tr><td style='padding:3px;' width='24'><img src=\"" . $flagsdir . $cur['flag'] . "\"/></td>" .
          "<td style='font-size:8pt'>". ($cur['host']=="Unknown"?$cur['inet_ntoa(ip)']:$cur['host']) . " (".$cur['loc'].")<br>" . $cur['description'] .
@@ -404,8 +405,9 @@ function template_object_loginactivity ($args)
             "</td></tr></table>";
    else
       $r .= "<br>No Previous Login";
-   $r .= "</div><div id='login_time_foot' class='ui-corner-bottom' style='background-color:#E9E6DC;" .
-         "border: 1px solid #999; padding:5px; font-size:8pt; text-align:center;'>" .
+//   $r .= "</div><div id='login_time_foot' class='ui-corner-bottom' style='background-color:#E9E6DC;" .
+   $r .= "</div><div id='login_time_foot' class='ui-corner-bottom' style='" .
+         "border-top: 1px solid #999; padding:5px; font-size:8pt;'>" .
          "\n<a href='?_task=dummy&_action=plugin.login_activity' style='text-decoration:none;color:#06C;'>Details</a> | " .
          "\n<a href='".$this->rc->config->get('faq_link')."' style='text-decoration:none;color:#06C;' target='_blank'> FAQ </a>" .
          "</div></div>\n";
