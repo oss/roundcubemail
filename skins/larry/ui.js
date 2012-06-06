@@ -207,12 +207,8 @@ function rcube_mail_ui()
     })
     .contents().mouseup(body_mouseup);
 
-    $(window).resize(function(e) {
-      // check target due to bugs in jquery
-      // http://bugs.jqueryui.com/ticket/7514
-      // http://bugs.jquery.com/ticket/9841
-      if (e.target == window) resize();
-    });
+    // don't use $(window).resize() due to some unwanted side-effects
+    window.onresize = resize;
   }
 
   /**
@@ -262,6 +258,7 @@ function rcube_mail_ui()
       }
 
       var pos = $(p.object).offset();
+      pos.top -= (rcmail.env.task == 'login' ? 20 : 160);
       me.messagedialog.dialog('close');
       me.messagedialog.html(p.message)
         .dialog({
@@ -272,7 +269,7 @@ function rcube_mail_ui()
           close: function() {
             me.messagedialog.dialog('destroy').hide();
           },
-          position: ['center', pos.top - 160],
+          position: ['center', pos.top],
           hide: { effect:'drop', direction:'down' },
           width: 420,
           minHeight: 90

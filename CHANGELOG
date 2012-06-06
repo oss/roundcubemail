@@ -1,6 +1,14 @@
 CHANGELOG Roundcube Webmail
 ===========================
 
+- Add mail attachments using drag & drop on HTML5 enabled browsers
+- Add workaround for invalid BODYSTRUCTURE response - parse message with Mail_mimeDecode package (#1485585)
+- Decode header value in rcube_mime::get() by default (#1488511)
+- Fix errors with enabled PHP magic_quotes_sybase option (#1488506)
+- Fix SQL query for contacts listing on MS SQL Server (#1488505)
+- Update to TinyMCE 3.5.2
+- Fix window.resize handler on IE8 and Opera (#1488453)
+- Don't let error message popups cover the login form (#1488500)
 - Display Tiff as Jpeg in browsers without Tiff support (#1488452)
 - Don't display Pdf/Tiff/Flash attachments inline without browser support (#1488452, #1487929)
 - Don't show errors when moving contacts into groups they are already in (#1488493)
