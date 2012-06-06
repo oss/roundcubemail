@@ -5,6 +5,10 @@
 	padding-top: 10px;
 }
 
+#mailboxcontainer {
+	bottom: 157px;
+}
+
 .login_history {
 	border-width: 1px;
 	border-spacing: 2px;
@@ -43,4 +47,3 @@
    font-size: 10px;
    cursor: pointer;
 }
-
