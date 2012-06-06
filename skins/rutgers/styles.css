@@ -515,7 +515,7 @@ a.iconlink.upload {
 	height: 46px;
 	margin-bottom: 10px;
 	padding: 0 0 0 10px;
-	background: #111;
+	background: #d21034;
 	background: -moz-linear-gradient(top, #ff103d 0%, #d21034 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff103d), color-stop(100%,#d21034));
 	background: -o-linear-gradient(top, #ff103d 0%, #d21034 100%);
