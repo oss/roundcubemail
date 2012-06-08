@@ -4,12 +4,14 @@
 <title><roundcube:object name="pagetitle" /></title>
 <meta name="Robots" content="noindex,nofollow" />
 <roundcube:include file="/includes/links.html" />
+<script type="text/javascript" src="/includes/browserdetect.js"></script>
+<script type="text/javascript"src="/includes/browserupgrade.js"></script>
 </head>
 <body>
 
 <div id="login-form">
 <div class="box-inner">
-<roundcube:object name="logo" src="/images/roundcube_logo.png" id="logo" border="0" />
+<roundcube:object name="logo" src="/images/rutgers_logo.png" id="logo" border="0" />
 
 <form name="form" action="./" method="post">
 <roundcube:object name="loginform" form="form" size="40" />
@@ -44,8 +46,11 @@
   /images/quota.png
   /images/selector.png
   /images/splitter.png
-  /images/watermark.jpg
+  /images/watermark.png
 " />
+
+<script type="text/javascript">document.write("<div id='welcome_modal' title='Browser Upgrade Required' style='display: none'>Please upgrade your browser to a newer version to view the pages correctly.</div>"); </script>
+<script type="text/javascript"> if (BrowserUpgrade.needupgrade) { $(document).ready(function() {$('#welcome_modal').dialog ({ modal:true, resizable:false, buttons: { Close:function() { $(this).dialog('close');}  }}); });} </script>
 
 </body>
 </html>
