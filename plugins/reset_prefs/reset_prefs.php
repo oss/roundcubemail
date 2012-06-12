@@ -42,6 +42,7 @@ class reset_prefs extends rcube_plugin
    {
       if ($args['section'] == 'resetprefs')
       {
+		 $this->include_stylesheet("reset_prefs.css");
          $args['blocks']['main']['name'] = "Reset Preferences";
          $js = 'rcmail.add_onload(fix_button);';
          $button = '<br /><br /><input id="rcmbtn999" class="button mainaction" type="button" value="Reset" onclick="button_click()"/>';
