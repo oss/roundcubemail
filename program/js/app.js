@@ -5831,9 +5831,9 @@ function rcube_webmail()
         doc_title = String(document.title);
 
       if (mycount && doc_title.match(reg))
-        new_title = doc_title.replace(reg, '('+mycount+') ');
+        new_title = doc_title.replace(reg, '('+mycount+'/'+this.env.messagecount+') ');
       else if (mycount)
-        new_title = '('+mycount+') '+doc_title;
+        new_title = '('+mycount+'/'+this.env.messagecount+') '+doc_title;
       else
         new_title = doc_title.replace(reg, '');
 
