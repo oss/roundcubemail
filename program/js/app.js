@@ -6541,7 +6541,7 @@ function rcube_webmail()
     }
 
     // set unread count to window title
-    reg = /^\([0-9]+\)\s+/i;
+    reg = /^\([0-9]+\/[0-9]+\)\s+/i;
     if (set_title && document.title) {
       var new_title = '',
         doc_title = String(document.title);
