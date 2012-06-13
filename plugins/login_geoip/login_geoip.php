@@ -387,7 +387,8 @@ function template_object_loginactivity ($args)
       $res = array();
       while ($result = $this->userdb->fetch_assoc()) { $res[] = $result; }
    }
-   $flagsdir = ($_SERVER['SERVER_PORT'] == 443?"https://":"http://") . $this->rc->config->get('flags_dir');
+   //$flagsdir = ($_SERVER['SERVER_PORT'] == 443?"https://":"http://") . $this->rc->config->get('flags_dir');
+	$flagsdir = $this->urlbase . "flags/";
    $cur = $res[0]; $prev = $res[1];
    $r  = "\n<div id='login_time' class='uibox listbox' style='position: absolute'>\n" .
          //"\n<div style='padding: 5px; font-size:8pt' class='ui-widget-header ui-corner-top'>Account Activity</div>" .
