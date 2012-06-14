@@ -495,7 +495,7 @@ table.messagelist.fixedcopy {
 
 .messagelist tr td.size {
 	width: 60px;
-	text-align: right;
+	text-align: left;
 }
 
 .messagelist thead tr td.size {
