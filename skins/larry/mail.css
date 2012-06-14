@@ -377,7 +377,7 @@ a.iconbutton.threadmode.selected {
 
 #messagelist tr td.size {
 	width: 60px;
-	text-align: right;
+	text-align: left;
 }
 
 #messagelist tr td.from,
