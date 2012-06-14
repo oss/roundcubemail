@@ -10,9 +10,9 @@ function make_popup (msg)
    });
 }
 
-if(rcmail.env.task == 'mail'){
 	$(window).resize( function resize() {
 		var mbox=$("#mailboxcontainer");
-		$("#login_time").css("top", (mbox.position().top + mbox.height() + 10)+"px");
+		try{
+			$("#login_time").css("top", (mbox.position().top + mbox.height() + 10)+"px");
+		}catch(e){}
 	});
-}
