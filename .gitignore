@@ -3,4 +3,3 @@ logs/*
 temp/*
 config/*
 plugins/*/config.inc.php
-*.swp
