@@ -2,3 +2,7 @@
 {
   min-width: 17px;
 }
+
+.records-table tbody td {
+	padding : 2px 0px;
+}
