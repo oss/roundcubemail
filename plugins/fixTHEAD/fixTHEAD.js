@@ -69,7 +69,7 @@ function fixTHEAD(){
       return;
     }
     // add empty row
-    $('<tr id="messagelist_empty_row" height="' + $('#messagelist thead').height() + '"><td>&nbsp;</td></tr>').insertBefore('#messagelist > tbody > tr:first');
+    $('<tr id="messagelist_empty_row" height="' + $('#messagelist thead').height() + '"><td style="border-bottom:0px;">&nbsp;</td></tr>').insertBefore('#messagelist > tbody > tr:first');
     // read default column widths
     var elem, temp, cname, selector;
     $('#messagelist thead tr td').each(function(){
@@ -138,14 +138,18 @@ function fixTHEAD(){
              cname == 'to' ||
              cname == 'replyto' ||
              cname == 'cc' ||
+             cname == 'size' ||
              cname == 'date')
         ){
-          elem.html(
-            '<p class="fixTHEAD" style="height:16px;font-size:' + fixTHEAD.fontsize + 
-            ';margin:0;padding:0;white-space:nowrap;overflow:hidden;' + 
-            'text-overflow:ellipsis;-o-text-overflow:ellipsis;' + 
-            'width:' + fixTHEAD.width[cname] + 'px">' + elem.html() + '</p>'
-          );
+           if(cname == 'subject'){
+              elem.html(
+                    '<span>'+elem.html()+'</span>'
+                    );
+           }else{
+              elem.html(
+                    '<span style="padding-left:5px">'+elem.html()+'</span>'
+                    );
+           }
         }
         else{
           elem.width(fixTHEAD.width[cname]);
