@@ -60,11 +60,12 @@ class webtools extends rcube_plugin
 
       // add taskbar button
       $this->add_button(array(
-	    'name' 	=> 'webtoolstask',
-	    'class'	=> $class,
-	    'label'	=> 'webtools.webtools',
-		 'href'	=> './?_task=dummy&_action=plugin.webtools',
-      ), 'taskbar');
+			'name' 	=> 'webtoolstask',
+			'class'	=> $class,
+			'label'	=> 'webtools.webtools',
+			'innerclass' => 'button-inner',
+			'href'	=> './?_task=dummy&_action=plugin.webtools',
+		), 'taskbar');
 
       $skin = rcmail::get_instance()->config->get('skin');
       if (!file_exists($this->home."/skins/$skin/webtools.css"))
