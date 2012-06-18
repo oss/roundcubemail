@@ -1,0 +1,11 @@
+1.1 patch from Alec, and polish translation
+
+1.0.3 add list-archive to the set of commands
+
+1.0.2 fix plugin to work with caching enabled. Reported by Rosali.
+
+1.0.1 minor update to fix a small bug.
+
+1.0 updated to use internal RC functions
+
+0.1 initial version
