@@ -147,7 +147,7 @@ function fixTHEAD(){
                     );
            }else{
               elem.html(
-                    '<span style="padding-left:5px">'+elem.html()+'</span>'
+                    '<span class="fixTHEAD" style="padding-left:5px">'+elem.html()+'</span>'
                     );
            }
         }
