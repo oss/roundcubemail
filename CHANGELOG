@@ -1,6 +1,12 @@
 CHANGELOG Roundcube Webmail
 ===========================
 
+- Show explicit error message when provided hostname is invalid (#1488550)
+- Fix wrong compose screen elements focus in IE9 (#1488541)
+- Fix fatal error when date.timezone isn't set (#1488546)
+- Update to TinyMCE 3.5.4.1
+- Better icons with distinct shapes for priority columns (#1488377)
+- Show dedicated icon for multipart/report messages (#1488524)
 - Properly hide text of icon links/buttons (#1488534)
 - Fix handling of unitless CSS size values in HTML message (#1488535)
 - Fix removing contact photo using LDAP addressbook (#1488420)
