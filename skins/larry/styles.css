@@ -772,7 +772,7 @@ a.iconlink.upload {
 .listing li.selected > a {
 	color: #616161;
 	font-weight: bold;
-	background-color: #c7e3ef;
+	background-color: #ccc;
 }
 
 ul.listing {
