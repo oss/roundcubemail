@@ -108,7 +108,7 @@ function rcube_mail_ui()
         $('#mailthreadmode').addClass(rcmail.env.threading ? 'selected' : '').click(function(e){ switch_view_mode('thread'); return false });
 
         mailviewsplit = new rcube_splitter({ id:'mailviewsplitter', p1:'#mailview-top', p2:'#mailview-bottom',
-          orientation:'h', relative:true, start:310, min:150, size:0, offset:-18 });
+          orientation:'h', relative:true, start:310, min:150, size:12, offset:4 });
         if (previewframe)
           mailviewsplit.init();
 
@@ -171,28 +171,31 @@ function rcube_mail_ui()
       }
 
       var select = $(this),
-        height = Math.max(select.height(), 24) - 2,
+        height = Math.max(select.height(), 26) - 2,
         width = select.width() - 22,
         title = $('option', this).first().text();
 
       if ($('option:selected', this).val() != '')
         title = $('option:selected', this).text();
 
-      var new_select = $('<a class="menuselector"><span class="handle">' + title + '</span></a>')
+      var overlay = $('<a class="menuselector"><span class="handle">' + title + '</span></a>')
         .css('position', 'absolute')
         .offset(select.position())
         .insertAfter(select);
 
-      new_select.children().width(width).height(height).css('line-height', (height - 1) + 'px');
+      overlay.children().width(width).height(height).css('line-height', (height - 1) + 'px');
 
       select.change(function() {
           var val = $('option:selected', this).text();
           $(this).next().children().html(val);
-        })
-        .parent().css('position', 'relative');
+        });
+
+      var parent = select.parent();
+      if (parent.css('position') != 'absolute')
+        parent.css('position', 'relative');
 
       // re-set original select width to fix click action and options width in some browsers
-      select.width(new_select.width());
+      select.width(overlay.width());
     });
 
     $(document.body)
@@ -215,6 +218,7 @@ function rcube_mail_ui()
 
     // don't use $(window).resize() due to some unwanted side-effects
     window.onresize = resize;
+    resize();
   }
 
   /**
@@ -252,6 +256,20 @@ function rcube_mail_ui()
     if (rcmail.env.task == 'mail' && rcmail.env.action == 'compose') {
       layout_composeview();
     }
+
+    // make iframe footer buttons float if scrolling is active
+    $('body.iframe .footerleft').each(function(){
+      var footer = $(this),
+        body = $(document.body),
+        floating = footer.hasClass('floating'),
+        overflow = body.outerHeight(true) > $(window).height();
+      if (overflow != floating) {
+        var action = overflow ? 'addClass' : 'removeClass';
+        footer[action]('floating');
+        body[action]('floatingbuttons');
+      }
+    })
+
   }
 
   /**
@@ -260,7 +278,7 @@ function rcube_mail_ui()
   function message_displayed(p)
   {
     // show a popup dialog on errors
-    if (p.type == 'error') {
+    if (p.type == 'error' && rcmail.env.task != 'login') {
       if (!me.messagedialog) {
         me.messagedialog = $('<div>').addClass('popupdialog');
       }
@@ -311,8 +329,7 @@ function rcube_mail_ui()
 
   function resize_leftcol(splitter)
   {
-    if (splitter)
-      $('#quicksearchbar input').css('width', (splitter.pos - 70) + 'px');
+    // STUB
   }
 
 
@@ -447,7 +464,7 @@ function rcube_mail_ui()
     button.removeClass().addClass(visible ? 'enabled' : 'closed');
 
     if (visible) {
-      $('#mailview-top').css({ bottom:'auto' });
+      $('#mailview-top').removeClass('fullheight').css({ bottom:'auto' });
       $('#mailview-bottom').css({ height:'auto' });
 
       rcmail.env.contentframe = 'messagecontframe';
@@ -466,7 +483,7 @@ function rcube_mail_ui()
       rcmail.env.contentframe = null;
       rcmail.show_contentframe(false);
 
-      $('#mailview-top').css({ height:'auto', bottom:'28px' });
+      $('#mailview-top').addClass('fullheight').css({ height:'auto', bottom:'28px' });
       $('#mailview-bottom').css({ top:'auto', height:'26px' });
 
       if (mailviewsplit.handle)
