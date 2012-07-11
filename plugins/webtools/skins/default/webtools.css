@@ -110,6 +110,7 @@ p
     margin-top: 10px;
     margin-left: 8%;
     margin-right: 8%;
+	width: inherit;
     #min-width: 500px;
 }
 
