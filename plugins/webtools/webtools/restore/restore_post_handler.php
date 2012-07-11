@@ -30,23 +30,22 @@ function restore_post_handler() {
             for ($i = 0, $numF = count($result); $i < $numF; $i++) {
                 if (strcmp($result[$i], '.') != 0 && strcmp($result[$i], '..') != 0) {
                     if (strcmp(substr($result[$i], 0, 1), '.') == 0) {
-                        $entry = substr($result[$i], 1);
-                        $entry = preg_replace("/\./", "/", $entry);
-                        if (strcmp($entry, 'RESTORE') == 0) {
-                            continue;
-                        }
-			$cutat = 10;
-			$max2display = 25;
-			if(strlen($entry) > $max2display)
-			  {
-			    $entrycut = substr($entry, 0, $cutat) . " ... " . substr($entry, -$cutat);
-			    $selects .= '<option value="' . $entry . '">' . $entrycut . '</option>';
-			  }
-			else
-			  $selects .= '<option value="'.$entry.'">'.$entry.'</option>';
-
-                    }
-                }
+						if(strpos($result[$i], "RESTORE")===false) {
+                        	$entry = substr($result[$i], 1);
+                        	$entry = preg_replace("/\./", "/", $entry);
+                        	if (strcmp($entry, 'RESTORE') == 0) {
+                            	continue;
+							}
+							$cutat = 10;
+							$max2display = 25;
+							if(strlen($entry) > $max2display) {
+						    	$entrycut = substr($entry, 0, $cutat) . " ... " . substr($entry, -$cutat);
+						    	$selects .= '<option value="' . $entry . '">' . $entrycut . '</option>';
+			  				} else
+			  					$selects .= '<option value="'.$entry.'">'.$entry.'</option>';
+                    	}
+					}
+				}
             }
 
             $response['folder_select'] = '<form id="folder_form" onsubmit="restore_post(true); return false;">
