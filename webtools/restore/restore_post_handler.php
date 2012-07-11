@@ -30,7 +30,7 @@ function restore_post_handler() {
             for ($i = 0, $numF = count($result); $i < $numF; $i++) {
                 if (strcmp($result[$i], '.') != 0 && strcmp($result[$i], '..') != 0) {
                     if (strcmp(substr($result[$i], 0, 1), '.') == 0) {
-						if(strpos($result[$i], "RESTORE")===false) {
+						if(strpos($result[$i], "RESTORE.")===false) {
                         	$entry = substr($result[$i], 1);
                         	$entry = preg_replace("/\./", "/", $entry);
                         	if (strcmp($entry, 'RESTORE') == 0) {
