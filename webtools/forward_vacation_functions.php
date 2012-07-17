@@ -53,8 +53,9 @@ function getAliases() {
     $metaFileContents = NULL;
 
     $rcmail = rcmail::get_instance();
-    $USERNAME = $rcmail->config->get('USERNAME');
-    $HOME = $rcmail->config->get('HOME');
+	$userinfo = get_userinfo();
+    $USERNAME = $userinfo['username'];
+    $HOME = $userinfo['home'];
     $RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
 
     $user_cmd = "find $HOME -maxdepth 1 -name $USERNAME -exec cat '{}' \;";
@@ -77,8 +78,9 @@ function getAliases() {
 function getVacationRule($subject='Away on Vacation', $vToggle=NULL) {
   
     $rcmail = rcmail::get_instance();
-    $USERNAME = $rcmail->config->get('USERNAME');
-    $HOME = $rcmail->config->get('HOME');
+	$userinfo = get_userinfo();
+    $USERNAME = $userinfo['username'];
+    $HOME = $userinfo['home'];
     $CLUSTER = $rcmail->config->get('CLUSTER');
     $insert = NULL;
     $aliasArr = NULL;

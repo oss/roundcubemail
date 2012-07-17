@@ -1,10 +1,13 @@
 <?php
 
+require_once('plugins/webtools/webtools/functions.php');
+
 // Roundcube-style variables
 $rcmail = rcmail::get_instance();
 
-$USERNAME = $rcmail->config->get('USERNAME');
-$HOME = $rcmail->config->get('HOME');
+$userinfo = get_userinfo();
+$USERNAME = $userinfo['username'];
+$HOME = $userinfo['home'];
 $RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
 $MF = $rcmail->config->get('MF');
 
