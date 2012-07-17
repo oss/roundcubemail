@@ -50,6 +50,7 @@ class webtools extends rcube_plugin
       $this->register_action('plugin.webtools.filter.add', 'filter_handle_add');
       $this->register_action('plugin.webtools.filter.rename', 'filter_handle_rename');
       $this->register_action('plugin.webtools.quota.load', 'quota_handle_load');
+	  $this->register_action('plugin.webtools.vacation.notify', 'vacation_handle_notify');
 
 		// hack to change webtools icon background when on the webtools page
 		$class = 'button-webtools';
@@ -91,8 +92,15 @@ class webtools extends rcube_plugin
       //jquery pnotify
       $this->include_script("$rutgers_skin/jquery.pnotify.min.js");
       $this->include_stylesheet("$rutgers_skin/jquery.pnotify.default.css");
+
+	  //hook for vacation notify
+	  //$this->add_hook('login_after', array($this, 'after_login'));
+	  $this->add_hook('messages_list', array($this, 'vacation_notify'));
+	  $this->add_hook('session_destroy', array($this, 'destroy_cookie'));
+
     }
 
+	
     function action()
     {
       $rcmail = rcmail::get_instance();
@@ -168,6 +176,36 @@ class webtools extends rcube_plugin
     
       return $out;
     }
+
+	function vacation_notify () {
+		if(!isset($_COOKIE['vacation_notify'])) {
+
+			setcookie("vacation_notify");
+		
+			$rcmail = rcmail::get_instance();
+
+			$vacationFileResult=NULL;
+			$vacation_enabled=false;
+			$result=NULL;
+			$subject=NULL;
+			if(have_file('Maildir/mailfilter-forward', $result)) {
+				foreach($result as $line) {
+					if(is_newFormatVacation($line, $subject)) {
+						$vacation_enabled=true;
+					continue;
+					}
+				}
+			}
+
+			$rcmail->output->command('plugin.webtools.vacation.notify.response', array('status' => $vacation_enabled));
+		}
+	}
+
+	function destroy_cookie() {
+		if(isset($_COOKIE['vacation_notify']))
+			setcookie('vacation_notify', "", time()-3600);
+	}
+
     
 }
 
