@@ -1,10 +1,14 @@
 <?php
+
+require_once('plugins/webtools/webtools/functions.php');
+
 function quota_handle_load ()
 {
    $rcmail = rcmail::get_instance();
 
-   $HOME = $rcmail->config->get('HOME');
-   $USERNAME = $rcmail->config->get('USERNAME');
+   $userinfo = get_userinfo();
+   $HOME = $userinfo['home'];
+   $USERNAME = $userinfo['username'];
    $RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
    $MF = $rcmail->config->get('MF');
    $STF = $rcmail->config->get('STF');
