@@ -141,10 +141,11 @@ function fix_name($name){
 function remove_file ($filename)
 {
 	$rcmail = rcmail::get_instance();
+	$userinfo = get_userinfo();
 	$MF = $rcmail->config->get('MF');
 	$RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
-	$USERNAME = $rcmail->config->get('USERNAME');
-	$HOME = $rcmail->config->get('HOME');
+	$USERNAME = $userinfo['username'];
+	$HOME = $userinfo['home'];
 	$user_cmd = "find $HOME/$filename -exec rm -f '{}' \;";
 	$exec_target = "$RUNAS_CMD $USERNAME $user_cmd";
 	exec($exec_target, $result, $status);
@@ -156,9 +157,10 @@ function remove_file ($filename)
 function write_file ($filename, $contents)
 {
 	$rcmail = rcmail::get_instance();
+	$userinfo = get_userinfo();
 	$MF = $rcmail->config->get('MF');
 	$RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
-	$USERNAME = $rcmail->config->get('USERNAME');
+	$USERNAME = $userinfo['username'];
 	$user_cmd = "$MF " . $filename;
 	$exec_target = "$RUNAS_CMD $USERNAME $user_cmd";
 	return unipipe_exec($exec_target, $contents);

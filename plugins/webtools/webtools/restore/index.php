@@ -1,8 +1,11 @@
 <?php
 
+require_once('plugins/webtools/webtools/functions.php'); 
+
 $rcmail = rcmail::get_instance();
-$USERNAME = $rcmail->config->get('USERNAME');
-$HOME = $rcmail->config->get('HOME');
+$userinfo = get_userinfo();
+$USERNAME = $userinfo['username'];
+$HOME = $userinfo['home'];
 $RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
 $STF = $rcmail->config->get('STF');
 $RESTORE = $rcmail->config->get('RESTORE');
