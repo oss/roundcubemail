@@ -1,11 +1,14 @@
 <?php
 
+require_once('plugins/webtools/webtools/functions.php'); 
+
 function restore_post_handler() {
 
     $rcmail = rcmail::get_instance();
 
-    $USERNAME = $rcmail->config->get('USERNAME');
-    $HOME = $rcmail->config->get('HOME');
+    $userinfo = get_userinfo();
+	$USERNAME = $userinfo['username'];
+    $HOME = $userinfo['home'];
     $RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
     $MF = $rcmail->config->get('MF');
 	$SCRIPT_LOG_FACILITY = $rcmail->config->get('SCRIPT_LOG_FACILITY');
