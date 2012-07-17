@@ -7,8 +7,9 @@
 function have_file($filename, &$contents){
 
 	$rcmail = rcmail::get_instance();
-	$USERNAME = $rcmail->config->get('USERNAME');
-	$HOME = $rcmail->config->get('HOME');
+	$userinfo = get_userinfo();
+	$USERNAME = $userinfo['username'];
+	$HOME = $userinfo['home'];
 	$RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
 
 	$user_cmd = "find $HOME/$filename -exec cat '{}' \;";
@@ -162,5 +163,21 @@ function write_file ($filename, $contents)
 	$exec_target = "$RUNAS_CMD $USERNAME $user_cmd";
 	return unipipe_exec($exec_target, $contents);
 }
+
+function get_userinfo() {
+		$rcmail = rcmail::get_instance();
+		$username = $_SESSION['username'];
+		$home = null;
+		if($username) {
+			$userinfo = $rcmail->config->get('USERINFO');
+			$runas_cmd = $rcmail->config->get('RUNAS_CMD');
+			$exec_target = "$runas_cmd $username $userinfo";
+			unset($result);
+			exec($exec_target, $result, $status);
+			if($status==0)
+				$home = $result[0];
+		}
+		return array('username' => $username, 'home' => $home);
+	}
 
 ?>

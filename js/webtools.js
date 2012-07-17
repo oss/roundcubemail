@@ -21,3 +21,18 @@ $(function() {
    if (!(($.browser.msie) && ($.browser.version))) 
      $('.webtools-accordion').accordion( { header: 'h3', collapsible: 'true', active: 'false' } );
 });
+
+rcmail.addEventListener('plugin.webtools.vacation.notify.response', 'vacation_notify');
+
+function vacation_notify(data) {
+	console.log("got here");
+	if(data.status) {
+		$.pnotify({
+			pnotify_title: "Alert",
+			pnotify_text: "Your vacation message is currently enabled",
+			pnotify_type: "error",
+			pnotify_animation: "slide",
+			pnotify_height: "100px"
+		});
+	}
+}
