@@ -35,11 +35,11 @@ function hushquota_post_handler() {
         }
 
         if ($success) {
-            $response['message'] = '<div id="webtools-response" class="ui-state-highlight ui-corner-all">
+            $response['message'] = '<div id="webtools-response" class="successful roundbox ui-state-highlight ui-corner-all">
                                         Thank you '.$USERNAME.',<br /><br />
                                         You will no longer receive mail when you are approaching your account\'s quota.
                                     </div>';
-            $response['new_button'] = '<button class="webtools-button ui-state-default ui-corner-all" type="button" onclick="hushquota_post(true); return false;">Disable</button>';
+            $response['new_button'] = '<button class="roundbox webtools-button ui-state-default ui-corner-all" type="button" onclick="hushquota_post(true); return false;">Disable</button>';
             $response['new_text'] = 'You currently have "hush" enabled. Click "Disable" to START receiving such messages again.';
         } else {
             $response['message'] = '<div id="webtools-response" class="ui-state-error ui-corner-all">
@@ -67,11 +67,11 @@ function hushquota_post_handler() {
         }
 
         if ($found && $success) {
-            $response['message'] = '<div id="webtools-response" class="ui-state-highlight ui-corner-all">
+            $response['message'] = '<div id="webtools-response" class="successful roundbox ui-state-highlight ui-corner-all">
                                         Thank you '.$USERNAME.',<br /><br />
                                         You will now receive mail when you are approaching your account\'s quota.
                                     </div>';
-            $response['new_button'] = '<button class="webtools-button ui-state-default ui-corner-all" type="button" onclick="hushquota_post(); return false;">Enable</button>';
+            $response['new_button'] = '<button class="roundbox webtools-button ui-state-default ui-corner-all" type="button" onclick="hushquota_post(); return false;">Enable</button>';
             $response['new_text'] = 'Click "Enable" to STOP receiving such messages.';
         } 
         else {
