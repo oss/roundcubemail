@@ -244,15 +244,15 @@ $dynamicFormContent .= $hiddenInputTemp;
             <?=$vacationMsg?>
         </div>
         <textarea class="ui-corner-all-4px" style="display: block; margin: 20px 0;" name="message" cols="60" rows="15"><?=$vacMsgLines?></textarea>
-        <button class="webtools-button ui-state-default ui-corner-all" type="submit">Submit</button>
-        <button class="webtools-button ui-state-default ui-corner-all" type="reset">Reset</button>
+        <button class="roundbox webtools-button ui-state-default ui-corner-all" type="submit">Submit</button>
+        <button class="roundbox webtools-button ui-state-default ui-corner-all" type="reset">Reset</button>
     </form>
 </div>
 
 <div id="webtools-instructions" class="webtools-accordion">
     <div>
-        <h3><a id="instr-header" href="#">Help</a></h3>
-        <div id="instr-content">
+        <h3 class="roundbox helpbox"><a id="instr-header" href="#">Help</a></h3>
+        <div id="instr-content" class="helptext">
 		<?= $rcmail->config->get('vacation_help');?>
         </div>
     </div>

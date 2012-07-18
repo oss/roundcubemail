@@ -88,7 +88,7 @@ if ($status == 0 && strcmp($result[0], 'type=directory') == 0) {
             <select id="pathselect" name="path" class="webtools-select">
                 <?=$options?>
             </select>
-            <button type="submit" class="ui-state-default ui-corner-all webtools-button" style="margin-top: 30px; width: 14em;">Show folders</button>
+            <button type="submit" class="roundbox ui-state-default ui-corner-all webtools-button" style="margin-top: 30px; width: 14em;">Show folders</button>
         </form>
    </div>
      <div id="folders-select" style="margin-left: 10%; margin-right: 10%;"></div>
@@ -96,8 +96,8 @@ if ($status == 0 && strcmp($result[0], 'type=directory') == 0) {
 
 <div id="webtools-instructions" class="webtools-accordion">
     <div>
-        <h3><a id="instr-header" href="#">Help</a></h3>
-        <div id="instr-content">
+        <h3 class="roundbox helpbox"><a id="instr-header" href="#">Help</a></h3>
+        <div id="instr-content" class="helptext">
         	<?=$rcmail->config->get('restore_help')?>
 	</div>
     </div>

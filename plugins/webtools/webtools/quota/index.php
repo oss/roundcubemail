@@ -38,8 +38,8 @@ $rcmail = rcmail::get_instance();
 
 <div id="webtools-instructions" class="webtools-accordion">
     <div>
-        <h3><a id="instr-header" href="#">Help</a></h3>
-        <div id="instr-content">
+        <h3 class="roundbox helpbox"><a id="instr-header" href="#">Help</a></h3>
+        <div id="instr-content" class="helptext">
         	          <?=$rcmail->config->get('quota_help')?>
   	</div>
     </div>

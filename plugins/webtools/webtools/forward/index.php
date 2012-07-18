@@ -69,7 +69,7 @@ $subhead = $rcmail->config->get('forward_subhead');
       <table class="tablestyle" id="forward-table">
          <tr>
             <td>
-               <div class="buttonstyle ui-button ui-widget ui-state-default ui-corner-all">
+               <div class="roundbox  buttonstyle ui-button ui-widget ui-state-default ui-corner-all">
                   <a href="#" onclick="forward_add()"><img src="plugins/webtools/webtools/forward/list-add.png" /></a>
                </div>
             </td>
@@ -119,8 +119,8 @@ $subhead = $rcmail->config->get('forward_subhead');
 
 <div id="webtools-instructions" class="webtools-accordion">
     <div>
-        <h3><a id="instr-header" href="#">Help</a></h3>
-        <div id="instr-content">
+        <h3 class="roundbox helpbox"><a id="instr-header" href="#">Help</a></h3>
+        <div id="instr-content" class="helptext">
 	         <?=$rcmail->config->get('forward_help')?>
 	</div>
     </div>

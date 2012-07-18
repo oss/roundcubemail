@@ -136,3 +136,22 @@ p
     padding: 10px;
     font-size: large;
 }
+
+.roundbox
+{
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.helpbox
+{
+	border: 1px solid #AAA;
+}
+
+.helptext
+{
+	-moz-border-bottom-left-radius: 4px;
+	-moz-border-bottom-right-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+}

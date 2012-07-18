@@ -32,11 +32,11 @@ $button = '';
 $text = '';
 
 if ($hush_enabled) {
-    $button = '<button class="webtools-button ui-state-default ui-corner-all" type="button" onclick="hushquota_post(true); return false;">Disable</button>';
+    $button = '<button class="roundbox webtools-button ui-state-default ui-corner-all" type="button" onclick="hushquota_post(true); return false;">Disable</button>';
     $text = $disable_msg;
 }
 else {
-    $button = '<button class="webtools-button ui-state-default ui-corner-all" type="button" onclick="hushquota_post(); return false;">Enable</button>';
+    $button = '<button class="roundbox webtools-button ui-state-default ui-corner-all" type="button" onclick="hushquota_post(); return false;">Enable</button>';
     $text = $enable_msg; 
 }
 
@@ -59,8 +59,8 @@ else {
 
 <div id="webtools-instructions" class="webtools-accordion">
     <div>
-        <h3><a id="instr-header" href="#">Help</a></h3>
-        <div id="instr-content">
+        <h3 class="roundbox helpbox"><a id="instr-header" href="#">Help</a></h3>
+        <div id="instr-content" class="helptext">
             <?=$rcmail->config->get('hush_help')?>
         </div>
     </div>
