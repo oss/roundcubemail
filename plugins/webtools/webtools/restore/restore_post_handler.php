@@ -61,10 +61,10 @@ function restore_post_handler() {
                                               '</select>
                                                <input type="hidden" name="path" value="'.$path.'" />
                                                <input type="hidden" name="restore" value="1" />
-                                               <button type="submit" class="ui-state-default ui-corner-all webtools-button" style="margin-top: 30px; width: 14em;">
+                                               <button type="submit" class="roundbox ui-state-default ui-corner-all webtools-button" style="margin-top: 30px; width: 14em;">
                                                     Restore folder
                                                </button>
-                                               <button type="button" class="ui-state-default ui-corner-all webtools-button" style="margin-top: 30px; width: 14em;" onclick="show_dates(); return false;">
+                                               <button type="button" class="roundbox ui-state-default ui-corner-all webtools-button" style="margin-top: 30px; width: 14em;" onclick="show_dates(); return false;">
                                                    Change date
                                                </button>
 											   <img id="loading" src="plugins/webtools/webtools/restore/loading.gif" style="display: none; margin-bottom: -13px" alt="Loading">

@@ -175,7 +175,7 @@ if ($_POST['page'] == "Submit")
 	   <style> #slider .ui-slider-handle { border-color: #CCCCCC; background: #FEFEFE; } 
    .webtools-select { width: 25em; }</style>
    <form method="POST" action="?_task=dummy&_action=plugin.webtoolsspam" id="spam-form" onsubmit="return validate_edit()">
-	  <div style="padding-left:10px; padding-right:10px; margin-bottom:25px;" class="ui-widget ui-widget-content ui-corner-all">
+	  <div style="padding-left:10px; padding-right:10px; margin-bottom:25px;" class="roundbox ui-widget ui-widget-content ui-corner-all">
 		 <h4>Required Spam Settings</h4>
 		 <p>
 			A spam filter level of 5 is recommended unless you are choosing to delete mail tagged as spam; in this case the recommended
@@ -214,7 +214,7 @@ if ($_POST['page'] == "Submit")
 			Delete the spam.
 		 </td></tr></table>
 	  </div>
-	  <div style="padding-left: 10px; padding-right:10px margin-bottom:15px;" class="ui-widget ui-widget-content ui-corner-all">
+	  <div style="padding-left: 10px; padding-right:10px margin-bottom:15px;" class="roundbox ui-widget ui-widget-content ui-corner-all">
 		 <h4>Optional Spam Filters</h4>
 		 <div id="blacklist-address">
 			<p>
@@ -227,7 +227,7 @@ if ($_POST['page'] == "Submit")
 ?>
 			<!-- end of saved fields -->
 			<div id='blacklist-address-button' style="margin:10px 10px 10px 18px; width:32px"
-				 class="ui-button ui-widget ui-state-default ui-corner-all">
+				 class="roundbox ui-button ui-widget ui-state-default ui-corner-all">
 			   <a href="#" onclick="add_input('blacklist-address', 'validate_email_dumb')"><img src="plugins/webtools/webtools/spam/img/list-add.png"></a>
 			</div>
 		 </div>
@@ -241,7 +241,7 @@ if ($_POST['page'] == "Submit")
 ?>
 			<!-- end of saved fields -->
 			<div id='blacklist-domain-button' style="margin:10px 10px 10px 18px; width:32px"
-				 class="ui-button ui-widget ui-state-default ui-corner-all">
+				 class="roundbox ui-button ui-widget ui-state-default ui-corner-all">
 			   <a href="#" onclick="add_input('blacklist-domain', 'validate_domain_dumb')"><img src="plugins/webtools/webtools/spam/img/list-add.png"></a>
 			</div>
 		 </div>
@@ -254,7 +254,7 @@ if ($_POST['page'] == "Submit")
 ?>
 			<!-- end of saved fields -->
 			<div id='whitelist-address-button' style="margin:10px 10px 10px 18px; width:32px"
-				 class="ui-button ui-widget ui-state-default ui-corner-all">
+				 class="roundbox ui-button ui-widget ui-state-default ui-corner-all">
 			   <a href="#" onclick="add_input('whitelist-address', 'validate_email_dumb')"><img src="plugins/webtools/webtools/spam/img/list-add.png"></a>
 			</div>
 		 </div>
@@ -267,14 +267,14 @@ if ($_POST['page'] == "Submit")
 ?>
 			<!-- end of saved fields -->
 			<div id='whitelist-domain-button' style="margin:10px 10px 10px 18px; width:32px"
-				 class="ui-button ui-widget ui-state-default ui-corner-all">
+				 class="roundbox ui-button ui-widget ui-state-default ui-corner-all">
 			   <a href="#" onclick="add_input('whitelist-domain', 'validate_domain_dumb')"><img src="plugins/webtools/webtools/spam/img/list-add.png"></a>
 			</div>
 		 </div>
 		 <div style="height:15px"></div>
 	  </div>
 	  <input type="hidden" name='page' value='Submit'>
-	  <button class="ui-button ui-widget ui-state-default ui-corner-all" style="margin:10px;">Submit</button>
+	  <button class="roundbox ui-button ui-widget ui-state-default ui-corner-all" style="margin:10px;">Submit</button>
    </form>
 </div>
 <?php
@@ -282,8 +282,8 @@ if ($_POST['page'] == "Submit")
 ?>
 <div id="webtools-instructions" class="webtools-accordion">
    <div>
-	  <h3><a id="instr-header" href="#">Help</a></h3>
-	  <div id="instr-content">
+	  <h3 class="roundbox helpbox"><a id="instr-header" href="#">Help</a></h3>
+	  <div id="instr-content" class="helptext">
 		 <?=$rcmail->config->get('spam_help')?>
 	  </div>
    </div>
