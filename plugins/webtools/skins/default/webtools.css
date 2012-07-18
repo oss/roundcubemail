@@ -71,8 +71,8 @@ p
     /* IE hack */
     height: expression((parseInt(document.documentElement.clientHeight)-190)+'px');
     width: expression((parseInt(document.documentElement.clientWidth)-120)+'px');
-    /*-moz-border-radius: 10px;
-    -webkit-border-radius: 10px;*/
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
     padding: 20px;
     font-size: medium;
 }
@@ -92,6 +92,8 @@ p
     margin-left: 8%; 
     margin-right: 8%; 
     min-width: 500px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
 }
 
 #webtools-innerbox button
