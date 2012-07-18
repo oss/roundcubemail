@@ -202,7 +202,7 @@ function vacation_post_handler() {
         if (!$disable) {
             $response['new_content'] = 'You currently have vacation auto-response enabled. <a href="#" onclick="vacation_post(true); return false;">Disable vacation</a><br /><br />';
         }
-        $response['message'] = '<div id="webtools-response" class="ui-state-highlight ui-corner-all">Thank you '.$USERNAME.',<br /><br />'.$msg;
+        $response['message'] = '<div id="webtools-response" class="successful roundbox ui-state-highlight ui-corner-all">Thank you '.$USERNAME.',<br /><br />'.$msg;
         $response['new_vacmsg'] = 'You have the option to keep the message you already have (provided below) or edit it:';   
     }
     else {

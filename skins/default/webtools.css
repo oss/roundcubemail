@@ -155,3 +155,10 @@ p
 	-webkit-border-bottom-left-radius: 4px;
 	-webkit-border-bottom-right-radius: 4px;
 }
+
+.successful
+{
+	border: 1px solid #C2D071;
+	background: #F7FDCB;
+	color: #212121;
+}
