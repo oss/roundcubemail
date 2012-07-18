@@ -66,10 +66,10 @@ if (have_file (".mailfilter", $result))
 <div style="border:0px solid black;margin-bottom:5px">
 <div id="delete-confirm" style="display:none" title="Are you sure?">Are you sure you wish to delete this filter?</div>
    <div style="margin:15px"><h3>Filter List</h3></div>
-   <div class="tablestyle" id="filterlist">
+   <div class="roundbox tablestyle" id="filterlist">
    Add a filter: <input type='text' class="ui-button ui-widget ui-corner-all" name='new-filter' id='new-filter' size=15 maxlength=128 style='margin-bottom:8px'>
-   <input type='button' onclick="new_filter()" value='Add' class="ui-button ui-widget ui-state-default ui-corner-all">
-   <div class='rowstyle2' style='height:32px;padding-top:15px;' id="uniq-filter">
+   <input type='button' onclick="new_filter()" value='Add' class="roundbox ui-button ui-widget ui-state-default ui-corner-all">
+   <div class='roundbox rowstyle2' style='height:32px;padding-top:15px;' id="uniq-filter">
       <span style='float:left'><input type='checkbox' name='enabled-uniq' onclick="enable_filter('uniq-filter')" <?php if ($parsed[0]['UNIQMAIL'] == "true") { echo "checked"; } ?>>Delete Non-Unique Mail</span>
    </div>
    <?php
@@ -172,8 +172,8 @@ $current_dest_style = 0;
 </div>
 <div id="webtools-instructions" class="webtools-accordion">
    <div>
-      <h3><a id="instr-header" href="#">Help</a></h3>
-      <div id="instr-content">
+      <h3 class="roundbox helpbox"><a id="instr-header" href="#">Help</a></h3>
+      <div id="instr-content" class="helptext">
           <?=$rcmail->config->get('filtering_help')?>
       </div>
    </div>
