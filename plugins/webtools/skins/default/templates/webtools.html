@@ -5,6 +5,7 @@
 <roundcube:include file="/includes/links.html" />
 <link rel="stylesheet" type="text/css" href="/this/webtools.css" />
 <link rel="stylesheet" type="text/css" href="/settings.css" />
+<link rel="stylesheet" type="text/css" href="styles.css" />
 <script type="text/javascript">
 function webtools_init_settings_tabs()
 {
@@ -13,9 +14,10 @@ function webtools_init_settings_tabs()
 	var action = rcmail.env.action.replace(/^plugin\.webtools/, '');
 	tab = '#webtoolstab' + (action ? action : 'default');
     }
-    //not using this for now
+    //not using these for now
 	//$(tab).removeClass('ui-state-inactivetab');
-    $(tab).addClass('ui-state-activetab');
+    //$(tab).addClass('ui-state-activetab');
+	$(tab).addClass('selected');
 }	       
 </script>
 </head>
