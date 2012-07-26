@@ -4390,9 +4390,10 @@ function rcube_webmail()
       return;
 
     if (!this.name_input) {
-      this.name_input = $('<input>').attr('type', 'text').data('tt', type);
+      this.name_input = $('<input>').attr('type', 'text').attr('style', 'margin-left:5px;').data('tt', type);
+      this.cancel_button = $('<a>').attr('class', 'canceladd').attr('onclick', 'rcmail.reset_add_input()').attr('href', '#');
       this.name_input.bind('keydown', function(e){ return rcmail.add_input_keydown(e); });
-      this.name_input_li = $('<li>').addClass(type).append(this.name_input);
+      this.name_input_li = $('<li>').addClass(type).append(this.cancel_button,this.name_input);
 
       var li = type == 'contactsearch' ? $('li:last', this.gui_objects.folderlist) : this.get_folder_li(this.env.source);
       this.name_input_li.insertAfter(li);
@@ -6288,6 +6289,7 @@ function rcube_webmail()
         contentType: formdata ? false : 'multipart/form-data; boundary=' + boundary,
         processData: false,
         data: formdata || multipart,
+        headers: {'X-Roundcube-Request': ref.env.request_token},
         beforeSend: function(xhr, s) { if (!formdata && xhr.sendAsBinary) xhr.send = xhr.sendAsBinary; },
         success: function(data){ ref.http_response(data); },
         error: function(o, status, err) { ref.http_error(o, status, err, null, 'attachment'); }
