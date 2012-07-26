@@ -73,6 +73,7 @@ function forward_post_handler ()
          }
          $id = str_replace (array('@', '.'), '', $_POST['value']);
          $rcmail->output->command('plugin.forward-post-callback', array('func' => 'add', 'value' => $_POST['value'], 'id'=>$id));
+		 remove_old_files();
       break;
       case 'chtype':
          if ((have_file ("Maildir/mailfilter-forward", $result)))
