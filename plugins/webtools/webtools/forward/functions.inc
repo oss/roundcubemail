@@ -64,4 +64,20 @@ function make_forward_file ($data, $old)
    return $output;
 }
 
+function remove_old_files() {
+	$rcmail = rcmail::get_instance();
+	$userinfo = get_userinfo();
+	$USERNAME = $userinfo['username'];
+	$RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
+	$RM = $rcmail->config->get('RM');
+	$files = array('.forward','.qmail');
+	foreach($files as $value) {
+		$user_cmd = "$RM $value";
+		console($user_cmd);
+		$exec_target = "$RUNAS_CMD $USERNAME $user_cmd";
+		unset($result_arr);
+		exec($exec_target, $result_arr, $status);
+	}
+}
+
 ?>
