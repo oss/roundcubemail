@@ -112,7 +112,8 @@ function vacation_post_handler() {
     }
     elseif ($success && $disable) {
         // No forward rules, so just remove the file
-        $user_cmd = "find $HOME -maxdepth 2 -path $HOME/Maildir/mailfilter-forward -exec rm -f '{}' \;";
+        //$user_cmd = "find $HOME -maxdepth 2 -path $HOME/Maildir/mailfilter-forward -exec rm -f '{}' \;";
+		$user_cmd = "find $HOME/Maildir -name mailfilter-forward -exec rm -f '{}' \;";
         $exec_target = "$RUNAS_CMD $USERNAME $user_cmd";
         exec($exec_target, $result, $status);
         if ($status != 0) {
@@ -138,10 +139,12 @@ function vacation_post_handler() {
     // Move (or remove if disabling) the old-format vacation file if it exists
     if ($success && $newVacationFileExist) {
         if (!$disable) {
-            $user_cmd = "find $HOME -maxdepth 2 -path $HOME/Maildir/mailfilter-forward -exec mv '{}' $HOME/Maildir/mailfilter-forward-old \;";
+            //$user_cmd = "find $HOME -maxdepth 2 -path $HOME/Maildir/mailfilter-forward -exec mv '{}' $HOME/Maildir/mailfilter-forward-old \;";
+			$user_cmd = "find $HOME/Maildir -name mailfilter-forward -exec mv '{}' $HOME/Maildir/mailfilter-forward-old \;";
         }
         else {
-            $user_cmd = "find $HOME -maxdepth 2 -path $HOME/Maildir/mailfilter-forward -exec rm -f '{}' \;";
+            //$user_cmd = "find $HOME -maxdepth 2 -path $HOME/Maildir/mailfilter-forward -exec rm -f '{}' \;";
+			$user_cmd = "find $HOME/Maildir -name mailfilter-forward -exec rm -f '{}' \;";
         }
         $exec_target = "$RUNAS_CMD $USERNAME $user_cmd";
         exec($exec_target, $result, $status);
