@@ -57,8 +57,10 @@ function hushquota_post_handler() {
 
         if (have_file("Maildir/RU-HUSH-QUOTA",$result)) {
             $found = true;
-            $file = "Maildir/RU-HUSH-QUOTA";
-            $user_cmd = "find $HOME -maxdepth 2 -path $HOME/$file -exec rm -f '{}' \;";
+            //$file = "Maildir/RU-HUSH-QUOTA";
+            //$user_cmd = "find $HOME -maxdepth 2 -path $HOME/$file -exec rm -f '{}' \;";
+			$file = "RU-HUSH-QUOTA";
+			$user_cmd = "find $HOME/Maildir -name $file -exec rm -f '{}' \;";
             $exec_target = "$RUNAS_CMD $USERNAME $user_cmd";
             exec($exec_target, $result, $status);
             if ($status == 0) {
