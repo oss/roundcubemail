@@ -33,7 +33,7 @@ class jqueryui extends rcube_plugin
             $this->include_stylesheet("themes/$ui_theme/jquery-ui-$version.custom.css");
         }
         else {
-            $this->include_stylesheet("themes/larry/jquery-ui-$version.custom.css");
+            $this->include_stylesheet("themes/classic/jquery-ui-$version.custom.css");
         }
 
         if ($ui_theme == 'larry') {
