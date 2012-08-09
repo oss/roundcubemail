@@ -123,6 +123,9 @@ $config['default_port'] = 143;
 // best server supported one)
 $config['imap_auth_type'] = null;
 
+//imap's namespace prefix. This will NOT be detected automatically
+$rcmail_config['imap_prefix'] = 'Inbox';
+
 // If you know your imap's folder delimiter, you can specify it here.
 // Otherwise it will be determined automatically
 $config['imap_delimiter'] = null;
