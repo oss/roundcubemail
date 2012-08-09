@@ -125,9 +125,10 @@ function restore_post_handler() {
 		console("folder= $subsfolder");
 		$imap->subscribe(array($subsfolder));
                 #$msg = 'Your mail folder "'.$folder.'" has now been restored. Use your favorite mail program to 
-                #        look for the new folder named "RESTORE", or just click on the Rutgers logo above to view it in webmail. To subscribe to the newly created folder. please <a href="?_task=settings&_action=folders"> subscribe to the folder </a> to see it in your default email view.';
-				$msg = 'Your mail folder "'.$folder.'" was restored as a subfolder under "RESTORE".
-				Not all mail programs automatically show all new folders. In most cases, you must now subscribe to this folder in your favorite mail program.  You may also <a href="?_task=settings&_action=folders"> subscribe to it in webmail. <a>';
+                 #       look for the new folder named "RESTORE", or just click on the Rutgers logo above to view it in webmail. To subscribe to the newly created folder. please <a href="?_task=settings&_action=folders"> subscribe to the folder </a> to see it in your default email view.';
+				#$msg = 'Your mail folder "'.$folder.'" was restored as a subfolder under "RESTORE".
+				#Not all mail programs automatically show all new folders. In most cases, you must now subscribe to this folder in your favorite mail program.  You may also <a href="?_task=settings&_action=folders"> subscribe to it in webmail. <a>';
+				$msg = 'Your mail folder "'.$folder.'" has now been restored.';
             } 
             else {
                 $success = FALSE;
