@@ -82,6 +82,7 @@ function restore_post_handler() {
     else {
 
         $RESTORE = $rcmail->config->get('RESTORE');
+		$PREFIX = $rcmail->config->get('imap_prefix');
 
         $folder = getvar('folder');
         $success = TRUE;
@@ -120,7 +121,8 @@ function restore_post_handler() {
 			unset($res_arr);
 			exec($exec_cmd, $res_arr, $status);
 		}
-		$subsfolder="RESTORE".$newfolder;
+		$subsfolder="$PREFIX.RESTORE$newfolder";
+		console("folder= $subsfolder");
 		$imap->subscribe(array($subsfolder));
                 #$msg = 'Your mail folder "'.$folder.'" has now been restored. Use your favorite mail program to 
                 #        look for the new folder named "RESTORE", or just click on the Rutgers logo above to view it in webmail. To subscribe to the newly created folder. please <a href="?_task=settings&_action=folders"> subscribe to the folder </a> to see it in your default email view.';
