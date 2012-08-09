@@ -116,19 +116,19 @@ function restore_post_handler() {
 		#$rcmail->imap_init(true);  deprecated method
 		$rcmail->imap_connect(); //updated
 		$imap = $rcmail->imap;
-		if(strcmp($folder, 'INBOX') == 0) {
-			$exec_cmd = "$RUNAS_CMD $USERNAME $MV_CMD Maildir/.RESTOREMaildir Maildir/.RESTORE.Inbox";
+		if(strcmp($folder, $PREFIX) == 0) {
+			$newname = ucfirst(strtolower($PREFIX));
+			$exec_cmd = "$RUNAS_CMD $USERNAME $MV_CMD Maildir/.RESTOREMaildir Maildir/.RESTORE.$newname";
 			unset($res_arr);
 			exec($exec_cmd, $res_arr, $status);
 		}
 		$subsfolder="$PREFIX.RESTORE$newfolder";
-		console("folder= $subsfolder");
 		$imap->subscribe(array($subsfolder));
                 #$msg = 'Your mail folder "'.$folder.'" has now been restored. Use your favorite mail program to 
                  #       look for the new folder named "RESTORE", or just click on the Rutgers logo above to view it in webmail. To subscribe to the newly created folder. please <a href="?_task=settings&_action=folders"> subscribe to the folder </a> to see it in your default email view.';
 				#$msg = 'Your mail folder "'.$folder.'" was restored as a subfolder under "RESTORE".
 				#Not all mail programs automatically show all new folders. In most cases, you must now subscribe to this folder in your favorite mail program.  You may also <a href="?_task=settings&_action=folders"> subscribe to it in webmail. <a>';
-				$msg = 'Your mail folder "'.$folder.'" has now been restored.';
+				$msg = 'Your mail folder "'.$folder.'" has now been restored. You may choose this folder under "RESTORE" via your <a href="?_task=mail&_mbox=INBOX">Inbox</a> or using your favorite mail program.';
             } 
             else {
                 $success = FALSE;
