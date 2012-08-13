@@ -155,11 +155,11 @@ function add_response(response) // ajax response to add action
       "<span id=\"filter_name\" ondblclick=\"rename_filter('"+response.path+"')\">" + response.name + "</span>" +
       "</span><span style='float:right'>" +
       "<a href=\"#\" onclick=\"rename_filter('" + response.path + "')\"> " +
-      "<img src='plugins/webtools/webtools/filter/img/rename.png' /> </a>" +
+      "<img src='plugins/webtools/webtools/filter/img/rename.png' title=\"Rename\" alt=\"Rename\"></a>" +
       "<a href=\"#\" onclick=\"edit_filter('" + response.name + "','"+ response.path +"', 'edit')\">" +
-      "<img src='plugins/webtools/webtools/filter/img/edit-icon.png'></a>" +
+      "<img src='plugins/webtools/webtools/filter/img/edit-icon.png' title=\"Advanced\" alt=\"Advanced\"></a>" +
       "<a href=\"#\" onclick=\"delete_filter('" + response.path + "')\">" +
-      "<img src='plugins/webtools/webtools/filter/img/delete-icon.png'></a>" +
+      "<img src='plugins/webtools/webtools/filter/img/delete-icon.png' title=\"Delete\" alt=\"Delete\"></a>" +
       "</span></div>";
       var referencenode = document.getElementById ('filterlist');
       referencenode.appendChild (newfilter);
