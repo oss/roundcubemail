@@ -83,12 +83,12 @@ if (have_file (".mailfilter", $result))
          echo (" id='enabled-".$filter['path']."' onclick=\"enable_filter('".str_replace('.','',$filter['path'])."')\">");
          echo ("<span id=\"filter_name\" ondblclick=\"rename_filter('".$filter['path']."')\">" . $filter['name']);
          echo ("</span></span><span style='float:right'>");
-         echo ("<a href=\"#\" onclick=\"rename_filter('".$filter['path']."')\"> ".
-               "<img src='plugins/webtools/webtools/filter/img/rename.png' /> </a>");
-         echo ("<a href=\"#\" onclick=\"edit_filter('".$filter['name']."','".$filter['path']."', 'edit')\">" .
-               "<img src='plugins/webtools/webtools/filter/img/edit-icon.png'></a>" .
+         echo ("<a href=\"#\" onclick=\"rename_filter('".$filter['path']."')\">" .
+               "<img src='plugins/webtools/webtools/filter/img/rename.png' title=\"Rename\" alt=\"Rename\"></a>" .
+               "<a href=\"#\" onclick=\"edit_filter('".$filter['name']."','".$filter['path']."', 'edit')\">" .
+               "<img src='plugins/webtools/webtools/filter/img/edit-icon.png' title=\"Advanced\" alt=\"Advanced\"></a>" .
                "<a href=\"#\" onclick=\"delete_filter('".$filter['path']."')\">" .
-               "<img src='plugins/webtools/webtools/filter/img/delete-icon.png'></a>");
+               "<img src='plugins/webtools/webtools/filter/img/delete-icon.png' title=\"Delete\" alt=\"Delete\"></a>");
          echo ("</span></div>");
          if ($table_style == 0) $table_style = 1;
          else $table_style = 0; // switching to the other table row color thing
