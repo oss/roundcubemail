@@ -49,7 +49,7 @@ function init ()
    if (empty($user_dsn))
       die ('login_geoip: user table option must be set');
    // open the user db
-   $this->userdb = new rcube_mdb2 ($user_dsn);
+   $this->userdb = new rcube_db ($user_dsn);
    $this->userdb->db_connect('w');
    $this->lookedup = FALSE;
 }
@@ -249,7 +249,7 @@ function exemp_lookup ()
    {
       $identity = $this->rc->user->get_identity();
       $identity = $identity['email'];
-      $exempdb = new rcube_mdb2($exempdsn);
+      $exempdb = new rcube_db($exempdsn);
       $exempdb->db_connect('w');
       $result = $exempdb->query("select loc from geoip_exemption where (start < NOW()) AND (end > NOW()) AND (netid = '".$this->user."') AND (identity = '$identity')");
       if ($result == 1)
@@ -269,7 +269,7 @@ function aug_lookup ($ip)
    $augdsn = $this->rc->config->get('aug_table');
    if (!empty($augdsn))
    {
-      $augdb = new rcube_mdb2($augdsn);
+      $augdb = new rcube_db($augdsn);
       $augdb->db_connect ('w');
       $result = $augdb->query("select * from geoip_cidr_real where INET_ATON('$ip') between net and (net + POW(2,32-mask)-1) order by net desc limit 1;");
       if ($result == 1)
@@ -330,7 +330,7 @@ function login_after ()
    $admindsn = $this->rc->config->get('admin_table');
    if (!empty($admindsn))
    {
-      $admindb = new rcube_mdb2 ($admindsn);
+      $admindb = new rcube_db ($admindsn);
       $admindb->db_connect('w');
       $admindb->query("INSERT INTO geoip_admin_real (ip, host, username, loc, flag, description, time, exemption) VALUES" .
                       "(INET_ATON('$this->ip'), '$this->host', '$this->user', '$this->loc', '$this->flag', '$this->desc', NOW(), $this->exemption)"); // todo: or email error
