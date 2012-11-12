@@ -2180,7 +2180,7 @@ class rcube_imap_generic
                             $result[$id]->encoding = $string;
                         break;
                         case 'content-type':
-                            $ctype_parts = preg_split('/[; ]/', $string);
+                            $ctype_parts = preg_split('/[; ]+/', $string);
                             $result[$id]->ctype = strtolower(array_shift($ctype_parts));
                             if (preg_match('/charset\s*=\s*"?([a-z0-9\-\.\_]+)"?/i', $string, $regs)) {
                                 $result[$id]->charset = $regs[1];
@@ -2379,7 +2379,7 @@ class rcube_imap_generic
         return $this->handlePartBody($mailbox, $id, $is_uid, $part);
     }
 
-    function handlePartBody($mailbox, $id, $is_uid=false, $part='', $encoding=NULL, $print=NULL, $file=NULL, $formatted=true)
+    function handlePartBody($mailbox, $id, $is_uid=false, $part='', $encoding=NULL, $print=NULL, $file=NULL, $formatted=false)
     {
         if (!$this->select($mailbox)) {
             return false;
@@ -2402,15 +2402,23 @@ class rcube_imap_generic
             $mode = 0;
         }
 
+        // Use BINARY extension when possible (and safe)
+        $binary     = $mode && preg_match('/^[0-9.]+$/', $part) && $this->hasCapability('BINARY');
+        $fetch_mode = $binary ? 'BINARY' : 'BODY';
+
         // format request
-        $reply_key = '* ' . $id;
         $key       = $this->nextTag();
-        $request   = $key . ($is_uid ? ' UID' : '') . " FETCH $id (BODY.PEEK[$part])";
+        $request   = $key . ($is_uid ? ' UID' : '') . " FETCH $id ($fetch_mode.PEEK[$part])";
 
         // send request
         if (!$this->putLine($request)) {
             $this->setError(self::ERROR_COMMAND, "Unable to send command: $request");
             return false;
+        }
+
+        if ($binary) {
+            // WARNING: Use $formatting argument with care, this may break binary data stream
+            $mode = -1;
         }
 
         // receive reply line
@@ -2457,13 +2465,13 @@ class rcube_imap_generic
             $prev     = '';
 
             while ($bytes > 0) {
-                $line = $this->readLine(4096);
+                $line = $this->readLine(8192);
 
                 if ($line === NULL) {
                     break;
                 }
 
-                $len  = strlen($line);
+                $len = strlen($line);
 
                 if ($len > $bytes) {
                     $line = substr($line, 0, $bytes);
@@ -2533,10 +2541,12 @@ class rcube_imap_generic
      *
      * @param string $mailbox Mailbox name
      * @param string $message Message content
+     * @param array  $flags   Message flags
+     * @param string $date    Message internal date
      *
      * @return string|bool On success APPENDUID response (if available) or True, False on failure
      */
-    function append($mailbox, &$message)
+    function append($mailbox, &$message, $flags = array(), $date = null)
     {
         unset($this->data['APPENDUID']);
 
@@ -2552,12 +2562,17 @@ class rcube_imap_generic
             return false;
         }
 
+        // build APPEND command
         $key = $this->nextTag();
-        $request = sprintf("$key APPEND %s (\\Seen) {%d%s}", $this->escape($mailbox),
-            $len, ($this->prefs['literal+'] ? '+' : ''));
+        $request = "$key APPEND " . $this->escape($mailbox) . ' (' . $this->flagsToStr($flags) . ')';
+        if (!empty($date)) {
+            $request .= ' ' . $this->escape($date);
+        }
+        $request .= ' {' . $len . ($this->prefs['literal+'] ? '+' : '') . '}';
 
+        // send APPEND command
         if ($this->putLine($request)) {
-            // Don't wait when LITERAL+ is supported
+            // Do not wait when LITERAL+ is supported
             if (!$this->prefs['literal+']) {
                 $line = $this->readReply();
 
@@ -2598,10 +2613,12 @@ class rcube_imap_generic
      * @param string $mailbox Mailbox name
      * @param string $path    Path to the file with message body
      * @param string $headers Message headers
+     * @param array  $flags   Message flags
+     * @param string $date    Message internal date
      *
      * @return string|bool On success APPENDUID response (if available) or True, False on failure
      */
-    function appendFromFile($mailbox, $path, $headers=null)
+    function appendFromFile($mailbox, $path, $headers=null, $flags = array(), $date = null)
     {
         unset($this->data['APPENDUID']);
 
@@ -2632,11 +2649,15 @@ class rcube_imap_generic
             $len += strlen($headers) + strlen($body_separator);
         }
 
-        // send APPEND command
+        // build APPEND command
         $key = $this->nextTag();
-        $request = sprintf("$key APPEND %s (\\Seen) {%d%s}", $this->escape($mailbox),
-            $len, ($this->prefs['literal+'] ? '+' : ''));
+        $request = "$key APPEND " . $this->escape($mailbox) . ' (' . $this->flagsToStr($flags) . ')';
+        if (!empty($date)) {
+            $request .= ' ' . $this->escape($date);
+        }
+        $request .= ' {' . $len . ($this->prefs['literal+'] ? '+' : '') . '}';
 
+        // send APPEND command
         if ($this->putLine($request)) {
             // Don't wait when LITERAL+ is supported
             if (!$this->prefs['literal+']) {
@@ -3510,6 +3531,10 @@ class rcube_imap_generic
      */
     static function uncompressMessageSet($messages)
     {
+        if (empty($messages)) {
+            return array();
+        }
+
         $result   = array();
         $messages = explode(',', $messages);
 
@@ -3518,7 +3543,7 @@ class rcube_imap_generic
             $max   = max($items[0], $items[1]);
 
             for ($x=$items[0]; $x<=$max; $x++) {
-                $result[] = $x;
+                $result[] = (int)$x;
             }
             unset($messages[$idx]);
         }
@@ -3536,6 +3561,24 @@ class rcube_imap_generic
         }
 
         return $result;
+    }
+
+    /**
+     * Converts flags array into string for inclusion in IMAP command
+     *
+     * @param array $flags Flags (see self::flags)
+     *
+     * @return string Space-separated list of flags
+     */
+    private function flagsToStr($flags)
+    {
+        foreach ((array)$flags as $idx => $flag) {
+            if ($flag = $this->flags[strtoupper($flag)]) {
+                $flags[$idx] = $flag;
+            }
+        }
+
+        return implode(' ', (array)$flags);
     }
 
     /**
@@ -3613,18 +3656,6 @@ class rcube_imap_generic
 
         // literal-string
         return sprintf("{%d}\r\n%s", strlen($string), $string);
-    }
-
-    /**
-     * Unescapes quoted-string
-     *
-     * @param string  $string       IMAP string
-     *
-     * @return string String
-     */
-    static function unEscape($string)
-    {
-        return stripslashes($string);
     }
 
     /**

@@ -185,6 +185,9 @@ $rcmail_config['smtp_timeout'] = 0;
 // ONLY ENABLE IT IF YOU'RE REALLY SURE WHAT YOU'RE DOING!
 $rcmail_config['enable_installer'] = false;
 
+// don't allow these settings to be overriden by the user
+$rcmail_config['dont_override'] = array();
+
 // provide an URL where a user can get support for this Roundcube installation
 // PLEASE DO NOT LINK TO THE ROUNDCUBE.NET WEBSITE HERE!
 $rcmail_config['support_url'] = '';
@@ -229,10 +232,10 @@ $rcmail_config['login_autocomplete'] = 0;
 
 // Forces conversion of logins to lower case.
 // 0 - disabled, 1 - only domain part, 2 - domain and local part.
-// If users authentication is not case-sensitive this must be enabled.
-// After enabling it all user records need to be updated, e.g. with query:
-// UPDATE users SET username = LOWER(username);
-$rcmail_config['login_lc'] = 0;
+// If users authentication is case-insensitive this must be enabled.
+// Note: After enabling it all user records need to be updated, e.g. with query:
+//       UPDATE users SET username = LOWER(username);
+$rcmail_config['login_lc'] = 2;
 
 // Includes should be interpreted as PHP files
 $rcmail_config['skin_include_php'] = false;
@@ -352,9 +355,6 @@ $rcmail_config['line_length'] = 72;
 // send plaintext messages as format=flowed
 $rcmail_config['send_format_flowed'] = true;
 
-// don't allow these settings to be overriden by the user
-$rcmail_config['dont_override'] = array();
-
 // Set identities access level:
 // 0 - many identities with possibility to edit all params
 // 1 - many identities with possibility to edit all params but not email address
@@ -376,11 +376,20 @@ $rcmail_config['im_identify_path'] = null;
 // path to imagemagick convert binary
 $rcmail_config['im_convert_path'] = null;
 
+// Size of thumbnails from image attachments displayed below the message content.
+// Note: whether images are displayed at all depends on the 'inline_images' option.
+// Set to 0 to display images in full size.
+$rcmail_config['image_thumbnail_size'] = 240;
+
 // maximum size of uploaded contact photos in pixel
 $rcmail_config['contact_photo_size'] = 160;
 
 // Enable DNS checking for e-mail address validation
 $rcmail_config['email_dns_check'] = false;
+
+// Disables saving sent messages in Sent folder (like gmail) (Default: false)
+// Note: useful when SMTP server stores sent mail in user mailbox
+$rcmail_config['no_save_sent_messages'] = false;
 
 // ----------------------------------
 // PLUGINS
@@ -517,10 +526,12 @@ $rcmail_config['undo_timeout'] = 0;
 // ----------------------------------
 
 // This indicates which type of address book to use. Possible choises:
-// 'sql' (default) and 'ldap'.
+// 'sql' (default), 'ldap' and ''.
 // If set to 'ldap' then it will look at using the first writable LDAP
 // address book as the primary address book and it will not display the
 // SQL address book in the 'Address Book' view.
+// If set to '' then no address book will be displayed or only the
+// addressbook which is created by a plugin (like CardDAV).
 $rcmail_config['address_book_type'] = 'sql';
 
 // In order to enable public ldap search, configure an array like the Verisign
@@ -633,6 +644,11 @@ $rcmail_config['ldap_public']['Verisign'] = array(
   ),
   // Map of contact sub-objects (attribute name => objectClass(es)), e.g. 'c' => 'country'
   'sub_fields' => array(),
+  // Generate values for the following LDAP attributes automatically when creating a new record
+  'autovalues' => array(
+  // 'uid'  => 'md5(microtime())',               // You may specify PHP code snippets which are then eval'ed 
+  // 'mail' => '{givenname}.{sn}@mydomain.com',  // or composite strings with placeholders for existing attributes
+  ),
   'sort'          => 'cn',    // The field to sort the listing by.
   'scope'         => 'sub',   // search mode: sub|base|list
   'filter'        => '(objectClass=inetOrgPerson)',      // used for basic listing (if not empty) and will be &'d with search queries. example: status=act
@@ -726,6 +742,12 @@ $rcmail_config['prefer_html'] = true;
 // 1 - Ask if sender is not in address book
 // 2 - Always show inline images
 $rcmail_config['show_images'] = 0;
+
+// open messages in new window
+$rcmail_config['message_extwin'] = false;
+
+// open message compose form in new window
+$rcmail_config['compose_extwin'] = false;
 
 // compose html formatted messages by default
 // 0 - never, 1 - always, 2 - on reply to HTML message, 3 - on forward or reply to HTML message
