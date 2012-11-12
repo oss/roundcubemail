@@ -203,8 +203,9 @@ $labels['emlsave'] = 'Download (.eml)';
 
 // message compose
 $labels['editasnew']      = 'Edit as new';
-$labels['savemessage']    = 'Save as draft';
+$labels['send']           = 'Send';
 $labels['sendmessage']    = 'Send message';
+$labels['savemessage']    = 'Save as draft';
 $labels['addattachment']  = 'Attach a file';
 $labels['charset']        = 'Charset';
 $labels['editortype']     = 'Editor type';
@@ -236,6 +237,9 @@ $labels['nosubject']  = '(no subject)';
 $labels['showimages'] = 'Display images';
 $labels['alwaysshow'] = 'Always show images from $sender';
 $labels['isdraft']    = 'This is a draft message.';
+$labels['andnmore']   = '$nr more...';
+$labels['togglemoreheaders'] = 'Show more message headers';
+$labels['togglefullheaders'] = 'Toggle raw message headers';
 
 $labels['htmltoggle'] = 'HTML';
 $labels['plaintoggle'] = 'Plain text';
@@ -380,6 +384,8 @@ $labels['timezone']  = 'Time zone';
 $labels['pagesize']  = 'Rows per page';
 $labels['signature'] = 'Signature';
 $labels['dstactive']  = 'Daylight saving time';
+$labels['showinextwin'] = 'Open message in a new window';
+$labels['composeextwin'] = 'Compose in a new window';
 $labels['htmleditor'] = 'Compose HTML messages';
 $labels['htmlonreply'] = 'on reply to HTML message';
 $labels['htmlonreplyandforward'] = 'on forward or reply to HTML message';

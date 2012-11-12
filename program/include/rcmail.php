@@ -258,8 +258,8 @@ class rcmail extends rcube
     $autocomplete = (array) $this->config->get('autocomplete_addressbooks');
     $list = array();
 
-    // We are using the DB address book
-    if ($abook_type != 'ldap') {
+    // We are using the DB address book or a plugin address book
+    if ($abook_type != 'ldap' && $abook_type != '') {
       if (!isset($this->address_books['0']))
         $this->address_books['0'] = new rcube_contacts($this->db, $this->get_user_id());
       $list['0'] = array(
@@ -281,7 +281,7 @@ class rcmail extends rcube
         }
         $list[$id] = array(
           'id'       => $id,
-          'name'     => $prop['name'],
+          'name'     => html::quote($prop['name']),
           'groups'   => is_array($prop['groups']),
           'readonly' => !$prop['writable'],
           'hidden'   => $prop['hidden'],
@@ -452,6 +452,10 @@ class rcmail extends rcube
         $username .= '@'.rcube_utils::parse_host($config['username_domain'], $host);
     }
 
+    if (!isset($config['login_lc'])) {
+      $config['login_lc'] = 2; // default
+    }
+
     // Convert username to lowercase. If storage backend
     // is case-insensitive we need to store always the same username (#1487113)
     if ($config['login_lc']) {
@@ -483,21 +487,7 @@ class rcmail extends rcube
     $storage = $this->get_storage();
 
     // try to log in
-    if (!($login = $storage->connect($host, $username, $pass, $port, $ssl))) {
-      // try with lowercase
-      $username_lc = mb_strtolower($username);
-      if ($username_lc != $username) {
-        // try to find user record again -> overwrite username
-        if (!$user && ($user = rcube_user::query($username_lc, $host)))
-          $username_lc = $user->data['username'];
-
-        if ($login = $storage->connect($host, $username_lc, $pass, $port, $ssl))
-          $username = $username_lc;
-      }
-    }
-
-    // exit if login failed
-    if (!$login) {
+    if (!$storage->connect($host, $username, $pass, $port, $ssl)) {
       return false;
     }
 
@@ -552,9 +542,7 @@ class rcmail extends rcube
       $_SESSION['login_time']   = time();
 
       if (isset($_REQUEST['_timezone']) && $_REQUEST['_timezone'] != '_default_')
-        $_SESSION['timezone'] = floatval($_REQUEST['_timezone']);
-      if (isset($_REQUEST['_dstactive']) && $_REQUEST['_dstactive'] != '_default_')
-        $_SESSION['dst_active'] = intval($_REQUEST['_dstactive']);
+        $_SESSION['timezone'] = rcube_utils::get_input_value('_timezone', rcube_utils::INPUT_GPC);
 
       // force reloading complete list of subscribed mailboxes
       $storage->clear_cache('mailboxes', true);
@@ -2112,16 +2100,14 @@ class rcmail extends rcube
 
             if (!$storage->connect($host, $user, $pass, $port, $ssl)) {
                 if (is_object($this->output)) {
-                    $error = $storage->get_error_code() == -1 ? 'storageerror' : 'sessionerror';
-                    $this->output->show_message($error, 'error');
+                    $this->output->show_message('storageerror', 'error');
                 }
             }
             else {
                 $this->set_storage_prop();
-                return $storage->is_connected();
             }
         }
 
-        return false;
+        return $storage->is_connected();
     }
 }

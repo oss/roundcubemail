@@ -109,24 +109,22 @@ class rcube_ldap extends rcube_addressbook
 
             if (!is_array($this->coltypes[$col])) {
                 $subtypes = $type ? array($type) : null;
-                $this->coltypes[$col] = array('limit' => $limit, 'subtypes' => $subtypes);
+                $this->coltypes[$col] = array('limit' => $limit, 'subtypes' => $subtypes, 'attributes' => array($lf));
             }
             elseif ($type) {
                 $this->coltypes[$col]['subtypes'][] = $type;
+                $this->coltypes[$col]['attributes'][] = $lf;
                 $this->coltypes[$col]['limit'] += $limit;
             }
 
             if ($delim)
                $this->coltypes[$col]['serialized'][$type] = $delim;
 
-            if ($type && !$this->fieldmap[$col])
-               $this->fieldmap[$col] = $lf;
-
-            $this->fieldmap[$colv] = $lf;
+           $this->fieldmap[$colv] = $lf;
         }
 
         // support for composite address
-        if ($this->fieldmap['street'] && $this->fieldmap['locality']) {
+        if ($this->coltypes['street'] && $this->coltypes['locality']) {
             $this->coltypes['address'] = array(
                'limit'    => max(1, $this->coltypes['locality']['limit'] + $this->coltypes['address']['limit']),
                'subtypes' => array_merge((array)$this->coltypes['address']['subtypes'], (array)$this->coltypes['locality']['subtypes']),
@@ -134,7 +132,7 @@ class rcube_ldap extends rcube_addressbook
                ) + (array)$this->coltypes['address'];
 
             foreach (array('street','locality','zipcode','region','country') as $childcol) {
-                if ($this->fieldmap[$childcol]) {
+                if ($this->coltypes[$childcol]) {
                     $this->coltypes['address']['childs'][$childcol] = array('type' => 'text');
                     unset($this->coltypes[$childcol]);  // remove address child col from global coltypes list
                 }
@@ -162,7 +160,7 @@ class rcube_ldap extends rcube_addressbook
         }
 
         // make sure LDAP_rdn field is required
-        if (!empty($this->prop['LDAP_rdn']) && !in_array($this->prop['LDAP_rdn'], $this->prop['required_fields'])) {
+        if (!empty($this->prop['LDAP_rdn']) && !in_array($this->prop['LDAP_rdn'], $this->prop['required_fields']) && !in_array($this->prop['LDAP_rdn'], array_keys($this->prop['autovalues']))) {
             $this->prop['required_fields'][] = $this->prop['LDAP_rdn'];
         }
 
@@ -468,8 +466,8 @@ class rcube_ldap extends rcube_addressbook
      */
     function set_sort_order($sort_col, $sort_order = null)
     {
-        if ($this->fieldmap[$sort_col])
-            $this->sort_col = $this->fieldmap[$sort_col];
+        if ($this->coltypes[$sort_col]['attributes'])
+            $this->sort_col = $this->coltypes[$sort_col]['attributes'][0];
     }
 
 
@@ -773,8 +771,9 @@ class rcube_ldap extends rcube_addressbook
 
         // use VLV pseudo-search for autocompletion
         $rcube = rcube::get_instance();
+        $list_fields = $rcube->config->get('contactlist_fields');
 
-        if ($this->prop['vlv_search'] && $this->conn && join(',', (array)$fields) == join(',', $rcube->config->get('contactlist_fields')))
+        if ($this->prop['vlv_search'] && $this->conn && join(',', (array)$fields) == join(',', $list_fields))
         {
             // add general filter to query
             if (!empty($this->prop['filter']) && empty($this->filter))
@@ -802,24 +801,26 @@ class rcube_ldap extends rcube_addressbook
 
             for ($i = 0; $i < $entries['count']; $i++) {
                 $rec = $this->_ldap2result($entries[$i]);
-                foreach (array('email', 'name') as $f) {
-                    $val = mb_strtolower($rec[$f]);
-                    switch ($mode) {
-                    case 1:
-                        $got = ($val == $search);
-                        break;
-                    case 2:
-                        $got = ($search == substr($val, 0, strlen($search)));
-                        break;
-                    default:
-                        $got = (strpos($val, $search) !== false);
-                        break;
-                    }
+                foreach ($fields as $f) {
+                    foreach ((array)$rec[$f] as $val) {
+                        $val = mb_strtolower($val);
+                        switch ($mode) {
+                        case 1:
+                            $got = ($val == $search);
+                            break;
+                        case 2:
+                            $got = ($search == substr($val, 0, strlen($search)));
+                            break;
+                        default:
+                            $got = (strpos($val, $search) !== false);
+                            break;
+                        }
 
-                    if ($got) {
-                        $this->result->add($rec);
-                        $this->result->count++;
-                        break;
+                        if ($got) {
+                            $this->result->add($rec);
+                            $this->result->count++;
+                            break 2;
+                        }
                     }
                 }
             }
@@ -858,8 +859,13 @@ class rcube_ldap extends rcube_addressbook
         {
             foreach ((array)$fields as $idx => $field) {
                 $val = is_array($value) ? $value[$idx] : $value;
-                if ($f = $this->_map_field($field)) {
-                    $filter .= "($f=$wp" . $this->_quote_string($val) . "$ws)";
+                if ($attrs = $this->_map_field($field)) {
+                    if (count($attrs) > 1)
+                        $filter .= '(|';
+                    foreach ($attrs as $f)
+                        $filter .= "($f=$wp" . $this->_quote_string($val) . "$ws)";
+                    if (count($attrs) > 1)
+                        $filter .= ')';
                 }
             }
         }
@@ -867,9 +873,16 @@ class rcube_ldap extends rcube_addressbook
 
         // add required (non empty) fields filter
         $req_filter = '';
-        foreach ((array)$required as $field)
-            if ($f = $this->_map_field($field))
-                $req_filter .= "($f=*)";
+        foreach ((array)$required as $field) {
+            if ($attrs = $this->_map_field($field)) {
+                if (count($attrs) > 1)
+                    $req_filter .= '(|';
+                foreach ($attrs as $f)
+                    $req_filter .= "($f=*)";
+                if (count($attrs) > 1)
+                    $req_filter .= ')';
+            }
+        }
 
         if (!empty($req_filter))
             $filter = '(&' . $req_filter . $filter . ')';
@@ -1072,6 +1085,9 @@ class rcube_ldap extends rcube_addressbook
         // Map out the column names to their LDAP ones to build the new entry.
         $newentry = $this->_map_data($save_cols);
         $newentry['objectClass'] = $this->prop['LDAP_Object_Classes'];
+
+        // add automatically generated attributes
+        $this->add_autovalues($newentry);
 
         // Verify that the required fields are set.
         $missing = null;
@@ -1376,6 +1392,30 @@ class rcube_ldap extends rcube_addressbook
         }
     }
 
+    /**
+     * Generate missing attributes as configured
+     *
+     * @param array LDAP record attributes
+     */
+    protected function add_autovalues(&$attrs)
+    {
+        $attrvals = array();
+        foreach ($attrs as $k => $v) {
+            $attrvals['{'.$k.'}'] = is_array($v) ? $v[0] : $v;
+        }
+
+        foreach ((array)$this->prop['autovalues'] as $lf => $templ) {
+            if (empty($attrs[$lf])) {
+                // replace {attr} placeholders with concrete attribute values
+                $templ = preg_replace('/\{\w+\}/', '', strtr($templ, $attrvals));
+
+                if (strpos($templ, '(') !== false)
+                    $attrs[$lf] = eval("return ($templ);");
+                else
+                    $attrs[$lf] = $templ;
+            }
+        }
+    }
 
     /**
      * Execute the LDAP search based on the stored credentials
@@ -1498,7 +1538,7 @@ class rcube_ldap extends rcube_addressbook
                 list($col, $subtype) = explode(':', $rf);
                 $out['_raw_attrib'][$lf][$i] = $value;
 
-                if ($rf == 'email' && $this->mail_domain && !strpos($value, '@'))
+                if ($col == 'email' && $this->mail_domain && !strpos($value, '@'))
                     $out[$rf][] = sprintf('%s@%s', $value, $this->mail_domain);
                 else if (in_array($col, array('street','zipcode','locality','country','region')))
                     $out['address'.($subtype?':':'').$subtype][$i][$col] = $value;
@@ -1521,11 +1561,11 @@ class rcube_ldap extends rcube_addressbook
 
 
     /**
-     * Return real field name (from fields map)
+     * Return LDAP attribute(s) for the given field
      */
     private function _map_field($field)
     {
-        return $this->fieldmap[$field];
+        return (array)$this->coltypes[$field]['attributes'];
     }
 
 
@@ -1558,8 +1598,19 @@ class rcube_ldap extends rcube_addressbook
         }
 
         $ldap_data = array();
-        foreach ($this->fieldmap as $col => $fld) {
-            $val = $save_cols[$col];
+        foreach ($this->fieldmap as $rf => $fld) {
+            $val = $save_cols[$rf];
+
+            // check for value in base field (eg.g email instead of email:foo)
+            list($col, $subtype) = explode(':', $rf);
+            if (!$val && !empty($save_cols[$col])) {
+                $val = $save_cols[$col];
+                unset($save_cols[$col]);  // only use this value once
+            }
+            else if (!$val && !$subtype) { // extract values from subtype cols
+                $val = $this->get_col_values($col, $save_cols, true);
+            }
+
             if (is_array($val))
                 $val = array_filter($val);  // remove empty entries
             if ($fld && $val) {

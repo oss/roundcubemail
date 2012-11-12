@@ -87,6 +87,7 @@ if (!$RCMAIL->action && !$OUTPUT->ajax_call) {
     $OUTPUT->set_env('search_mods', $search_mods);
     $OUTPUT->set_env('address_sources', $js_list);
     $OUTPUT->set_env('writable_source', $writeable);
+    $OUTPUT->set_env('compose_extwin', $RCMAIL->config->get('compose_extwin',false));
 
     $OUTPUT->set_pagetitle(rcube_label('addressbook'));
     $_SESSION['addressbooks_count'] = $count;
@@ -178,7 +179,7 @@ function rcmail_set_sourcename($abook)
         if (!$name && $source == 0) {
             $name = rcube_label('personaladrbook');
         }
-        $OUTPUT->set_env('sourcename', $name);
+        $OUTPUT->set_env('sourcename', html_entity_decode($name, ENT_COMPAT, 'UTF-8'));
     }
 }
 
@@ -219,12 +220,13 @@ function rcmail_directory_list($attrib)
         if ($source['class_name'])
             $class_name .= ' ' . $source['class_name'];
 
+        $name = !empty($source['name']) ? $source['name'] : $id;
         $out .= sprintf($line_templ,
             html_identifier($id),
             $class_name,
             Q(rcmail_url(null, array('_source' => $id))),
             $source['id'],
-            $js_id, (!empty($source['name']) ? Q($source['name']) : Q($id)));
+            $js_id, $name);
 
         $groupdata = array('out' => $out, 'jsdata' => $jsdata, 'source' => $id);
         if ($source['groups'])
@@ -365,12 +367,7 @@ function rcmail_contact_frame($attrib)
     if (!$attrib['id'])
         $attrib['id'] = 'rcmcontactframe';
 
-    $attrib['name'] = $attrib['id'];
-
-    $OUTPUT->set_env('contentframe', $attrib['name']);
-    $OUTPUT->set_env('blankpage', $attrib['src'] ? $OUTPUT->abs_url($attrib['src']) : 'program/resources/blank.gif');
-
-    return html::iframe($attrib);
+    return $OUTPUT->frame($attrib, true);
 }
 
 

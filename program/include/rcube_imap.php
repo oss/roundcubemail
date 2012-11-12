@@ -2074,7 +2074,7 @@ class rcube_imap extends rcube_storage
 
         if ($o_part && $o_part->size) {
             $body = $this->conn->handlePartBody($this->folder, $uid, true,
-                $part ? $part : 'TEXT', $o_part->encoding, $print, $fp);
+                $part ? $part : 'TEXT', $o_part->encoding, $print, $fp, $o_part->ctype_primary == 'text');
         }
 
         if ($fp || $print) {
@@ -2219,10 +2219,12 @@ class rcube_imap extends rcube_storage
      * @param string  $message The message source string or filename
      * @param string  $headers Headers string if $message contains only the body
      * @param boolean $is_file True if $message is a filename
+     * @param array   $flags   Message flags
+     * @param mixed   $date    Message internal date
      *
      * @return int|bool Appended message UID or True on success, False on error
      */
-    public function save_message($folder, &$message, $headers='', $is_file=false)
+    public function save_message($folder, &$message, $headers='', $is_file=false, $flags = array(), $date = null)
     {
         if (!strlen($folder)) {
             $folder = $this->folder;
@@ -2233,13 +2235,17 @@ class rcube_imap extends rcube_storage
         }
 
         // make sure folder exists
-        if ($this->folder_exists($folder)) {
-            if ($is_file) {
-                $saved = $this->conn->appendFromFile($folder, $message, $headers);
-            }
-            else {
-                $saved = $this->conn->append($folder, $message);
-            }
+        if (!$this->folder_exists($folder)) {
+            return false;
+        }
+
+        $date = $this->date_format($date);
+
+        if ($is_file) {
+            $saved = $this->conn->appendFromFile($folder, $message, $headers, $flags, $date);
+        }
+        else {
+            $saved = $this->conn->append($folder, $message, $flags, $date);
         }
 
         if ($saved) {
@@ -3297,11 +3303,8 @@ class rcube_imap extends rcube_storage
         }
 
         // Get folder rights (MYRIGHTS)
-        if ($acl && !$options['noselect']) {
-            // skip shared roots
-            if (!$options['is_root'] || $options['namespace'] == 'personal') {
-                $options['rights'] =  (array)$this->my_rights($folder);
-            }
+        if ($acl && ($rights = $this->my_rights($folder))) {
+            $options['rights'] = $rights;
         }
 
         // Set 'norename' flag
@@ -3985,6 +3988,29 @@ class rcube_imap extends rcube_storage
 
 
     /**
+     * Converts date string/object into IMAP date/time format
+     */
+    protected function date_format($date)
+    {
+        if (empty($date)) {
+            return null;
+        }
+
+        if (!is_object($date) || !is_a($date, 'DateTime')) {
+            try {
+                $timestamp = rcube_utils::strtotime($date);
+                $date      = new DateTime("@".$timestamp);
+            }
+            catch (Exception $e) {
+                return null;
+            }
+        }
+
+        return $date->format('d-M-Y H:i:s O');
+    }
+
+
+    /**
      * This is our own debug handler for the IMAP connection
      * @access public
      */
@@ -4091,6 +4117,11 @@ class rcube_imap extends rcube_storage
     function delete_mailbox($folder)
     {
         return $this->delete_folder($folder);
+    }
+
+    function clear_mailbox($folder = null)
+    {
+        return $this->clear_folder($folder);
     }
 
     public function mailbox_exists($folder, $subscription=false)

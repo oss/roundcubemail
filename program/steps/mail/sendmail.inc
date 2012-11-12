@@ -49,7 +49,7 @@ if (!$savedraft) {
 
   if(!empty($CONFIG['sendmail_delay'])) {
     $wait_sec = time() - intval($CONFIG['sendmail_delay']) - intval($CONFIG['last_message_time']);
-    if($wait_sec < 0) {
+    if ($wait_sec < 0) {
       $OUTPUT->show_message('senttooquickly', 'error', array('sec' => $wait_sec * -1));
       $OUTPUT->send('iframe');
     }
@@ -72,13 +72,19 @@ function rcmail_encrypt_header($what)
 // get identity record
 function rcmail_get_identity($id)
 {
-  global $RCMAIL, $OUTPUT;
+  global $RCMAIL, $message_charset;
+  global $RCMAIL;
 
   if ($sql_arr = $RCMAIL->user->get_identity($id)) {
     $out = $sql_arr;
+
+    if ($message_charset != RCMAIL_CHARSET) {
+      foreach ($out as $k => $v)
+        $out[$k] = rcube_charset_convert($v, RCMAIL_CHARSET, $message_charset);
+    }
+
     $out['mailto'] = $sql_arr['email'];
-    $out['string'] = format_email_recipient($sql_arr['email'],
-      rcube_charset_convert($sql_arr['name'], RCMAIL_CHARSET, $OUTPUT->get_charset()));
+    $out['string'] = format_email_recipient($sql_arr['email'], $sql_arr['name']);
 
     return $out;
   }
@@ -96,7 +102,7 @@ function rcmail_get_identity($id)
  */
 function rcmail_fix_emoticon_paths($mime_message)
 {
-  global $CONFIG;
+  global $RCMAIL;
 
   $body = $mime_message->getHTMLBody();
 
@@ -121,8 +127,9 @@ function rcmail_fix_emoticon_paths($mime_message)
 
         if (! in_array($image_name, $included_images)) {
           // add the image to the MIME message
-          if (! $mime_message->addHTMLImage($img_file, 'image/gif', '', true, $image_name))
-            $OUTPUT->show_message("emoticonerror", 'error');
+          if (!$mime_message->addHTMLImage($img_file, 'image/gif', '', true, $image_name)) {
+            $RCMAIL->output->show_message("emoticonerror", 'error');
+          }
           array_push($included_images, $image_name);
         }
 
@@ -256,8 +263,7 @@ if (strlen($_POST['_draft_saveid']) > 3)
 $message_id = rcmail_gen_message_id();
 
 // set default charset
-$input_charset = $OUTPUT->get_charset();
-$message_charset = isset($_POST['_charset']) ? $_POST['_charset'] : $input_charset;
+$message_charset = isset($_POST['_charset']) ? $_POST['_charset'] : $OUTPUT->get_charset();
 
 $EMAIL_FORMAT_ERROR = NULL;
 $RECIPIENT_COUNT = 0;
@@ -358,7 +364,7 @@ if (!empty($mailcc)) {
 if (!empty($mailbcc)) {
   $headers['Bcc'] = $mailbcc;
 }
-if (!empty($identity_arr['bcc'])) {
+if (!empty($identity_arr['bcc']) && stripos($headers['Bcc'], $identity_arr['bcc']) === false) {
   $headers['Bcc'] = ($headers['Bcc'] ? $headers['Bcc'].', ' : '') . $identity_arr['bcc'];
   $RECIPIENT_COUNT ++;
 }
@@ -469,6 +475,7 @@ if (!$savedraft) {
   if ($CONFIG['spellcheck_before_send'] && $CONFIG['enable_spellcheck']
     && empty($COMPOSE['spell_checked']) && !empty($message_body)
   ) {
+    $message_body = str_replace("\r\n", "\n", $message_body);
     $spellchecker = new rcube_spellchecker(get_input_value('_lang', RCUBE_INPUT_GPC));
     $spell_result = $spellchecker->check($message_body, $isHtml);
 
@@ -669,19 +676,18 @@ if (!$savedraft)
     $smtp_error, $mailbody_file, $smtp_opts);
 
   // return to compose page if sending failed
-  if (!$sent)
-    {
+  if (!$sent) {
     // remove temp file
     if ($mailbody_file) {
       unlink($mailbody_file);
-      }
+    }
 
     if ($smtp_error)
       $OUTPUT->show_message($smtp_error['label'], 'error', $smtp_error['vars']); 
     else
       $OUTPUT->show_message('sendingfailed', 'error'); 
     $OUTPUT->send('iframe');
-    }
+  }
 
   // save message sent time
   if (!empty($CONFIG['sendmail_delay']))
@@ -699,7 +705,7 @@ if (!$savedraft)
 // Determine which folder to save message
 if ($savedraft)
   $store_target = $CONFIG['drafts_mbox'];
-else
+else if (!$RCMAIL->config->get('no_save_sent_messages'))
   $store_target = isset($_POST['_store_target']) ? get_input_value('_store_target', RCUBE_INPUT_POST) : $CONFIG['sent_mbox'];
 
 if ($store_target) {
@@ -739,7 +745,8 @@ if ($store_target) {
             'message' => "Could not create message: ".$msg->getMessage()),
             TRUE, FALSE);
     else {
-      $saved = $RCMAIL->storage->save_message($store_target, $msg, $headers, $mailbody_file ? true : false);
+      $saved = $RCMAIL->storage->save_message($store_target, $msg, $headers,
+        $mailbody_file ? true : false, array('SEEN'));
     }
 
     if ($mailbody_file) {

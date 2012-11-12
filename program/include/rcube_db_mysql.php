@@ -31,6 +31,8 @@
  */
 class rcube_db_mysql extends rcube_db
 {
+    public $db_provider = 'mysql';
+
     /**
      * Driver initialization/configuration
      */
@@ -124,6 +126,9 @@ class rcube_db_mysql extends rcube_db
         if (!empty($dsn['ca'])) {
             $result[PDO::MYSQL_ATTR_SSL_CA] = $dsn['ca'];
         }
+
+        // Always return matching (not affected only) rows count
+        $result[PDO::MYSQL_ATTR_FOUND_ROWS] = true;
 
         return $result;
     }
