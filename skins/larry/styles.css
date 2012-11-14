@@ -537,10 +537,8 @@ a.iconlink.upload {
 #toplogo {
 	margin-top: -6px;
 	height: 55px;
-	/*
-	//padding-top: 2px;
-	//cursor: pointer;
-	*/
+	cursor: pointer;
+	/*padding-top: 2px;*/
 }
 
 .topleft {
