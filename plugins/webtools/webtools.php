@@ -81,7 +81,7 @@ class webtools extends rcube_plugin
       $this->include_stylesheet("$rutgers_skin/jquery-ui-1.7.2.custom.css");
       $this->include_stylesheet("$rutgers_skin/ui.checkbox.css");
       $this->include_stylesheet("$rutgers_skin/ui.selectmenu.css");
-      $this->include_script("$jqueryui/jquery-ui-1.8.18.custom.min.js");
+      $this->include_script("$jqueryui/jquery-ui-1.9.1.custom.min.js");
       $this->include_script("$rutgers_skin/ui.checkbox.js");
       $this->include_script("$rutgers_skin/ui.selectmenu.js");
       $this->include_script("js/webtools.js");
