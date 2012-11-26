@@ -128,7 +128,7 @@ class rcube_db_mysql extends rcube_db
         }
 
         // Always return matching (not affected only) rows count
-        $result[PDO::MYSQL_ATTR_FOUND_ROWS] = true;
+        //$result[PDO::MYSQL_ATTR_FOUND_ROWS] = true;
 
         return $result;
     }
