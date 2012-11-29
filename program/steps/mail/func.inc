@@ -751,9 +751,10 @@ function rcmail_print_body($part, $p = array())
   }
   // text/enriched
   else if ($data['type'] == 'enriched') {
-    $part->ctype_secondary = 'html';
     require_once(INSTALL_PATH . 'program/lib/enriched.inc');
-    $body = Q(enriched_to_html($data['body']), 'show');
+    $body = enriched_to_html($data['body']);
+    $body = rcmail_wash_html($body, $data, $part->replaces);
+    $part->ctype_secondary = 'html';
   }
   else {
     // assert plaintext
@@ -789,7 +790,7 @@ function rcmail_plain_body($body, $flowed=false)
   global $RCMAIL;
 
   // make links and email-addresses clickable
-  $replacer = new rcube_string_replacer;
+  $replacer = new rcmail_string_replacer;
 
   // search for patterns like links and e-mail addresses and replace with tokens
   $body = $replacer->replace($body);
@@ -1060,10 +1061,10 @@ function rcmail_localized_priority($value)
     '4' => 'low',
     '5' => 'lowest',
   );
-  
+
   if ($value && $labels_map[$value])
     return rcube_label($labels_map[$value]);
-    
+
   return '';
 }
 
@@ -1188,6 +1189,7 @@ function rcmail_message_body($attrib)
   // list images after mail body
   if ($RCMAIL->config->get('inline_images', true) && !empty($MESSAGE->attachments)) {
     $thumbnail_size = $RCMAIL->config->get('image_thumbnail_size', 240);
+    $client_mimetypes = (array)$RCMAIL->config->get('client_mimetypes');
 
     foreach ($MESSAGE->attachments as $attach_prop) {
       // skip inline images
@@ -1196,7 +1198,7 @@ function rcmail_message_body($attrib)
       }
 
       // Content-Type: image/*...
-      if (rcmail_part_image_type($attach_prop)) {
+      if ($mimetype = rcmail_part_image_type($attach_prop)) {
         // display thumbnails
         if ($thumbnail_size) {
           $show_link = array(
@@ -1205,10 +1207,10 @@ function rcmail_message_body($attrib)
               'return %s.command(\'load-attachment\',{part:\'%s\', mimetype:\'%s\'},this)',
               JS_OBJECT_NAME,
               $attach_prop->mime_id,
-              rcmail_fix_mimetype($attach_prop->mimetype))
+              $mimetype)
           );
           $out .= html::p('image-attachment',
-             html::a($show_link + array('class' => 'image-link'),
+             html::a($show_link + array('class' => 'image-link', 'style' => sprintf('width:%dpx', $thumbnail_size)),
                html::img(array(
                 'class' => 'image-thumbnail',
                 'src'   => $MESSAGE->get_part_url($attach_prop->mime_id, true) . '&_thumb=1',
@@ -1218,8 +1220,9 @@ function rcmail_message_body($attrib)
               ))
             ) .
             html::span('image-filename', Q($attach_prop->filename)) .
-            html::span('image-filesize', Q($RCMAIL->show_bytes($attach_prop->size))) .
+            html::span('image-filesize', Q($RCMAIL->message_part_size($attach_prop))) .
             html::span('attachment-links',
+              (in_array($mimetype, $client_mimetypes) ? html::a($show_link, rcube_label('showattachment')) . '&nbsp;' : '') .
               html::a($show_link['href'] . '&_download=1', rcube_label('download'))
             ) .
             html::br(array('style' => 'clear:both'))
@@ -1485,7 +1488,9 @@ function rcmail_address_string($input, $max=null, $linked=false, $addicon=null, 
     $mailto = rcube_idn_to_utf8($mailto);
 
     if ($PRINT_MODE) {
-      $out .= sprintf('%s &lt;%s&gt;', Q($name), $mailto);
+      $out .= ($out ? ', ' : '') . sprintf('%s &lt;%s&gt;', Q($name), $mailto);
+      // for printing we display all addresses
+      continue;
     }
     else if (check_email($part['mailto'], false)) {
       if ($linked) {
@@ -1659,7 +1664,7 @@ function rcmail_message_part_frame($attrib)
   $part = $MESSAGE->mime_parts[asciiwords(get_input_value('_part', RCUBE_INPUT_GPC))];
   $ctype_primary = strtolower($part->ctype_primary);
 
-  $attrib['src'] = './?' . str_replace('_frame=', ($ctype_primary=='text' ? '_show=' : '_preload='), $_SERVER['QUERY_STRING']);
+  $attrib['src'] = './?' . str_replace('_frame=', ($ctype_primary=='text' ? '_embed=' : '_preload='), $_SERVER['QUERY_STRING']);
 
   return html::iframe($attrib);
 }
@@ -1845,6 +1850,7 @@ $OUTPUT->add_handlers(array(
 
 // register action aliases
 $RCMAIL->register_action_map(array(
+    'refresh' => 'check_recent.inc',
     'preview' => 'show.inc',
     'print'   => 'show.inc',
     'moveto'  => 'move_del.inc',

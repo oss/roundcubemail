@@ -244,7 +244,6 @@ $rcmail_config['skin_include_php'] = false;
 $rcmail_config['display_version'] = false;
 
 // Session lifetime in minutes
-// must be greater than 'keep_alive'/60
 $rcmail_config['session_lifetime'] = 10;
 
 // Session domain: .example.org
@@ -360,6 +359,7 @@ $rcmail_config['send_format_flowed'] = true;
 // 1 - many identities with possibility to edit all params but not email address
 // 2 - one identity with possibility to edit all params
 // 3 - one identity with possibility to edit all params but not email address
+// 4 - one identity with possibility to edit only signature
 $rcmail_config['identities_level'] = 0;
 
 // Mimetypes supported by the browser.
@@ -367,8 +367,14 @@ $rcmail_config['identities_level'] = 0;
 // either a comma-separated list or an array: 'text/plain,text/html,text/xml,image/jpeg,image/gif,image/png,application/pdf'
 $rcmail_config['client_mimetypes'] = null;  # null == default
 
-// mime magic database
-$rcmail_config['mime_magic'] = '/usr/share/misc/magic';
+// Path to a local mime magic database file for PHPs finfo extension.
+// Set to null if the default path should be used.
+$rcmail_config['mime_magic'] = null;
+
+// Path to local mime.types mapping table.
+// This is used to derive mime-types from the filename extension or vice versa.
+// Such a file is usually part of the apache webserver.
+$rcmail_config['mime_types'] = null;
 
 // path to imagemagick identify binary
 $rcmail_config['im_identify_path'] = null;
@@ -507,9 +513,8 @@ $rcmail_config['recipients_separator'] = ',';
 // don't let users set pagesize to more than this value if set
 $rcmail_config['max_pagesize'] = 200;
 
-// Minimal value of user's 'keep_alive' setting (in seconds)
-// Must be less than 'session_lifetime'
-$rcmail_config['min_keep_alive'] = 60;
+// Minimal value of user's 'refresh_interval' setting (in seconds)
+$rcmail_config['min_refresh_interval'] = 60;
 
 // Enables files upload indicator. Requires APC installed and enabled apc.rfc1867 option.
 // By default refresh time is set to 1 second. You can set this value to true
@@ -793,9 +798,10 @@ $rcmail_config['read_when_deleted'] = true;
 // Use 'Purge' to remove messages marked as deleted
 $rcmail_config['flag_for_deletion'] = false;
 
-// Default interval for keep-alive/check-recent requests (in seconds)
-// Must be greater than or equal to 'min_keep_alive' and less than 'session_lifetime'
-$rcmail_config['keep_alive'] = 60;
+// Default interval for auto-refresh requests (in seconds)
+// These are requests for system state updates e.g. checking for new messages, etc.
+// Setting it to 0 disables the feature.
+$rcmail_config['refresh_interval'] = 60;
 
 // If true all folders will be checked for recent messages
 $rcmail_config['check_all_folders'] = false;

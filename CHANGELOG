@@ -1,11 +1,28 @@
 CHANGELOG Roundcube Webmail
 ===========================
 
-- Fix excessive LFs at the end of composed message with top_posting=true (#1488797)
+- Fix broken message/part bodies when FETCH response contains more untagged lines (#1488836)
+- Fix empty email on identities list after identity update (#1488834)
+- Add new identities_level: (4) one identity with possibility to edit only signature
+- Use Delivered-To header as a last resort for identity selection (#1488840)
+- Fix XSS vulnerability using Flash files (#1488828)
+- Fix absolute positioning in HTML messages (#1488819)
+- Fix cache (in)validation after setting \Deleted flag
+- Fix keybord events on messages list in opera browser (#1488823)
+- Fix selection of collapsed thread rows (#1488772)
+- Always save drafts with format=flowed in order to keep original line wraps (#1488799)
+- Fix wrapping of quoted text with format=flowed (#1488177)
+- Select default_addressbook on the list in Address Book (#1488280)
+- Fix so mobile phone has TYPE=CELL in exported vCard (#1488812)
+- Support contacts import from CSV file (#1486399)
+- Improved keep-alive action. Now the interval is based on session_lifetime (#1488507)
+- Added cross-task 'refresh' request for system state updates (#1488507)
+- Renamed config options: keep_alive to refresh_interval, min_keep_alive to min_refresh_interval
+- Fix handling of text/enriched content on message reply/forward/edit
 - Option to display attached images as thumbnails below message body
-- Fix bug where leading blanks were stripped from quoted lines (#1488795)
-- Upgraded to jQuery 1.8.2 and jQuery UI 1.9.1
+- Upgraded to jQuery 1.8.3 and jQuery UI 1.9.1
 - Add config option to automatically generate LDAP attributes for new entries
+- Add user settings to open message view and compose form in new windows (#1485486)
 - Better client-side timezone detection using the jsTimezoneDetect library (#1488725)
 - Add option to disable saving sent mail in Sent folder - no_save_sent_messages (#1488686)
 - Fix handling dont_override with message_sort_col and message_sort_order settings (#1488760)
@@ -49,8 +66,16 @@ CHANGELOG Roundcube Webmail
     Replace imap_init hook with storage_init (with additional 'driver' argument)
     Improved performance by caching IMAP server's capabilities in session
     Unified global functions naming (rcube_ prefix)
-    Move global functions from main.inc and rcube_shared.inc into classes
     Better classes separation
+    Framework files moved to lib/Roundcube
+
+RELEASE 0.8.4
+-------------
+- Fix regression where unintentional page reload was done after request abort (#1488802)
+- Fix XSS vulnerability in handling of text/enriched messages (#1488806)
+- Fix handling of 'media' attribute on linked css (#1488789)
+- Fix excessive LFs at the end of composed message with top_posting=true (#1488797)
+- Fix bug where leading blanks were stripped from quoted lines (#1488795)
 
 RELEASE 0.8.3
 -------------

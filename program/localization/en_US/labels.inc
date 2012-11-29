@@ -63,6 +63,8 @@ $labels['copy']     = 'Copy';
 $labels['move']     = 'Move';
 $labels['moveto']   = 'Move to...';
 $labels['download'] = 'Download';
+$labels['showattachment'] = 'Show';
+$labels['showanyway'] = 'Show it anyway';
 
 $labels['filename'] = 'File name';
 $labels['filesize'] = 'File size';
@@ -354,7 +356,7 @@ $labels['importcontacts'] = 'Import contacts';
 $labels['importfromfile'] = 'Import from file:';
 $labels['importtarget'] = 'Add new contacts to address book:';
 $labels['importreplace'] = 'Replace the entire address book';
-$labels['importtext'] = 'You can upload contacts from an existing address book.<br/>We currently support importing addresses from the <a href="http://en.wikipedia.org/wiki/VCard">vCard</a> data format.';
+$labels['importdesc'] = 'You can upload contacts from an existing address book.<br/>We currently support importing addresses from the <a href="http://en.wikipedia.org/wiki/VCard">vCard</a> or CSV (comma-separated) data format.';
 $labels['done'] = 'Done';
 
 // settings
@@ -414,7 +416,7 @@ $labels['always'] = 'always';
 $labels['showinlineimages'] = 'Display attached images below the message';
 $labels['autosavedraft']  = 'Automatically save draft';
 $labels['everynminutes']  = 'every $n minute(s)';
-$labels['keepalive']  = 'Check for new messages on';
+$labels['refreshinterval']  = 'Refresh (check for new messages, etc.)';
 $labels['never']  = 'never';
 $labels['immediately']  = 'immediately';
 $labels['messagesdisplaying'] = 'Displaying Messages';
@@ -452,7 +454,7 @@ $labels['afternseconds']  = 'after $n seconds';
 $labels['reqmdn'] = 'Always request a return receipt';
 $labels['reqdsn'] = 'Always request a delivery status notification';
 $labels['replysamefolder'] = 'Place replies in the folder of the message being replied to';
-$labels['defaultaddressbook'] = 'Add new contacts to the selected addressbook';
+$labels['defaultabook'] = 'Default address book';
 $labels['autocompletesingle'] = 'Skip alternative email addresses in autocompletion';
 $labels['listnamedisplay'] = 'List contacts as';
 $labels['spellcheckbeforesend'] = 'Check spelling before sending a message';
@@ -492,6 +494,7 @@ $labels['sortasc']  = 'Sort ascending';
 $labels['sortdesc'] = 'Sort descending';
 $labels['undo'] = 'Undo';
 
+$labels['installedplugins'] = 'Installed plugins';
 $labels['plugin'] = 'Plugin';
 $labels['version'] = 'Version';
 $labels['source'] = 'Source';

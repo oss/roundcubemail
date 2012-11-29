@@ -56,8 +56,6 @@ class rcmail extends rcube
   private $action_map = array();
 
 
-  const JS_OBJECT_NAME = 'rcmail';
-
   const ERROR_STORAGE          = -2;
   const ERROR_INVALID_REQUEST  = 1;
   const ERROR_INVALID_HOST     = 2;
@@ -93,9 +91,6 @@ class rcmail extends rcube
 
     // create user object
     $this->set_user(new rcube_user($_SESSION['user_id']));
-
-    // configure session (after user config merge!)
-    $this->session_configure();
 
     // set task and action properties
     $this->set_task(rcube_utils::get_input_value('_task', rcube_utils::INPUT_GPC));
@@ -210,14 +205,22 @@ class rcmail extends rcube
       }
     }
 
+    // when user requested default writeable addressbook
+    // we need to check if default is writeable, if not we
+    // will return first writeable book (if any exist)
+    if ($contacts && $default && $contacts->readonly && $writeable) {
+      $contacts = null;
+    }
+
     // Get first addressbook from the list if configured default doesn't exist
     // This can happen when user deleted the addressbook (e.g. Kolab folder)
     if (!$contacts && (!$id || $default)) {
-      $source = reset($this->get_address_sources($writeable));
+      $source = reset($this->get_address_sources($writeable, !$default));
       if (!empty($source)) {
         $contacts = $this->get_address_book($source['id']);
-        if ($contacts)
+        if ($contacts) {
           $id = $source['id'];
+        }
       }
     }
 
@@ -229,16 +232,17 @@ class rcmail extends rcube
         true, true);
     }
 
+    // add to the 'books' array for shutdown function
+    $this->address_books[$id] = $contacts;
+
     if ($writeable && $contacts->readonly) {
       return null;
     }
 
     // set configured sort order
-    if ($sort_col = $this->config->get('addressbook_sort_col'))
+    if ($sort_col = $this->config->get('addressbook_sort_col')) {
         $contacts->set_sort_order($sort_col);
-
-    // add to the 'books' array for shutdown function
-    $this->address_books[$id] = $contacts;
+    }
 
     return $contacts;
   }
@@ -248,10 +252,11 @@ class rcmail extends rcube
    * Return address books list
    *
    * @param boolean True if the address book needs to be writeable
+   * @param boolean True if the address book needs to be not hidden
    *
    * @return array  Address books array
    */
-  public function get_address_sources($writeable = false)
+  public function get_address_sources($writeable = false, $skip_hidden = false)
   {
     $abook_type = strtolower($this->config->get('address_book_type'));
     $ldap_config = $this->config->get('ldap_public');
@@ -295,11 +300,17 @@ class rcmail extends rcube
 
     foreach ($list as $idx => $item) {
       // register source for shutdown function
-      if (!is_object($this->address_books[$item['id']]))
+      if (!is_object($this->address_books[$item['id']])) {
         $this->address_books[$item['id']] = $item;
+      }
       // remove from list if not writeable as requested
-      if ($writeable && $item['readonly'])
+      if ($writeable && $item['readonly']) {
           unset($list[$idx]);
+      }
+      // remove from list if hidden as requested
+      else if ($skip_hidden && $item['hidden']) {
+          unset($list[$idx]);
+      }
     }
 
     return $list;
@@ -308,22 +319,21 @@ class rcmail extends rcube
 
   /**
    * Init output object for GUI and add common scripts.
-   * This will instantiate a rcube_output_html object and set
+   * This will instantiate a rcmail_output_html object and set
    * environment vars according to the current session and configuration
    *
    * @param boolean True if this request is loaded in a (i)frame
-   * @return rcube_output_html Reference to HTML output object
+   * @return rcube_output Reference to HTML output object
    */
   public function load_gui($framed = false)
   {
     // init output page
-    if (!($this->output instanceof rcube_output_html))
-      $this->output = new rcube_output_html($this->task, $framed);
+    if (!($this->output instanceof rcmail_output_html))
+      $this->output = new rcmail_output_html($this->task, $framed);
 
-    // set keep-alive/check-recent interval
-    if ($this->session && ($keep_alive = $this->session->get_keep_alive())) {
-      $this->output->set_env('keep_alive', $keep_alive);
-    }
+    // set refresh interval
+    $this->output->set_env('refresh_interval', $this->config->get('refresh_interval', 0));
+    $this->output->set_env('session_lifetime', $this->config->get('session_lifetime', 0) * 60);
 
     if ($framed) {
       $this->comm_path .= '&_framed=1';
@@ -333,10 +343,10 @@ class rcmail extends rcube
     $this->output->set_env('task', $this->task);
     $this->output->set_env('action', $this->action);
     $this->output->set_env('comm_path', $this->comm_path);
-    $this->output->set_charset(RCMAIL_CHARSET);
+    $this->output->set_charset(RCUBE_CHARSET);
 
     // add some basic labels to client
-    $this->output->add_label('loading', 'servererror', 'requesttimedout');
+    $this->output->add_label('loading', 'servererror', 'requesttimedout', 'refreshing');
 
     return $this->output;
   }
@@ -345,12 +355,12 @@ class rcmail extends rcube
   /**
    * Create an output object for JSON responses
    *
-   * @return rcube_output_json Reference to JSON output object
+   * @return rcube_output Reference to JSON output object
    */
   public function json_init()
   {
-    if (!($this->output instanceof rcube_output_json))
-      $this->output = new rcube_output_json($this->task);
+    if (!($this->output instanceof rcmail_output_json))
+      $this->output = new rcmail_output_json($this->task);
 
     return $this->output;
   }
@@ -522,7 +532,6 @@ class rcmail extends rcube
       // Configure environment
       $this->set_user($user);
       $this->set_storage_prop();
-      $this->session_configure();
 
       // fix some old settings according to namespace prefix
       $this->fix_namespace_settings($user);
@@ -775,6 +784,7 @@ class rcmail extends rcube
     }
   }
 
+
   /**
    * Registers action aliases for current task
    *
@@ -789,6 +799,7 @@ class rcmail extends rcube
     }
   }
 
+
   /**
    * Returns current action filename
    *
@@ -802,6 +813,7 @@ class rcmail extends rcube
 
     return strtr($this->action, '-', '_') . '.inc';
   }
+
 
   /**
    * Fixes some user preferences according to namespace handling change.
@@ -1552,7 +1564,7 @@ class rcmail extends rcube
             $html_name = $this->Q($foldername) . ($unread ? html::span('unreadcount', sprintf($attrib['unreadwrap'], $unread)) : '');
             $link_attrib = $folder['virtual'] ? array() : array(
                 'href' => $this->url(array('_mbox' => $folder['id'])),
-                'onclick' => sprintf("return %s.command('list','%s',this)", rcmail::JS_OBJECT_NAME, $js_name),
+                'onclick' => sprintf("return %s.command('list','%s',this)", rcmail_output::JS_OBJECT_NAME, $js_name),
                 'rel' => $folder['id'],
                 'title' => $title,
             );
@@ -1565,7 +1577,7 @@ class rcmail extends rcube
                 (!empty($folder['folders']) ? html::div(array(
                     'class' => ($is_collapsed ? 'collapsed' : 'expanded'),
                     'style' => "position:absolute",
-                    'onclick' => sprintf("%s.command('collapse-folder', '%s')", rcmail::JS_OBJECT_NAME, $js_name)
+                    'onclick' => sprintf("%s.command('collapse-folder', '%s')", rcmail_output::JS_OBJECT_NAME, $js_name)
                 ), '&nbsp;') : ''));
 
             $jslist[$folder_id] = array(
@@ -2011,30 +2023,6 @@ class rcmail extends rcube
         }
 
         return $str;
-    }
-
-
-    /**
-     * Quote a given string.
-     * Shortcut function for rcube_utils::rep_specialchars_output()
-     *
-     * @return string HTML-quoted string
-     */
-    public static function Q($str, $mode = 'strict', $newlines = true)
-    {
-        return rcube_utils::rep_specialchars_output($str, 'html', $mode, $newlines);
-    }
-
-
-    /**
-     * Quote a given string for javascript output.
-     * Shortcut function for rcube_utils::rep_specialchars_output()
-     *
-     * @return string JS-quoted string
-     */
-    public static function JQ($str)
-    {
-        return rcube_utils::rep_specialchars_output($str, 'js');
     }
 
 
