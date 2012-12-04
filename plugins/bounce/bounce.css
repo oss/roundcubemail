@@ -1,0 +1,51 @@
+#bounce-box input.text { margin-bottom:12px; width:95%; padding: .4em; }
+#bounce-box fieldset { padding:0; border:0; margin-top:25px; }
+#bounce-box .ui-dialog, .ui-state-error { padding: .3em; }
+
+#bounce-box .field 
+{
+	width: 270px;
+}
+
+/*
+#bounce-box
+{
+	position: absolute;
+	top: 200px;
+	left: 250px;
+	width: 470px;
+}
+
+.bounce-title
+{
+	height: 15px !important;
+	padding: 5px 20px 10px 50px;
+	color: #333333;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.bounce-body
+{
+	padding: 5px 10px 10px 10px;
+}
+
+.bounce-body .field
+{
+	width:370px;
+}
+
+#bounce-box input.button
+{
+	margin-top: 8px;
+}
+*/
+
+/*
+.bounce-ico
+{
+position: absolute;
+top: 0px;
+left: 340px;
+}
+ */

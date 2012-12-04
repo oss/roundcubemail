@@ -115,6 +115,11 @@
 	margin-left: 8px;
 }
 
+/*Hide the Rutgers LDAP address book*/ 
+#directorylist #rcmliIDMS {
+	display: none;
+}
+
 #contacts-table .contact td.name {
 	background-position: 6px -1603px;
 }

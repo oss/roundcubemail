@@ -5793,15 +5793,15 @@ function rcube_webmail()
     }
 
     // set unread count to window title
-    reg = /^\([0-9]+\)\s+/i;
+    reg = /^\([0-9]+\/[0-9]+\)\s+/i;
     if (set_title && document.title) {
       var new_title = '',
         doc_title = String(document.title);
 
       if (mycount && doc_title.match(reg))
-        new_title = doc_title.replace(reg, '('+mycount+') ');
+        new_title = doc_title.replace(reg, '('+mycount+'/'+this.env.messagecount+') ');
       else if (mycount)
-        new_title = '('+mycount+') '+doc_title;
+        new_title = '('+mycount+'/'+this.env.messagecount+') '+doc_title;
       else
         new_title = doc_title.replace(reg, '');
 
@@ -5855,7 +5855,7 @@ function rcube_webmail()
       url = '?_task=utils&_action=html2text',
       lock = this.set_busy(true, 'converting');
 
-    this.log('HTTP POST: ' + url);
+    //this.log('HTTP POST: ' + url);
 
     $.ajax({ type: 'POST', url: url, data: htmlText, contentType: 'application/octet-stream',
       error: function(o, status, err) { rcmail.http_error(o, status, err, lock); },
@@ -5958,7 +5958,7 @@ function rcube_webmail()
     url += '&_remote=1';
 
     // send request
-    this.log('HTTP GET: ' + url);
+    //this.log('HTTP GET: ' + url);
 
     return $.ajax({
       type: 'GET', url: url, data: { _unlock:(lock?lock:0) }, dataType: 'json',
@@ -5990,7 +5990,7 @@ function rcube_webmail()
     }
 
     // send request
-    this.log('HTTP POST: ' + url);
+    //this.log('HTTP POST: ' + url);
 
     return $.ajax({
       type: 'POST', url: url, data: postdata, dataType: 'json',
@@ -6033,7 +6033,7 @@ function rcube_webmail()
 
     // if we get javascript code from server -> execute it
     if (response.exec) {
-      this.log(response.exec);
+      //this.log(response.exec);
       eval(response.exec);
     }
 

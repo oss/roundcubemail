@@ -62,7 +62,7 @@ input.button:active {
 }
 
 #topnav {
-	background-image: url(svggradient.php?c=404040;060606);
+	background-image: url(svggradient.php?c=ff103d;d21034);
 }
 
 .records-table tr.selected td {
@@ -126,7 +126,7 @@ ul.toolbarmenu li a.active:hover,
 /*** mail.css ***/
 
 #mailboxlist li.mailbox .unreadcount {
-	background-image: url(svggradient.php?c=82acb5;6a939f);
+	background-image: url(svggradient.php?c=ff103d;d21034);
 }
 
 #mailboxlist li.mailbox.selected .unreadcount {

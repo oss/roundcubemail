@@ -1,0 +1,243 @@
+patching file config/main.inc.php.dist
+Hunk #1 succeeded at 81 (offset -1 lines).
+patching file .gitignore
+Hunk #1 FAILED at 2.
+1 out of 1 hunk FAILED -- saving rejects to file .gitignore.rej
+patching file plugins/bounce/bounce.css
+patching file plugins/bounce/bounce.js
+patching file plugins/bounce/bounce.php
+patching file plugins/bounce/localization/de_DE.inc
+patching file plugins/bounce/localization/en_US.inc
+patching file plugins/bounce/localization/es_ES.inc
+patching file plugins/bounce/localization/ru_RU.inc
+patching file plugins/bounce/localization/tr_TR.inc
+patching file plugins/bounce/README
+patching file plugins/bounce/skins/rutgers/bounce.svg
+patching file plugins/jqueryui/jqueryui.php
+patching file plugins/listcommands/CHANGES
+patching file plugins/listcommands/listcommands.php
+patching file plugins/listcommands/localization/en_US.inc
+patching file plugins/listcommands/localization/nl_NL.inc
+patching file plugins/listcommands/README
+patching file plugins/login_geoip/admin-tables.sql
+patching file plugins/login_geoip/geoip.inc
+patching file plugins/login_geoip/login_geoip.css
+patching file plugins/login_geoip/login_geoip.js
+patching file plugins/login_geoip/login_geoip.php
+patching file plugins/login_geoip/user-tables.sql
+patching file plugins/reset_prefs/reset_prefs.css
+patching file plugins/reset_prefs/reset_prefs.js
+patching file plugins/reset_prefs/reset_prefs.php
+patching file plugins/webtools/js/webtools.js
+patching file plugins/webtools/localization/en_US.inc
+patching file plugins/webtools/skins/default/tabselect.js
+patching file plugins/webtools/skins/default/templates/webtools.html
+patching file plugins/webtools/skins/default/webtools.css
+patching file plugins/webtools/webtools/filter/ajax.inc
+patching file plugins/webtools/webtools/filter/functions.inc
+patching file plugins/webtools/webtools/filter/functions.js
+patching file plugins/webtools/webtools/filter/index.php
+patching file plugins/webtools/webtools/forward/ajax.inc
+patching file plugins/webtools/webtools/forward/functions.inc
+patching file plugins/webtools/webtools/forward/functions.js
+patching file plugins/webtools/webtools/forward/index.php
+patching file plugins/webtools/webtools/forward_vacation_functions.php
+patching file plugins/webtools/webtools/functions.php
+patching file plugins/webtools/webtools/hushquota/hushquota_post_handler.php
+patching file plugins/webtools/webtools/hushquota/hushquota_post.js
+patching file plugins/webtools/webtools/hushquota/index.php
+patching file plugins/webtools/webtools/quota/ajax.inc
+patching file plugins/webtools/webtools/quota/index.php
+patching file plugins/webtools/webtools/restore/index.php
+patching file plugins/webtools/webtools/restore/restore_post_handler.php
+patching file plugins/webtools/webtools/restore/restore_post.js
+patching file plugins/webtools/webtools/spam/functions.inc
+patching file plugins/webtools/webtools/spam/functions.js
+patching file plugins/webtools/webtools/spam/index.php
+patching file plugins/webtools/webtools/vacation/index.php
+patching file plugins/webtools/webtools/vacation/vacation_post_handler.php
+patching file plugins/webtools/webtools/vacation/vacation_post.js
+patching file plugins/webtools/webtools/webtools.php
+patching file plugins/webtools/webtools.php
+patching file program/js/app.js
+Hunk #1 succeeded at 5793 (offset -148 lines).
+Hunk #2 succeeded at 5855 (offset -148 lines).
+Hunk #3 succeeded at 5958 (offset -161 lines).
+Hunk #4 succeeded at 5990 (offset -164 lines).
+Hunk #5 succeeded at 6033 (offset -167 lines).
+patching file skins/larry/abookdefault.html
+patching file skins/larry/addressbook.css
+Hunk #1 succeeded at 115 (offset 1 line).
+patching file skins/larry/addresses.css
+patching file skins/larry/colorpicker.css
+patching file skins/larry/common.css
+patching file skins/larry/functions.js
+patching file skins/larry/ie6hacks.css
+patching file skins/larry/iehacks.css
+patching file skins/larry/images/rutgers_logo.svg
+patching file skins/larry/includes/browserdetect.js
+patching file skins/larry/includes/browserupgrade.js
+patching file skins/larry/includes/header.html
+Hunk #1 FAILED at 27.
+1 out of 1 hunk FAILED -- saving rejects to file skins/larry/includes/header.html.rej
+patching file skins/larry/includes/messagemenu.html
+patching file skins/larry/includes/rutgers_logo.svg
+patching file skins/larry/includes/taskbar.html
+patching file skins/larry/jquery.pnotify.default.css
+patching file skins/larry/jquery.pnotify.min.js
+patching file skins/larry/jquery-ui-1.7.2.custom.css
+patching file skins/larry/jquery-ui-1.7.2.custom.min.js
+patching file skins/larry/login.css
+patching file skins/larry/mail.css
+Hunk #1 succeeded at 278 (offset -7 lines).
+Hunk #2 succeeded at 296 (offset -7 lines).
+Hunk #3 succeeded at 419 with fuzz 1 (offset -5 lines).
+Hunk #4 succeeded at 454 (offset -9 lines).
+Hunk #5 succeeded at 1041 (offset -95 lines).
+patching file skins/larry/pngbehavior.htc
+patching file skins/larry/README
+patching file skins/larry/rss/build/dist/jquery.jfeed.js
+patching file skins/larry/rss/build/dist/jquery.jfeed.pack.js
+patching file skins/larry/rss/build/packer/jsPacker.pl
+patching file skins/larry/rss/build/packer/Pack.pm
+patching file skins/larry/rss/build/packer/ParseMaster.pm
+patching file skins/larry/rss/cssnews.html
+patching file skins/larry/rss/jquery/jquery.js
+patching file skins/larry/rss/proxy.php
+patching file skins/larry/rss/style.css
+patching file skins/larry/rss/webmailnotes.html
+patching file skins/larry/safari.css
+patching file skins/larry/splitter.js
+patching file skins/larry/styles.css
+Hunk #7 FAILED at 535.
+Hunk #8 succeeded at 553 (offset -1 lines).
+Hunk #9 succeeded at 590 (offset -1 lines).
+Hunk #10 succeeded at 683 (offset -5 lines).
+Hunk #11 succeeded at 691 (offset -5 lines).
+Hunk #12 succeeded at 721 (offset -5 lines).
+Hunk #13 succeeded at 732 (offset -5 lines).
+Hunk #14 succeeded at 743 (offset -5 lines).
+Hunk #15 succeeded at 753 (offset -5 lines).
+Hunk #16 succeeded at 781 (offset -5 lines).
+Hunk #17 succeeded at 794 (offset -5 lines).
+Hunk #18 succeeded at 819 (offset -5 lines).
+Hunk #19 succeeded at 837 (offset -5 lines).
+Hunk #20 succeeded at 896 (offset -5 lines).
+Hunk #21 succeeded at 970 (offset -5 lines).
+Hunk #22 succeeded at 990 (offset -5 lines).
+Hunk #23 succeeded at 1014 (offset -5 lines).
+Hunk #24 succeeded at 1029 (offset -5 lines).
+Hunk #25 succeeded at 1257 (offset -15 lines).
+Hunk #26 succeeded at 1559 (offset -28 lines).
+Hunk #27 succeeded at 1657 (offset -28 lines).
+1 out of 27 hunks FAILED -- saving rejects to file skins/larry/styles.css.rej
+patching file skins/larry/svggradients.css
+patching file skins/larry/templates/content.html
+patching file skins/larry/templates/editcontact.html
+patching file skins/larry/templates/editidentity.html
+patching file skins/larry/templates/footer.html
+patching file skins/larry/templates/header.html
+patching file skins/larry/templates/loginactivity.html
+patching file skins/larry/templates/login.html
+Hunk #1 FAILED at 1.
+Hunk #2 succeeded at 44 (offset -3 lines).
+1 out of 2 hunks FAILED -- saving rejects to file skins/larry/templates/login.html.rej
+patching file skins/larry/templates/mail.html
+patching file skins/larry/templates/managefolders.html
+patching file skins/larry/templates/messageerror.html
+patching file skins/larry/templates/message.html
+Hunk #2 succeeded at 29 with fuzz 1 (offset -4 lines).
+patching file skins/larry/templates/messagepart.html
+patching file skins/larry/templates/messageprint.html
+patching file skins/larry/templates/printmessage.html
+patching file skins/larry/templates/showcontact.html
+patching file skins/larry/ui.checkbox.css
+patching file skins/larry/ui.checkbox.js
+patching file skins/larry/ui.selectmenu.css
+patching file skins/larry/ui.selectmenu.js
+patching file skins/larry/watermark.html
+patching file skins/rutgers/abookdefault.html
+patching file skins/rutgers/addressbook.css
+patching file skins/rutgers/addresses.css
+patching file skins/rutgers/colorpicker.css
+patching file skins/rutgers/common.css
+patching file skins/rutgers/editor_content.css
+patching file skins/rutgers/functions.js
+patching file skins/rutgers/googiespell.css
+patching file skins/rutgers/ie6hacks.css
+patching file skins/rutgers/ie7hacks.css
+patching file skins/rutgers/iehacks.css
+patching file skins/rutgers/images/rutgers_logo.svg
+patching file skins/rutgers/includes/browserdetect.js
+patching file skins/rutgers/includes/browserupgrade.js
+patching file skins/rutgers/includes/footer.html
+patching file skins/rutgers/includes/header.html
+patching file skins/rutgers/includes/links.html
+patching file skins/rutgers/includes/mailtoolbar.html
+patching file skins/rutgers/includes/messagemenu.html
+patching file skins/rutgers/includes/rutgers_logo.svg
+patching file skins/rutgers/includes/settingstabs.html
+patching file skins/rutgers/includes/taskbar.html
+patching file skins/rutgers/jquery.pnotify.default.css
+patching file skins/rutgers/jquery.pnotify.min.js
+patching file skins/rutgers/jquery-ui-1.7.2.custom.css
+patching file skins/rutgers/jquery-ui-1.7.2.custom.min.js
+patching file skins/rutgers/login.css
+patching file skins/rutgers/mail.css
+patching file skins/rutgers/meta.json
+patching file skins/rutgers/pngbehavior.htc
+patching file skins/rutgers/print.css
+patching file skins/rutgers/README
+patching file skins/rutgers/rss/build/dist/jquery.jfeed.js
+patching file skins/rutgers/rss/build/dist/jquery.jfeed.pack.js
+patching file skins/rutgers/rss/build/packer/jsPacker.pl
+patching file skins/rutgers/rss/build/packer/Pack.pm
+patching file skins/rutgers/rss/build/packer/ParseMaster.pm
+patching file skins/rutgers/rss/cssnews.html
+patching file skins/rutgers/rss/jquery/jquery.js
+patching file skins/rutgers/rss/proxy.php
+patching file skins/rutgers/rss/style.css
+patching file skins/rutgers/rss/webmailnotes.html
+patching file skins/rutgers/safari.css
+patching file skins/rutgers/settings.css
+patching file skins/rutgers/splitter.js
+patching file skins/rutgers/styles.css
+patching file skins/rutgers/svggradient.php
+patching file skins/rutgers/svggradients.css
+patching file skins/rutgers/templates/about.html
+patching file skins/rutgers/templates/addressbook.html
+patching file skins/rutgers/templates/compose.html
+patching file skins/rutgers/templates/contactedit.html
+patching file skins/rutgers/templates/contact.html
+patching file skins/rutgers/templates/contactsearch.html
+patching file skins/rutgers/templates/content.html
+patching file skins/rutgers/templates/editcontact.html
+patching file skins/rutgers/templates/editidentity.html
+patching file skins/rutgers/templates/error.html
+patching file skins/rutgers/templates/folderedit.html
+patching file skins/rutgers/templates/folders.html
+patching file skins/rutgers/templates/footer.html
+patching file skins/rutgers/templates/header.html
+patching file skins/rutgers/templates/identities.html
+patching file skins/rutgers/templates/identityedit.html
+patching file skins/rutgers/templates/importcontacts.html
+patching file skins/rutgers/templates/loginactivity.html
+patching file skins/rutgers/templates/login.html
+patching file skins/rutgers/templates/mail.html
+patching file skins/rutgers/templates/managefolders.html
+patching file skins/rutgers/templates/messageerror.html
+patching file skins/rutgers/templates/message.html
+patching file skins/rutgers/templates/messagepart.html
+patching file skins/rutgers/templates/messagepreview.html
+patching file skins/rutgers/templates/messageprint.html
+patching file skins/rutgers/templates/plugin.html
+patching file skins/rutgers/templates/printmessage.html
+patching file skins/rutgers/templates/settingsedit.html
+patching file skins/rutgers/templates/settings.html
+patching file skins/rutgers/templates/showcontact.html
+patching file skins/rutgers/ui.checkbox.css
+patching file skins/rutgers/ui.checkbox.js
+patching file skins/rutgers/ui.js
+patching file skins/rutgers/ui.selectmenu.css
+patching file skins/rutgers/ui.selectmenu.js
+patching file skins/rutgers/watermark.html

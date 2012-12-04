@@ -1,0 +1,164 @@
+/***** RoundCube|Mail Help task styles *****/
+
+div
+{
+    font-family: inherit;
+    font-size: inherit;
+}
+
+p
+{
+   font-family: inherit;
+   font-size: inherit;
+}
+
+#taskbar a.button-webtools span.button-inner{
+	background: url('icons.png') no-repeat;
+	background-position: 0px 1px;
+}
+
+#taskbar a.button-webtools:hover span.button-inner,
+#taskbar a.button-webtools.button-selected span.button-inner {
+	background-position: 0px -38px;
+}
+
+#mainview-left {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	top: 0;
+	width: 220px;
+}
+
+#mainview-left a{
+	color: #4e4e4e;
+}
+
+#mainview-left a.visited{
+	color: #4e4e4e;
+}
+
+#mainview-right {
+	position: absolute;
+	bottom: 0;
+	left: 232px;
+	right: 0;
+	top: 0;
+}
+
+#tabsbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 220px;
+	bottom: 0;
+}
+
+#webtools-tabs span.ui-state-activetab {
+	font-weight: bold;
+}
+
+#webtools-box
+{
+    position: absolute;
+    bottom: 0;
+	top: 0;
+    left: 20px;
+    right: 20px;
+    border: 1px solid #999999;
+    overflow: auto;
+   	background-color: #F2F2F2;
+    /* IE hack */
+    height: expression((parseInt(document.documentElement.clientHeight)-190)+'px');
+    width: expression((parseInt(document.documentElement.clientWidth)-120)+'px');
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 20px;
+    font-size: medium;
+}
+
+#webtools-box a
+{
+    color: #0066CC;
+}
+
+#webtools-box h2 {
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+#webtools-innerbox {
+    padding: 20px 10px; 
+    margin-left: 8%; 
+    margin-right: 8%; 
+    min-width: 500px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+#webtools-innerbox button
+{   
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+#webtools-innerbox label
+{
+    color: #797979;
+}
+
+#webtools-instructions
+{
+    margin-top: 10px;
+    margin-left: 8%;
+    margin-right: 8%;
+	width: inherit;
+    #min-width: 500px;
+}
+
+#webtools-subhead
+{
+    margin-left: 8%;
+    margin-right: 8%;
+    min-width: 500px;
+}
+
+#result 
+{
+    margin-bottom: 10px; 
+    margin-left: 8%; 
+    margin-right: 8%; 
+    min-width: 500px;
+}
+
+#webtools-response
+{
+    padding: 10px;
+    font-size: large;
+}
+
+.roundbox
+{
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.helpbox
+{
+	border: 1px solid #AAA;
+}
+
+.helptext
+{
+	-moz-border-bottom-left-radius: 4px;
+	-moz-border-bottom-right-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+}
+
+.successful
+{
+	border: 1px solid #C2D071;
+	background: #F7FDCB;
+	color: #212121;
+}
