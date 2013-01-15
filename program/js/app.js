@@ -361,7 +361,7 @@ function rcube_webmail()
 
         if (this.gui_objects.editform) {
           this.enable_command('save', true);
-          if (this.env.action == 'add' || this.env.action == 'edit')
+          if (this.env.action == 'add' || this.env.action == 'edit' || this.env.action == 'search')
               this.init_contact_form();
         }
 
@@ -509,7 +509,7 @@ function rcube_webmail()
       return false;
 
     // let the browser handle this click (shift/ctrl usually opens the link in a new window/tab)
-    if ((obj && obj.href && String(obj.href).indexOf(location.href) < 0) && rcube_event.get_modifier(event)) {
+    if ((obj && obj.href && String(obj.href).indexOf('#') < 0) && rcube_event.get_modifier(event)) {
       return true;
     }
 
@@ -3037,7 +3037,7 @@ function rcube_webmail()
       ac_props;
 
     // close compose step in opener
-    if (window.opener && opener.rcmail && opener.rcmail.env.action == 'compose') {
+    if (window.opener && !window.opener.closed && opener.rcmail && opener.rcmail.env.action == 'compose') {
       setTimeout(function(){ opener.history.back(); }, 100);
       this.env.opened_extwin = true;
     }
@@ -3707,9 +3707,10 @@ function rcube_webmail()
   {
     this.display_message(msg, type);
 
-    if (this.env.extwin && window.opener && opener.rcmail) {
+    if (this.env.extwin) {
       this.lock_form(this.gui_objects.messageform);
-      opener.rcmail.display_message(msg, type);
+      if (window.opener && !window.opener.closed && opener.rcmail)
+        opener.rcmail.display_message(msg, type);
       setTimeout(function(){ window.close() }, 1000);
     }
     else {
@@ -4396,10 +4397,11 @@ function rcube_webmail()
   {
     var ref = this, col;
 
-    this.set_photo_actions($('#ff_photo').val());
-
-    for (col in this.env.coltypes)
-      this.init_edit_field(col, null);
+    if (this.env.coltypes) {
+      this.set_photo_actions($('#ff_photo').val());
+      for (col in this.env.coltypes)
+        this.init_edit_field(col, null);
+    }
 
     $('.contactfieldgroup .row a.deletebutton').click(function() {
       ref.delete_edit_field(this);

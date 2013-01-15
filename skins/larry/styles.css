@@ -510,6 +510,10 @@ a.iconlink.upload {
 
 /*** basic page layout ***/
 
+#header {
+	overflow-x: hidden; /* Chrome bug #1488851 */
+}
+
 #topline {
 	height: 18px;
 	background: #848589;
@@ -520,6 +524,7 @@ a.iconlink.upload {
 }
 
 #topnav {
+	position: relative;
 	height: 46px;
 	margin-bottom: 10px;
 	padding: 0 0 0 10px;
@@ -640,10 +645,6 @@ a.iconlink.upload {
 	position: relative;
 	top: 4px;
 	height: 42px;
-}
-
-.minimal #taskbar {
-	height: ;
 }
 
 .minimal #taskbar a {
@@ -1507,7 +1508,7 @@ ul.proplist li {
 #quicksearchbar {
 	position: absolute;
 	right: 1px;
-	top: 0;
+	top: -5px;
 	width: 240px;
 }
 
