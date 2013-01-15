@@ -1453,3 +1453,7 @@ div.message-partheaders .headers-table td.header {
 	margin: 4px 0;
 }
 
+/** Do not display LDAP Groups for rutgers CSS or ess */
+#directorylist #rcmliIDMS{
+  display: none;
+}
