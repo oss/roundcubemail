@@ -1,11 +1,13 @@
-function fix_button ()
+// The button is now hidden in the CSS
+
+/*function fix_button ()
 {
    var button = document.getElementById ("rcmbtn102");
    button.value = "Reset";
    button.onclick = "alert('test')";
    rcmail.register_button ('button_click', 'rcmbtn102', 'input', '', '', '');
    button.style.visibility = "hidden";
-}
+}*/
 
 function process_response (response)
 {
