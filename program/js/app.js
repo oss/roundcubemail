@@ -820,12 +820,10 @@ function rcube_webmail()
         var qstring = '_mbox='+urlencode(this.env.mailbox)+'&_uid='+this.env.uid+'&_part='+props.part;
 
         // open attachment in frame if it's of a supported mimetype
-        if (this.env.uid && props.mimetype && this.env.mimetypes && $.inArray(props.mimetype, $.map(this.env.mimetypes, function(v,k){ return v })) >= 0) {
-          if (props.mimetype == 'text/html')
-            qstring += '&_safe=1';
-          this.attachment_win = window.open(this.env.comm_path+'&_action=get&'+qstring+'&_frame=1', 'rcubemailattachment');
-          if (this.attachment_win) {
-            setTimeout(function(){ ref.attachment_win.focus(); }, 10);
+        if (this.env.uid && props.mimetype && this.env.mimetypes && $.inArray(props.mimetype, this.env.mimetypes) >= 0) {
+          var attachment_win = window.open(this.env.comm_path+'&_action=get&'+qstring+'&_frame=1', 'rcubemailattachment'+this.env.uid+props.part);
+          if (attachment_win) {
+            setTimeout(function(){ attachment_win.focus(); }, 10);
             break;
           }
         }
@@ -4428,6 +4426,11 @@ function rcube_webmail()
     }
 
     $("input[type='text']:visible").first().focus();
+
+    // Submit search form on Enter
+    if (this.env.action == 'search')
+      $(this.gui_objects.editform).append($('<input type="submit">').hide())
+        .submit(function() { $('input.mainaction').click(); return false; });
   };
 
   this.group_create = function()
