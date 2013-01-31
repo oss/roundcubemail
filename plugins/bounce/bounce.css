@@ -7,6 +7,10 @@
 	width: 270px;
 }
 
+img.bounce-ico {
+	max-height: 40px;
+}
+
 /*
 #bounce-box
 {
