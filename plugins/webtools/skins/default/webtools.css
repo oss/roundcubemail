@@ -162,3 +162,48 @@ p
 	background: #F7FDCB;
 	color: #212121;
 }
+
+div#webtools-tabs span.listitem a,
+div#webtools-tabs span.selected a{
+	padding-left: 37px;
+	background-color: transparent;
+}
+
+div#webtools-tabs span.selected{
+	background-color: #CCC !important;
+}
+
+div#webtools-tabs span.listitem{
+	background: url(webtools_icons.png) no-repeat;
+	background-size: 27px;
+	background-position-x: 5px;
+}
+
+div#webtools-tabs span#webtoolstabforward{
+	background-position-y: 0px;
+}
+
+div#webtools-tabs span#webtoolstabvacation{
+	background-position-y: -25px;
+}
+
+div#webtools-tabs span#webtoolstabfilter{
+	background-position-y: -53px;
+}
+
+div#webtools-tabs span#webtoolstabspam{
+	background-position-y: -80px;
+}
+
+div#webtools-tabs span#webtoolstabquota{
+	background-position-y: -110px;
+	background-position-x: 4px;
+}
+
+div#webtools-tabs span#webtoolstabhushquota{
+	background-position-y: -138px;
+}
+
+div#webtools-tabs span#webtoolstabrestore{
+	background-position-y: -165px;
+}
