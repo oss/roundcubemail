@@ -3,8 +3,8 @@
  | Roundcube Webmail Client Script                                       |
  |                                                                       |
  | This file is part of the Roundcube Webmail client                     |
- | Copyright (C) 2005-2012, The Roundcube Dev Team                       |
- | Copyright (C) 2011, Kolab Systems AG                                  |
+ | Copyright (C) 2005-2013, The Roundcube Dev Team                       |
+ | Copyright (C) 2011-2012, Kolab Systems AG                             |
  |                                                                       |
  | Licensed under the GNU General Public License version 3 or            |
  | any later version with exceptions for skins & plugins.                |
@@ -219,7 +219,7 @@ function rcube_webmail()
         if (this.gui_objects.qsearchbox) {
           if (this.env.search_text != null)
             this.gui_objects.qsearchbox.value = this.env.search_text;
-          $(this.gui_objects.qsearchbox).focusin(function() { rcmail.message_list.blur(); });
+          $(this.gui_objects.qsearchbox).focusin(function() { rcmail.message_list && rcmail.message_list.blur(); });
         }
 
         this.set_button_titles();
@@ -251,7 +251,7 @@ function rcube_webmail()
           }
         }
         else if (this.env.action == 'compose') {
-          this.env.compose_commands = ['send-attachment', 'remove-attachment', 'send', 'cancel', 'toggle-editor', 'list-adresses', 'extwin'];
+          this.env.compose_commands = ['send-attachment', 'remove-attachment', 'send', 'cancel', 'toggle-editor', 'list-adresses', 'search', 'reset-search', 'extwin'];
 
           if (this.env.drafts_mailbox)
             this.env.compose_commands.push('savedraft')
@@ -583,11 +583,11 @@ function rcube_webmail()
           var prevstate = this.env.compose_extwin;
           $("input[name='_action']", this.gui_objects.messageform).val('compose');
           this.gui_objects.messageform.action = this.url('mail/compose', { _id: this.env.compose_id, _extwin: 1 });
-          this.gui_objects.messageform.target = this.open_window('', 1150, 900);
+          this.gui_objects.messageform.target = this.open_window('', 1100, 900);
           this.gui_objects.messageform.submit();
         }
         else {
-          this.open_window(this.env.permaurl, 1000, 1200);
+          this.open_window(this.env.permaurl, 900, 900);
         }
         break;
 
@@ -1050,8 +1050,13 @@ function rcube_webmail()
         this.reset_qsearch();
         this.select_all_mode = false;
 
-        if (s && this.env.mailbox)
+        if (s && this.env.action == 'compose') {
+          if (this.contact_list)
+            this.list_contacts_clear();
+        }
+        else if (s && this.env.mailbox) {
           this.list_mailbox(this.env.mailbox, 1);
+        }
         else if (s && this.task == 'addressbook') {
           if (this.env.source == '') {
             for (n in this.env.address_sources) break;
@@ -1673,11 +1678,10 @@ function rcube_webmail()
     var w = Math.min(width, screen.width - 10),
       h = Math.min(height, screen.height - 100),
       l = (screen.width - w) / 2 + (screen.left || 0),
-      t = Math.max(0, (screen.height - h) / 2 + (screen.top || 0) - 20);
-
-    var wname = 'rcmextwin' + new Date().getTime(),
-      extwin = window.open(url + '&_extwin=1', wname, 'width='+w+',height='+h+',top='+t+',left='+l+',resizable=yes,toolbar=no,status=no');
-    extwin.moveTo(l,t);
+      t = Math.max(0, (screen.height - h) / 2 + (screen.top || 0) - 20),
+      wname = 'rcmextwin' + new Date().getTime(),
+      extwin = window.open(url + '&_extwin=1', wname,
+        'width='+w+',height='+h+',top='+t+',left='+l+',resizable=yes,toolbar=no,status=no,location=no');
 
     // write loading... message to empty windows
     if (!url && extwin.document) {
@@ -1685,7 +1689,9 @@ function rcube_webmail()
     }
 
     // focus window, delayed to bring to front
-    window.setTimeout(function(){ extwin.focus(); }, 10);
+    window.setTimeout(function() { extwin.focus(); }, 10);
+    // position window with setTimeout for Chrome (#1488931)
+    window.setTimeout(function() { extwin.moveTo(l,t); }, bw.chrome ? 100 : 10);
 
     return wname;
   };
@@ -3107,6 +3113,13 @@ function rcube_webmail()
     form._draft.value = draft ? '1' : '';
     form.action = this.add_url(form.action, '_unlock', msgid);
     form.action = this.add_url(form.action, '_lang', lang);
+
+    // register timer to notify about connection timeout
+    this.submit_timer = setTimeout(function(){
+      ref.set_busy(false, null, msgid);
+      ref.display_message(ref.get_label('requesttimedout'), 'error');
+    }, this.env.request_timeout * 1000);
+
     form.submit();
   };
 
@@ -3646,7 +3659,8 @@ function rcube_webmail()
       // reset vars
       this.env.current_page = 1;
 
-      r = this.http_request('search', url, lock);
+      var action = this.env.action == 'compose' && this.contact_list ? 'search-contacts' : 'search';
+      r = this.http_request(action, url, lock);
 
       this.env.qsearch = {lock: lock, request: r};
     }
@@ -4140,7 +4154,7 @@ function rcube_webmail()
 
     if (this.env.search_id)
       folder = 'S'+this.env.search_id;
-    else
+    else if (!this.env.search_request)
       folder = group ? 'G'+src+group : src;
 
     this.select_folder(folder);
@@ -4193,7 +4207,7 @@ function rcube_webmail()
     this.env.source = src;
     this.env.group = group;
 
-    // also send search request to get the right messages
+    // also send search request to get the right records
     if (this.env.search_request)
       url._search = this.env.search_request;
 
@@ -6333,12 +6347,21 @@ function rcube_webmail()
 
     // redirect to url specified in location header if not empty
     var location_url = request.getResponseHeader("Location");
-    if (location_url)
+    if (location_url && this.env.action != 'compose')  // don't redirect on compose screen, contents might get lost (#1488926)
       this.redirect(location_url);
 
     // re-send keep-alive requests after 30 seconds
     if (action == 'keep-alive')
       setTimeout(function(){ ref.keep_alive(); ref.start_keepalive(); }, 30000);
+  };
+
+  // callback when an iframe finished loading
+  this.iframe_loaded = function(unlock)
+  {
+    this.set_busy(false, null, unlock);
+
+    if (this.submit_timer)
+      clearTimeout(this.submit_timer);
   };
 
   // post the given form to a hidden iframe

@@ -64,7 +64,7 @@ class rcube_install
   /**
    * Constructor
    */
-  function rcube_install()
+  function __construct()
   {
     $this->step = intval($_REQUEST['_step']);
     $this->is_post = $_SERVER['REQUEST_METHOD'] == 'POST';
@@ -73,7 +73,7 @@ class rcube_install
   /**
    * Singleton getter
    */
-  function get_instance()
+  static function get_instance()
   {
     static $inst;
 
@@ -455,7 +455,7 @@ class rcube_install
         '0.5-beta', '0.5', '0.5.1',
         '0.6-beta', '0.6',
         '0.7-beta', '0.7', '0.7.1', '0.7.2', '0.7.3',
-        '0.8-beta', '0.8-rc', '0.8.0', '0.8.1', '0.8.2', '0.8.3', '0.8.4',
+        '0.8-beta', '0.8-rc', '0.8.0', '0.8.1', '0.8.2', '0.8.3', '0.8.4', '0.8.5',
         '0.9-beta',
     ));
     return $select;

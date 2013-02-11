@@ -36,10 +36,6 @@ if (!empty($_GET['_preload'])) {
 ob_end_clean();
 
 
-// define global style for warning blocks inside the attachment part frame
-// TODO: get styles for this from skin (but we don't have a skin template here...)
-$warning_css_style = 'border:2px solid #ffdf0e; background:#fef893; padding:0.6em 1em';
-
 // similar code as in program/steps/mail/show.inc
 if (!empty($_GET['_uid'])) {
   $RCMAIL->config->set('prefer_html', true);
@@ -125,7 +121,7 @@ else if (strlen($pid = get_input_value('_part', RCUBE_INPUT_GET))) {
       $valid = $file_extension && in_array($file_extension, (array)$extensions);
 
       // 2. detect the real mimetype of the attachment part and compare it with the stated mimetype and filename extension
-      if ($valid || !$file_extension || $mimetype == 'application/octet-stream') {
+      if ($valid || !$file_extension || $mimetype == 'application/octet-stream' || $mimetype == 'text/plain') {
         if ($part->body)  // part body is already loaded
           $body = $part->body;
         else if ($part->size && $part->size < 1024*1024)   // load the entire part if it's small enough
@@ -136,6 +132,10 @@ else if (strlen($pid = get_input_value('_part', RCUBE_INPUT_GET))) {
         // detect message part mimetype
         $real_mimetype = rcube_mime::file_content_type($body, $part->filename, $mimetype, true, true);
         list($real_ctype_primary, $real_ctype_secondary) = explode('/', $real_mimetype);
+
+        // accept text/plain with any extension
+        if ($real_mimetype == 'text/plain' && $real_mimetype == $mimetype)
+          $file_extension = 'txt';
 
         // ignore differences in text/* mimetypes. Filetype detection isn't very reliable here
         if ($real_ctype_primary == 'text' && strpos($mimetype, $real_ctype_primary) === 0)
@@ -158,13 +158,13 @@ else if (strlen($pid = get_input_value('_part', RCUBE_INPUT_GET))) {
       // show warning if validity checks failed
       if (!$valid) {
         $OUTPUT = new rcmail_html_page();
-        $OUTPUT->write(html::tag('html', null, html::tag('body', array('style' => 'font-family:sans-serif; margin:1em'),
-          html::div(array('class' => 'warning', 'style' => $warning_css_style),
+        $OUTPUT->write(html::tag('html', null, html::tag('body', 'embed',
+          html::div(array('class' => 'rcmail-inline-message rcmail-inline-warning'),
             rcube_label(array(
               'name' => 'attachmentvalidationerror',
               'vars' => array('expected' => "$mimetype (.$file_extension)", 'detected' => "$real_mimetype (.$extensions[0])")
             )) .
-            html::p(array('class' => 'buttons', 'style' => 'margin-bottom:0'),
+            html::p(array('class' => 'rcmail-inline-buttons'),
               html::tag('button',
                 array('onclick' => "location.href='" . $RCMAIL->url(array_merge($_GET, array('_nocheck' => 1))) . "'"),
                 rcube_label('showanyway')))
@@ -232,7 +232,7 @@ else if (strlen($pid = get_input_value('_part', RCUBE_INPUT_GET))) {
             $body_start = strpos($out, '>', $body_pos) + 1;
           }
           $out = substr($out, 0, $body_start) .
-            html::div(array('class' => 'warning', 'style' => $warning_css_style),
+            html::div(array('class' => 'rcmail-inline-message rcmail-inline-warning'),
               Q(rcube_label('blockedimages')) . '&nbsp;' .
               html::tag('button',
                 array('onclick' => "location.href='" . $RCMAIL->url(array_merge($_GET, array('_safe' => 1))) . "'"),
