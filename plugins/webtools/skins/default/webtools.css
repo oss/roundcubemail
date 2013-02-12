@@ -207,3 +207,14 @@ div#webtools-tabs span#webtoolstabhushquota{
 div#webtools-tabs span#webtoolstabrestore{
 	background-position-y: -165px;
 }
+
+tr#rcmrowresetprefs td.section {
+	background-image: url(reset_prefs.png);
+	background-size: 21px;
+	background-position: 8px 2px;
+}
+
+tr#rcmrowresetprefs.focused td.section {
+	background-color: #ccc;
+	background-position: 8px -21px;
+}
