@@ -243,7 +243,7 @@
 }
 
 /** Do not display LDAP Groups for rutgers CSS or ess */
-#directorylist #rcmliIDMS{
+#directorylist #rcmliSURNUw{
   display: none;
 }
 
