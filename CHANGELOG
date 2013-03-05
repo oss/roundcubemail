@@ -1,6 +1,11 @@
 CHANGELOG Roundcube Webmail
 ===========================
 
+- Fix thumbnail size when GD extension is used for image resize (#1488985)
+- Display notice that message is encrypted also for application/pkcs7-mime messages (#1488526)
+
+RELEASE 0.9-rc
+--------------
 - Fix plain text spellchecker icorrect highlighting in non-ASCII text (#1488973)
 - Add workaround for invalid message charset detection by IMAP servers (#1488968)
 - Fix NUL characters in content-type of ms-tnef attachment (#1488964)
