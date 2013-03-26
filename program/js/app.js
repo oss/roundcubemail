@@ -178,6 +178,11 @@ function rcube_webmail()
       parent.rcmail.env.frame_lock = null;
     }
 
+    // Makes that reference to document.activeElement do not throw
+    // "unspecified error" in IE9 (#1489008)
+    if (this.env.framed && bw.ie)
+      document.documentElement.focus();
+
     // enable general commands
     this.enable_command('close', 'logout', 'mail', 'addressbook', 'settings', 'save-pref', 'compose', 'undo', 'about', 'switch-task', true);
 
@@ -821,7 +826,7 @@ function rcube_webmail()
 
         // open attachment in frame if it's of a supported mimetype
         if (this.env.uid && props.mimetype && this.env.mimetypes && $.inArray(props.mimetype, this.env.mimetypes) >= 0) {
-          var attachment_win = window.open(this.env.comm_path+'&_action=get&'+qstring+'&_frame=1', 'rcubemailattachment'+this.env.uid+props.part);
+          var attachment_win = window.open(this.env.comm_path+'&_action=get&'+qstring+'&_frame=1', this.html_identifier('rcubemailattachment'+this.env.uid+props.part));
           if (attachment_win) {
             setTimeout(function(){ attachment_win.focus(); }, 10);
             break;
@@ -944,8 +949,8 @@ function rcube_webmail()
         // Reset the auto-save timer
         clearTimeout(this.save_timer);
 
-        // compose form did not change
-        if (this.cmp_hash == this.compose_field_hash()) {
+        // compose form did not change (and draft wasn't saved already)
+        if (this.draft_saved && this.cmp_hash == this.compose_field_hash()) {
           this.auto_save_start();
           break;
         }
@@ -3340,6 +3345,7 @@ function rcube_webmail()
 
   this.set_draft_id = function(id)
   {
+    this.draft_saved = id;
     $("input[name='_draft_saveid']").val(id);
   };
 
@@ -6350,6 +6356,14 @@ function rcube_webmail()
     var location_url = request.getResponseHeader("Location");
     if (location_url && this.env.action != 'compose')  // don't redirect on compose screen, contents might get lost (#1488926)
       this.redirect(location_url);
+
+    // 403 Forbidden response (CSRF prevention) - reload the page.
+    // In case there's a new valid session it will be used, otherwise
+    // login form will be presented (#1488960).
+    if (request.status == 403) {
+      (this.is_framed() ? parent : window).location.reload();
+      return;
+    }
 
     // re-send keep-alive requests after 30 seconds
     if (action == 'keep-alive')

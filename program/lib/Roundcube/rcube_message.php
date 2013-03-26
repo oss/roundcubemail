@@ -93,7 +93,7 @@ class rcube_message
         $this->subject = $this->mime->decode_mime_string($this->headers->subject);
         list(, $this->sender) = each($this->mime->decode_address_list($this->headers->from, 1));
 
-        $this->set_safe((intval($_GET['_safe']) || $_SESSION['safe_messages'][$uid]));
+        $this->set_safe((intval($_GET['_safe']) || $_SESSION['safe_messages'][$this->folder.':'.$uid]));
         $this->opt = array(
             'safe' => $this->is_safe,
             'prefer_html' => $this->app->config->get('prefer_html'),
@@ -144,8 +144,7 @@ class rcube_message
      */
     public function set_safe($safe = true)
     {
-        $this->is_safe = $safe;
-        $_SESSION['safe_messages'][$this->uid] = $this->is_safe;
+        $_SESSION['safe_messages'][$this->folder.':'.$this->uid] = $this->is_safe = $safe;
     }
 
 
@@ -210,18 +209,20 @@ class rcube_message
                 if (!$recursive) {
                     $level = explode('.', $part->mime_id);
 
-                    // Skip if level too deep or part has a file name
-                    if (count($level) > 2 || $part->filename) {
+                    // Skip if part is an attachment
+                    if ($this->is_attachment($part)) {
                         continue;
                     }
 
-                    // HTML part can be on the lower level, if not...
-                    if (count($level) > 1) {
-                        array_pop($level);
+                    // Check if the part belongs to higher-level's alternative/related
+                    while (array_pop($level) !== null) {
+                        if (!count($level)) {
+                            return true;
+                        }
+
                         $parent = $this->mime_parts[join('.', $level)];
-                        // ... parent isn't multipart/alternative or related
                         if ($parent->mimetype != 'multipart/alternative' && $parent->mimetype != 'multipart/related') {
-                            continue;
+                            continue 2;
                         }
                     }
                 }
