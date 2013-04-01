@@ -139,7 +139,6 @@ if (!empty($CONFIG['drafts_mbox'])) {
 }
 // set current mailbox in client environment
 $OUTPUT->set_env('mailbox', $RCMAIL->storage->get_folder());
-$OUTPUT->set_env('sig_above', $RCMAIL->config->get('sig_above', false));
 $OUTPUT->set_env('top_posting', intval($RCMAIL->config->get('reply_mode')) > 0);
 $OUTPUT->set_env('recipients_separator', trim($RCMAIL->config->get('recipients_separator', ',')));
 
@@ -152,6 +151,7 @@ if ($font && !is_array($font)) {
 // get reference message and set compose mode
 if ($msg_uid = $COMPOSE['param']['draft_uid']) {
   $compose_mode = RCUBE_COMPOSE_DRAFT;
+  $OUTPUT->set_env('draft_id', $msg_uid);
   $RCMAIL->storage->set_folder($CONFIG['drafts_mbox']);
 }
 else if ($msg_uid = $COMPOSE['param']['reply_uid']) {
@@ -452,7 +452,7 @@ function rcmail_compose_header_from($attrib)
   if (count($MESSAGE->identities))
   {
     $a_signatures = array();
-    $separator    = $RCMAIL->config->get('sig_above')
+    $separator    = intval($RCMAIL->config->get('reply_mode')) > 0
       && ($compose_mode == RCUBE_COMPOSE_REPLY || $compose_mode == RCUBE_COMPOSE_FORWARD) ? '---' : '-- ';
 
     $field_attrib['onchange'] = JS_OBJECT_NAME.".change_identity(this)";
