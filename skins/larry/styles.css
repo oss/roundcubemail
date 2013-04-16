@@ -1775,8 +1775,8 @@ html.opera select.decorated {
 }
 
 select.decorated option {
-	color: #fff;
-	background: #444;
+	color: black;
+	background: #f1f1f1;
 	border: 0;
 	border-top: 1px solid #5a5a5a;
 	border-bottom: 1px solid #333;
@@ -1789,7 +1789,7 @@ select.decorated option {
  * to the currently selected item in chrome. can be removed if/when this is fixed.
  */
 select.decorated option[selected="selected"] {
-	background: #444 !important;
+	background: #f1f1f1 !important;
 }
 
 /*** quota indicator ***/
