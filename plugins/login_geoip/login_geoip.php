@@ -389,7 +389,7 @@ function template_object_loginactivity ($args)
    }
 	//Changes so flags are now stored relative to the plugin directory.
    //$flagsdir = ($_SERVER['SERVER_PORT'] == 443?"https://":"http://") . $this->rc->config->get('flags_dir');
-	$flagsdir = $this->urlbase . "flags/";
+   $flagsdir = $this->urlbase . "flags/";
    $cur = $res[0]; $prev = $res[1];
    $r  = "\n<div id='login_time' class='uibox listbox' style='position: absolute'>\n" .
          //"\n<div style='padding: 5px; font-size:8pt' class='ui-widget-header ui-corner-top'>Account Activity</div>" .
@@ -429,7 +429,8 @@ function show_details ()
 function show_details_content()
 {
    $this->lookup();
-   $flagsdir = ($_SERVER['SERVER_PORT'] == 443?"https://":"http://") . $this->rc->config->get('flags_dir');
+   //$flagsdir = ($_SERVER['SERVER_PORT'] == 443?"https://":"http://") . $this->rc->config->get('flags_dir');
+   $flagsdir = $this->urlbase . "flags/";
    // generate the content for the details page. start by getting the last couple entries out of the user db
    if ($this->userdb->query("select INET_NTOA(ip), host, flag, description, loc, time from geoip_user_real where username='".$this->user."' order by time desc;"))
    {
