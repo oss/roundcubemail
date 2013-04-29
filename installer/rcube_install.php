@@ -46,8 +46,7 @@ class rcube_install
 
   // these config options are required for a working system
   var $required_config = array(
-    'db_dsnw', 'db_table_contactgroups', 'db_table_contactgroupmembers',
-    'des_key', 'session_lifetime', 'support_url',
+    'db_dsnw', 'des_key', 'session_lifetime',
   );
 
   // list of supported database drivers
@@ -288,7 +287,7 @@ class rcube_install
     if ($this->config['log_driver'] == 'syslog') {
       if (!function_exists('openlog')) {
         $out['dependencies'][] = array('prop' => 'log_driver',
-          'explain' => 'This requires the <tt>sylog</tt> extension which could not be loaded.');
+          'explain' => 'This requires the <tt>syslog</tt> extension which could not be loaded.');
       }
       if (empty($this->config['syslog_id'])) {
         $out['dependencies'][] = array('prop' => 'syslog_id',
@@ -456,7 +455,7 @@ class rcube_install
         '0.6-beta', '0.6',
         '0.7-beta', '0.7', '0.7.1', '0.7.2', '0.7.3', '0.7.4',
         '0.8-beta', '0.8-rc', '0.8.0', '0.8.1', '0.8.2', '0.8.3', '0.8.4', '0.8.5', '0.8.6',
-        '0.9-beta', '0.9-rc', '0.9-rc2',
+        '0.9-beta', '0.9-rc', '0.9-rc2', '0.9.0',
     ));
     return $select;
   }
@@ -638,8 +637,10 @@ class rcube_install
    */
   function update_db($version)
   {
-    system(INSTALL_PATH . "bin/updatedb.sh --package=roundcube --version=" . $version
-      . " --dir=" . INSTALL_PATH . "SQL", $result);
+    system(INSTALL_PATH . "bin/updatedb.sh --package=roundcube"
+      . " --version=" . escapeshellarg($version)
+      . " --dir=" . INSTALL_PATH . "SQL"
+      . " 2>&1", $result);
 
     return !$result;
   }
