@@ -24,10 +24,12 @@
 
 .login_history th {
  /*  background-color: #d30f33; */
+ /*   color: #ffffff;*/
    font-weight: bold;
    text-align: center;
    font-size: 10pt;
-   color: #ffffff;
+   color: #616161;
+   background: #ccc;
    padding: 0px;
    margin:0px;
    padding-top: 5px; padding-bottom: 5px;
