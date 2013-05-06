@@ -64,6 +64,7 @@ $labels['copy']     = 'העתק';
 $labels['move']     = 'העבר';
 $labels['moveto']   = 'תיוק ב...';
 $labels['download'] = 'הורדה';
+$labels['open']     = 'לפתוח';
 $labels['showattachment'] = 'הצגה';
 $labels['showanyway'] = 'להציג בכל מקרה';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'דף נוכחי';
 $labels['unread'] = 'לא נקראו';
 $labels['flagged'] = 'מסומן';
 $labels['unanswered'] = 'לא נענה';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'נמחק';
 $labels['undeleted'] = 'לא נמחק';
 $labels['invert'] = 'היפוך הסימון';
@@ -204,6 +206,8 @@ $labels['body']  = 'גוף ההודעה';
 
 $labels['openinextwin'] = 'פתיחה בחלון חדש';
 $labels['emlsave'] = 'הורדת הודעה בפורמט  EML';
+$labels['changeformattext'] = 'הצגה בפורמט לא מעוצב';
+$labels['changeformathtml'] = 'הצגה בפורמט HTML';
 
 // message compose
 $labels['editasnew']      = 'עריכת ההודעה כחדשה';
@@ -453,9 +457,6 @@ $labels['replyremovesignature'] = 'החתימה תוסר מההודעה המקו
 $labels['autoaddsignature'] = 'הוספה אוטומטית של חתימה';
 $labels['newmessageonly'] = 'הודעה חדשה בלבד';
 $labels['replyandforwardonly'] = 'מענה והעברת הודעה בלבד';
-$labels['replysignaturepos'] = 'במענה או בהעברת הודעה, החתימה תופיע';
-$labels['belowquote'] = 'בסוף ההודעה המקורית';
-$labels['abovequote'] = 'בתחילת ההודעה המקורית';
 $labels['insertsignature'] = 'שיבוץ חתימה';
 $labels['previewpanemarkread']  = 'סימון הודעה שנצפתה כנקראה';
 $labels['afternseconds']  = 'לאחר $n שניות';

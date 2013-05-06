@@ -64,6 +64,7 @@ $labels['copy']     = 'Copiar';
 $labels['move']     = 'Mover';
 $labels['moveto']   = 'Mover a...';
 $labels['download'] = 'Descargar';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Show';
 $labels['showanyway'] = 'Show it anyway';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Páxina actual';
 $labels['unread'] = 'Non lidas';
 $labels['flagged'] = 'Marcadas';
 $labels['unanswered'] = 'Non respostadas';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Marcadas como eliminadas';
 $labels['undeleted'] = 'Not deleted';
 $labels['invert'] = 'Inverter';
@@ -204,6 +206,8 @@ $labels['body']  = 'Body';
 
 $labels['openinextwin'] = 'Abrir nunha nova fiestra';
 $labels['emlsave'] = 'Gardar (.eml)';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Editar como nova';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Eliminar a firma do remitente ao respostar';
 $labels['autoaddsignature'] = 'Engadir firma automáticamente';
 $labels['newmessageonly'] = 'só nas mensaxes novas';
 $labels['replyandforwardonly'] = 'só nas respostas e reenvíos';
-$labels['replysignaturepos'] = 'Ao respostar ou reenviar colocar a firma';
-$labels['belowquote'] = 'embaixo do texto citado';
-$labels['abovequote'] = 'enriba do texto citado';
 $labels['insertsignature'] = 'Engadir firma';
 $labels['previewpanemarkread']  = 'Marcar como lidas as mensaxes previsualizadas';
 $labels['afternseconds']  = 'logo de $n segundos';

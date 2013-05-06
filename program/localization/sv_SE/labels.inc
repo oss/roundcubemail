@@ -64,6 +64,7 @@ $labels['copy']     = 'Kopiera';
 $labels['move']     = 'Flytta';
 $labels['moveto']   = 'Flytta till:';
 $labels['download'] = 'Ladda ner';
+$labels['open']     = 'Öppna';
 $labels['showattachment'] = 'Visa';
 $labels['showanyway'] = 'Visa det ändå';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Sida';
 $labels['unread'] = 'Olästa';
 $labels['flagged'] = 'Flaggade';
 $labels['unanswered'] = 'Obesvarade';
+$labels['withattachment'] = 'Med bilaga';
 $labels['deleted'] = 'Borttagna';
 $labels['undeleted'] = 'Inte borttaget';
 $labels['invert'] = 'Invertera';
@@ -204,6 +206,8 @@ $labels['body']  = 'Innehåll';
 
 $labels['openinextwin'] = 'Öppna i nytt fönster';
 $labels['emlsave'] = 'Spara (.eml)';
+$labels['changeformattext'] = 'Visa i text-format';
+$labels['changeformathtml'] = 'Visa i HTML-format';
 
 // message compose
 $labels['editasnew']      = 'Redigera som nytt';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Ta bort befintlig signatur från meddelandet 
 $labels['autoaddsignature'] = 'Infoga signatur automatiskt';
 $labels['newmessageonly'] = 'Vid nytt meddelande';
 $labels['replyandforwardonly'] = 'Vid svar och vidarebefordran';
-$labels['replysignaturepos'] = 'Vid svar eller vidarebefordran infoga signatur';
-$labels['belowquote'] = 'Nedanför befintligt meddelande';
-$labels['abovequote'] = 'Ovanför befintligt meddelande';
 $labels['insertsignature'] = 'Infoga signatur';
 $labels['previewpanemarkread']  = 'Märk meddelande som läst vid visning';
 $labels['afternseconds']  = 'Efter $n sekunder';

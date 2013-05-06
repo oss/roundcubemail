@@ -64,6 +64,7 @@ $labels['copy']     = 'Kopieren';
 $labels['move']     = 'Verschieben';
 $labels['moveto']   = 'Verschieben nach...';
 $labels['download'] = 'Herunterladen';
+$labels['open']     = 'Offen';
 $labels['showattachment'] = 'Anzeigen';
 $labels['showanyway'] = 'Trotzdem anzeigen';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Aktuelle Seite';
 $labels['unread'] = 'Ungelesene';
 $labels['flagged'] = 'Markierte';
 $labels['unanswered'] = 'Unbeantwortete';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Gelöschte';
 $labels['undeleted'] = 'Nicht gelöscht';
 $labels['invert'] = 'Invertieren';
@@ -204,6 +206,8 @@ $labels['body']  = 'Inhalt';
 
 $labels['openinextwin'] = 'In neuem Fenster öffnen';
 $labels['emlsave'] = 'Lokal speichern (.eml)';
+$labels['changeformattext'] = 'Als reiner Text anzeigen';
+$labels['changeformathtml'] = 'Als original HTML anzeigen';
 
 // message compose
 $labels['editasnew']      = 'Als neue Nachricht öffnen';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Beim Antworten Signatur der Originalnachricht
 $labels['autoaddsignature'] = 'Signatur automatisch einfügen';
 $labels['newmessageonly'] = 'nur bei neuen Nachrichten';
 $labels['replyandforwardonly'] = 'nur bei Antworten und Weiterleitungen';
-$labels['replysignaturepos'] = 'Beim Antworten die Signatur';
-$labels['belowquote'] = 'unter der Originalnachricht einfügen';
-$labels['abovequote'] = 'über der Originalnachricht einfügen';
 $labels['insertsignature'] = 'Signatur einfügen';
 $labels['previewpanemarkread']  = 'Nachricht in Vorschau als gelesen markieren';
 $labels['afternseconds']  = 'nach $n Sekunden';

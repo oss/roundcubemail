@@ -64,6 +64,7 @@ $labels['copy']     = 'Kopírovat';
 $labels['move']     = 'Přesunout';
 $labels['moveto']   = 'přesunout do...';
 $labels['download'] = 'stáhnout';
+$labels['open']     = 'Otevřít';
 $labels['showattachment'] = 'Zobrazit';
 $labels['showanyway'] = 'Přesto zobrazit';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Aktuální stránka';
 $labels['unread'] = 'Nepřečtené';
 $labels['flagged'] = 'Označené';
 $labels['unanswered'] = 'Neoznačené';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Smazané';
 $labels['undeleted'] = 'Nesmazáno';
 $labels['invert'] = 'Převrátit';
@@ -204,6 +206,8 @@ $labels['body']  = 'Tělo';
 
 $labels['openinextwin'] = 'Otevřít v novém okně';
 $labels['emlsave'] = 'Stáhnout (.eml)';
+$labels['changeformattext'] = 'Zobrazit v textovém formátu';
+$labels['changeformathtml'] = 'Zobrazit v HTML formátu';
 
 // message compose
 $labels['editasnew']      = 'Upravit jako novou';
@@ -335,8 +339,8 @@ $labels['composeto']      = 'Poslat e-mail';
 $labels['contactsfromto'] = 'Kontakty $from až $to z celkem $count';
 $labels['print']          = 'Tisk';
 $labels['export']         = 'Export';
-$labels['exportall']      = 'Export all';
-$labels['exportsel']      = 'Export selected';
+$labels['exportall']      = 'Export všech';
+$labels['exportsel']      = 'Export vybraných';
 $labels['exportvcards']   = 'Exportovat kontakty ve formátu vCard';
 $labels['newcontactgroup'] = 'Vytvořit novou skupinu kontaktů';
 $labels['grouprename']    = 'Přejmenovat skupinu';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Při odpovídání odstranit ze zprávy půvo
 $labels['autoaddsignature'] = 'Automaticky přidat podpis';
 $labels['newmessageonly'] = 'pouze k novým zprávám';
 $labels['replyandforwardonly'] = 'jen k odpovědi a přeposílané zprávě';
-$labels['replysignaturepos'] = 'Při odpovídání nebo přeposílání zprávy vložit podpis';
-$labels['belowquote'] = 'pod citaci';
-$labels['abovequote'] = 'nad citaci';
 $labels['insertsignature'] = 'Vložit podpis';
 $labels['previewpanemarkread']  = 'Označit zobrazené zprávy jako přečtené';
 $labels['afternseconds']  = 'po $n sekundách';

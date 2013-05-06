@@ -64,6 +64,7 @@ $labels['copy']     = 'Kopiëren';
 $labels['move']     = 'Verplaats';
 $labels['moveto']   = 'Verplaats naar...';
 $labels['download'] = 'Download';
+$labels['open']     = 'Openen';
 $labels['showattachment'] = 'Toon';
 $labels['showanyway'] = 'Laat toch zien';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Huidige pagina';
 $labels['unread'] = 'Ongelezen';
 $labels['flagged'] = 'Gemarkeerd';
 $labels['unanswered'] = 'Onbeantwoord';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Verwijderd';
 $labels['undeleted'] = 'Niet verwijderd';
 $labels['invert'] = 'Selectie omkeren';
@@ -204,6 +206,8 @@ $labels['body']  = 'Inhoud';
 
 $labels['openinextwin'] = 'Openen in een nieuw venster';
 $labels['emlsave'] = 'Opslaan (.eml)';
+$labels['changeformattext'] = 'Weergeven als platte tekst';
+$labels['changeformathtml'] = 'Weergeven als opgemaakte tekst (HTML)';
 
 // message compose
 $labels['editasnew']      = 'Als nieuw bewerken';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Verwijder oorspronkelijke ondertekening van b
 $labels['autoaddsignature'] = 'Ondertekening automatisch toevoegen';
 $labels['newmessageonly'] = 'alleen bij nieuwe berichten';
 $labels['replyandforwardonly'] = 'alleen bij antwoorden en doorsturen';
-$labels['replysignaturepos'] = 'Ondertekening plaatsen bij antwoorden of doorsturen';
-$labels['belowquote'] = 'onder het citaat';
-$labels['abovequote'] = 'boven het citaat';
 $labels['insertsignature'] = 'Ondertekening invoegen';
 $labels['previewpanemarkread']  = 'Markeer voorbeeldberichten als gelezen';
 $labels['afternseconds']  = 'na $n seconden';

@@ -64,6 +64,7 @@ $labels['copy']     = 'Copy';
 $labels['move']     = 'Move';
 $labels['moveto']   = 'Move to...';
 $labels['download'] = 'Download';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Show';
 $labels['showanyway'] = 'Show it anyway';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Current page';
 $labels['unread'] = 'Unread';
 $labels['flagged'] = 'Flagged';
 $labels['unanswered'] = 'Unanswered';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Deleted';
 $labels['undeleted'] = 'Not deleted';
 $labels['invert'] = 'Invert';
@@ -204,6 +206,8 @@ $labels['body']  = 'Body';
 
 $labels['openinextwin'] = 'Open in new window';
 $labels['emlsave'] = 'Download (.eml)';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Edit as new';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'When replying remove original signature from 
 $labels['autoaddsignature'] = 'Automatically add signature';
 $labels['newmessageonly'] = 'new message only';
 $labels['replyandforwardonly'] = 'replies and forwards only';
-$labels['replysignaturepos'] = 'When replying or forwarding place signature';
-$labels['belowquote'] = 'below the quote';
-$labels['abovequote'] = 'above the quote';
 $labels['insertsignature'] = 'Insert signature';
 $labels['previewpanemarkread']  = 'Mark previewed messages as read';
 $labels['afternseconds']  = 'after $n seconds';

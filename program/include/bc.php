@@ -205,9 +205,9 @@ function rcmail_quota_content($attrib = null)
     return rcmail::get_instance()->quota_content($attrib);
 }
 
-function rcmail_display_server_error($fallback=null, $fallback_args=null)
+function rcmail_display_server_error($fallback=null, $fallback_args=null, $suffix='')
 {
-    rcmail::get_instance()->display_server_error($fallback, $fallback_args);
+    rcmail::get_instance()->display_server_error($fallback, $fallback_args, $suffix);
 }
 
 function rcmail_filetype2classname($mimetype, $filename)
@@ -288,7 +288,7 @@ function rcmail_remote_ip()
 
 function rcube_check_referer()
 {
-    return rcmail::check_referer();
+    return rcube_utils::check_referer();
 }
 
 function rcube_timer()

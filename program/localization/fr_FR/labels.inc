@@ -64,6 +64,7 @@ $labels['copy']     = 'Copier';
 $labels['move']     = 'Déplacer';
 $labels['moveto']   = 'Déplacer vers...';
 $labels['download'] = 'Télécharger';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Afficher';
 $labels['showanyway'] = 'Afficher quand même';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Page courante';
 $labels['unread'] = 'Non lus';
 $labels['flagged'] = 'Marqué';
 $labels['unanswered'] = 'Non répondu';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Supprimé';
 $labels['undeleted'] = 'Non supprimé';
 $labels['invert'] = 'Inverser';
@@ -204,6 +206,8 @@ $labels['body']  = 'Corps';
 
 $labels['openinextwin'] = 'Ouvrir dans une nouvelle fenêtre';
 $labels['emlsave'] = 'Télécharger (.eml)';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Éditer en tant que nouveau message';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'En répondant, supprimer la signature d\'orig
 $labels['autoaddsignature'] = 'Ajouter la signature automatiquement';
 $labels['newmessageonly'] = 'nouveau message uniquement';
 $labels['replyandforwardonly'] = 'réponses et transferts uniquement';
-$labels['replysignaturepos'] = 'En répondant ou en transférant, placer la signature';
-$labels['belowquote'] = 'en-dessous de la citation';
-$labels['abovequote'] = 'au-dessus de la citation';
 $labels['insertsignature'] = 'Insérer la signature';
 $labels['previewpanemarkread']  = 'Marquer les messages prévisualisés comme lus';
 $labels['afternseconds']  = 'après $n secondes';

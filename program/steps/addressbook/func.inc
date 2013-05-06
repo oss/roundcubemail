@@ -26,7 +26,7 @@ $CONTACT_COLTYPES = array(
   'name'         => array('type' => 'text', 'size' => 40, 'maxlength' => 50, 'limit' => 1, 'label' => rcube_label('name'), 'category' => 'main'),
   'firstname'    => array('type' => 'text', 'size' => 19, 'maxlength' => 50, 'limit' => 1, 'label' => rcube_label('firstname'), 'category' => 'main'),
   'surname'      => array('type' => 'text', 'size' => 19, 'maxlength' => 50, 'limit' => 1, 'label' => rcube_label('surname'), 'category' => 'main'),
-  'email'        => array('type' => 'text', 'size' => 40, 'maxlength' => 50, 'label' => rcube_label('email'), 'subtypes' => array('home','work','other'), 'category' => 'main'),
+  'email'        => array('type' => 'text', 'size' => 40, 'maxlength' => 254, 'label' => rcube_label('email'), 'subtypes' => array('home','work','other'), 'category' => 'main'),
   'middlename'   => array('type' => 'text', 'size' => 19, 'maxlength' => 50, 'limit' => 1, 'label' => rcube_label('middlename'), 'category' => 'main'),
   'prefix'       => array('type' => 'text', 'size' => 8,  'maxlength' => 20, 'limit' => 1, 'label' => rcube_label('nameprefix'), 'category' => 'main'),
   'suffix'       => array('type' => 'text', 'size' => 8,  'maxlength' => 20, 'limit' => 1, 'label' => rcube_label('namesuffix'), 'category' => 'main'),
@@ -167,7 +167,7 @@ function rcmail_set_sourcename($abook)
     // get address book name (for display)
     if ($abook && $_SESSION['addressbooks_count'] > 1) {
         $name = $abook->get_name();
-        if (!$name && $source == 0) {
+        if (!$name) {
             $name = rcube_label('personaladrbook');
         }
         $OUTPUT->set_env('sourcename', html_entity_decode($name, ENT_COMPAT, 'UTF-8'));
@@ -297,7 +297,7 @@ function rcmail_contact_groups($args)
     }
 
     $args['out'] .= html::tag('ul',
-      array('class' => 'groups', 'style' => ($is_collapsed ? "display:none;" : null)),
+      array('class' => 'groups', 'style' => ($is_collapsed || empty($groups) ? "display:none;" : null)),
       $groups_html);
 
     return $args;

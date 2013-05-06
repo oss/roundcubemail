@@ -64,6 +64,7 @@ $labels['copy']     = 'Copio';
 $labels['move']     = 'Symud';
 $labels['moveto']   = 'Symud i...';
 $labels['download'] = 'Llwytho lawr';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Dangos';
 $labels['showanyway'] = 'Dangos beth bynnag';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Tudalen gyfredol';
 $labels['unread'] = 'Heb eu darllen';
 $labels['flagged'] = 'Nodwyd';
 $labels['unanswered'] = 'Heb ei ateb';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Dilewyd';
 $labels['undeleted'] = 'Heb ei ddileu';
 $labels['invert'] = 'Gwrth-droi';
@@ -204,6 +206,8 @@ $labels['body']  = 'Corff';
 
 $labels['openinextwin'] = 'Agor mewn ffenest newydd';
 $labels['emlsave'] = 'Llwytho lawr (.eml)';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Golygu fel neges newydd';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Wrth ateb, dileu\'r llofnod gwreiddiol o\'r n
 $labels['autoaddsignature'] = 'Ychwanegu llofnod yn awtomatig';
 $labels['newmessageonly'] = 'negeseuon newydd yn unig';
 $labels['replyandforwardonly'] = 'atebion a danfon ymlaen yn unig';
-$labels['replysignaturepos'] = 'Wrth ateb neu ddanfon ymlaen, rhoi\'r llofnod';
-$labels['belowquote'] = 'o dan y dyfynniad';
-$labels['abovequote'] = 'uwchben y dyfynniad';
 $labels['insertsignature'] = 'Mewnosod llofnod';
 $labels['previewpanemarkread']  = 'Nodi negeseuon rhagolwg fel darllenwyd';
 $labels['afternseconds']  = 'ar ôl $n eiliad';

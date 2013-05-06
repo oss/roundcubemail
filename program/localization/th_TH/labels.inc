@@ -64,6 +64,7 @@ $labels['copy']     = 'คัดลอก';
 $labels['move']     = 'เลื่อน';
 $labels['moveto']   = 'ย้ายไป...';
 $labels['download'] = 'ดาวน์โหลด';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'แสดง';
 $labels['showanyway'] = 'Show it anyway';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'หน้าปัจจุบัน';
 $labels['unread'] = 'จดหมายที่ไม่ได้อ่าน';
 $labels['flagged'] = 'Flagged';
 $labels['unanswered'] = 'ยังไม่ได้ตอบ';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'ลบแล้ว';
 $labels['undeleted'] = 'ยังไม่ได้ลบ';
 $labels['invert'] = 'Invert';
@@ -204,6 +206,8 @@ $labels['body']  = 'เนื้อหา';
 
 $labels['openinextwin'] = 'Open in new window';
 $labels['emlsave'] = 'Download (.eml)';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Edit as new';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'When replying remove original signature from 
 $labels['autoaddsignature'] = 'เพิ่มลายเซ็นต์เข้าไปอัตโนมัติ';
 $labels['newmessageonly'] = 'เฉพาะข้อความใหม่เท่านั้น';
 $labels['replyandforwardonly'] = 'ตอบกลับและส่งต่อเท่านั้น';
-$labels['replysignaturepos'] = 'When replying or forwarding place signature';
-$labels['belowquote'] = 'below the quote';
-$labels['abovequote'] = 'above the quote';
 $labels['insertsignature'] = 'แทรกลายเซ็นต์';
 $labels['previewpanemarkread']  = 'Mark previewed messages as read';
 $labels['afternseconds']  = 'after $n seconds';

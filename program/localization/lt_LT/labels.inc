@@ -64,6 +64,7 @@ $labels['copy']     = 'Kopijuoti';
 $labels['move']     = 'Perkelti';
 $labels['moveto']   = 'Perkelti į…';
 $labels['download'] = 'Parsisiųsti';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Rodyti';
 $labels['showanyway'] = 'Vistiek rodyti';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'matomus šiame puslapyje';
 $labels['unread'] = 'neskaitytus';
 $labels['flagged'] = 'su gairele';
 $labels['unanswered'] = 'neatsakytus';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'pašalintus';
 $labels['undeleted'] = 'Neištrintas';
 $labels['invert'] = 'invertuoti';
@@ -204,6 +206,8 @@ $labels['body']  = 'Body';
 
 $labels['openinextwin'] = 'Atverti naujame lange';
 $labels['emlsave'] = 'Parsisiųsti (.eml)';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Redaguoti kaip naują';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Pašalinti cituojamame laiške esantį paraš
 $labels['autoaddsignature'] = 'Automatiškai pridėti parašą';
 $labels['newmessageonly'] = 'tik naujuose laiškuose';
 $labels['replyandforwardonly'] = 'tik atsakymuose ir persiunčiamuose laiškuose';
-$labels['replysignaturepos'] = 'Atsakant ir persiunčiant laiškus, parašą pridėti';
-$labels['belowquote'] = 'po citata';
-$labels['abovequote'] = 'virš citatos';
 $labels['insertsignature'] = 'Pridėti parašą';
 $labels['previewpanemarkread']  = 'Peržiūros polangyje parodytus laiškus žymėti skaitytais';
 $labels['afternseconds']  = 'praėjus $n sek.';

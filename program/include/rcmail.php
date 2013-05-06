@@ -98,7 +98,10 @@ class rcmail extends rcube
 
     // reset some session parameters when changing task
     if ($this->task != 'utils') {
-      if ($this->session && $_SESSION['task'] != $this->task)
+      // we reset list page when switching to another task
+      // but only to the main task interface - empty action (#1489076)
+      // this will prevent from unintentional page reset on cross-task requests
+      if ($this->session && $_SESSION['task'] != $this->task && empty($this->action))
         $this->session->remove('page');
       // set current task to session
       $_SESSION['task'] = $this->task;
@@ -123,7 +126,7 @@ class rcmail extends rcube
    */
   public function set_task($task)
   {
-    $task = asciiwords($task);
+    $task = asciiwords($task, true);
 
     if ($this->user && $this->user->ID)
       $task = !$task ? 'mail' : $task;
@@ -258,13 +261,13 @@ class rcmail extends rcube
    */
   public function get_address_sources($writeable = false, $skip_hidden = false)
   {
-    $abook_type = strtolower($this->config->get('address_book_type'));
-    $ldap_config = $this->config->get('ldap_public');
+    $abook_type   = (string) $this->config->get('address_book_type');
+    $ldap_config  = (array) $this->config->get('ldap_public');
     $autocomplete = (array) $this->config->get('autocomplete_addressbooks');
-    $list = array();
+    $list         = array();
 
     // We are using the DB address book or a plugin address book
-    if ($abook_type != 'ldap' && $abook_type != '') {
+    if (!empty($abook_type) && strtolower($abook_type) != 'ldap') {
       if (!isset($this->address_books['0']))
         $this->address_books['0'] = new rcube_contacts($this->db, $this->get_user_id());
       $list['0'] = array(
@@ -277,8 +280,7 @@ class rcmail extends rcube
       );
     }
 
-    if ($ldap_config) {
-      $ldap_config = (array) $ldap_config;
+    if (!empty($ldap_config)) {
       foreach ($ldap_config as $id => $prop) {
         // handle misconfiguration
         if (empty($prop) || !is_array($prop)) {
@@ -1165,7 +1167,7 @@ class rcmail extends rcube
      */
     public function table_output($attrib, $table_data, $a_show_cols, $id_col)
     {
-        $table = new html_table(/*array('cols' => count($a_show_cols))*/);
+        $table = new html_table($attrib);
 
         // add table header
         if (!$attrib['noheader']) {
@@ -1798,32 +1800,51 @@ class rcmail extends rcube
      *
      * @param string $fallback       Fallback message label
      * @param array  $fallback_args  Fallback message label arguments
+     * @param string $suffix         Message label suffix
      */
-    public function display_server_error($fallback = null, $fallback_args = null)
+    public function display_server_error($fallback = null, $fallback_args = null, $suffix = '')
     {
         $err_code = $this->storage->get_error_code();
         $res_code = $this->storage->get_response_code();
+        $args     = array();
 
         if ($res_code == rcube_storage::NOPERM) {
-            $this->output->show_message('errornoperm', 'error');
+            $error = 'errornoperm';
         }
         else if ($res_code == rcube_storage::READONLY) {
-            $this->output->show_message('errorreadonly', 'error');
+            $error = 'errorreadonly';
+        }
+        else if ($res_code == rcube_storage::OVERQUOTA) {
+            $error = 'errorroverquota';
         }
         else if ($err_code && ($err_str = $this->storage->get_error_str())) {
             // try to detect access rights problem and display appropriate message
             if (stripos($err_str, 'Permission denied') !== false) {
-                $this->output->show_message('errornoperm', 'error');
+                $error = 'errornoperm';
+            }
+            // try to detect full mailbox problem and display appropriate message
+            // there can be e.g. "Quota exceeded" or "quotum would exceed"
+            else if (stripos($err_str, 'quot') !== false && stripos($err_str, 'exceed') !== false) {
+                $error = 'erroroverquota';
             }
             else {
-                $this->output->show_message('servererrormsg', 'error', array('msg' => $err_str));
+                $error = 'servererrormsg';
+                $args  = array('msg' => $err_str);
             }
         }
         else if ($err_code < 0) {
-            $this->output->show_message('storageerror', 'error');
+            $error = 'storageerror';
         }
         else if ($fallback) {
-            $this->output->show_message($fallback, 'error', $fallback_args);
+            $error = $fallback;
+            $args  = $fallback_args;
+        }
+
+        if ($error) {
+            if ($suffix && $this->text_exists($error . $suffix)) {
+                $error .= $suffix;
+            }
+            $this->output->show_message($error, 'error', $args);
         }
     }
 

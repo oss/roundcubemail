@@ -64,6 +64,7 @@ $labels['copy']     = 'Копіювати';
 $labels['move']     = 'Перемістити';
 $labels['moveto']   = 'Перемістити до...';
 $labels['download'] = 'Завантажити';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Показати';
 $labels['showanyway'] = 'Все одно показати';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Поточна сторінка';
 $labels['unread'] = 'Непрочитані';
 $labels['flagged'] = 'Із зірочкою';
 $labels['unanswered'] = 'Без відповіді';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Видалені';
 $labels['undeleted'] = 'Не видалено';
 $labels['invert'] = 'Інвертувати виділення';
@@ -204,6 +206,8 @@ $labels['body']  = 'Тіло повідомлення';
 
 $labels['openinextwin'] = 'Відкрити в новому вікні';
 $labels['emlsave'] = 'Зберегти (.eml)';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Редагувати як новий';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'При відповіді видаляти п
 $labels['autoaddsignature'] = 'Автоматично додавати підпис';
 $labels['newmessageonly'] = 'тільки до нових листів';
 $labels['replyandforwardonly'] = 'тільки при відповідях та пересилках';
-$labels['replysignaturepos'] = 'При відповідях чи пересилках додавати підпис';
-$labels['belowquote'] = 'після цитати';
-$labels['abovequote'] = 'перед цитатою';
 $labels['insertsignature'] = 'Додати підпис';
 $labels['previewpanemarkread']  = 'Позначити переглянуті листи як прочитані';
 $labels['afternseconds']  = 'через $n секунд';

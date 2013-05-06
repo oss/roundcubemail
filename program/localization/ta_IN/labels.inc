@@ -64,6 +64,7 @@ $labels['copy']     = 'நகல்';
 $labels['move']     = 'Move';
 $labels['moveto']   = 'இதற்கு அனுப்பு...';
 $labels['download'] = 'பதிவிறக்கு';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Show';
 $labels['showanyway'] = 'Show it anyway';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Current page';
 $labels['unread'] = 'படிக்காதது';
 $labels['flagged'] = 'நட்சத்திரமிட்டது';
 $labels['unanswered'] = 'பதிலளிக்காதது';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'நீக்கியது';
 $labels['undeleted'] = 'Not deleted';
 $labels['invert'] = 'தலைகீழ்';
@@ -204,6 +206,8 @@ $labels['body']  = 'Body';
 
 $labels['openinextwin'] = 'புது சாளரத்தில் திற';
 $labels['emlsave'] = 'பதிவிறக்கு (.eml)';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'புதியதாக திருத்து';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'பதிலளிக்கும் பே�
 $labels['autoaddsignature'] = 'தானாக கையொப்பத்தை சேர்';
 $labels['newmessageonly'] = 'புது செய்தி மட்டும்';
 $labels['replyandforwardonly'] = 'பதிலளிப்பு முன்அனுப்பு மட்டும்';
-$labels['replysignaturepos'] = 'பதிலளிக்கும் போதும் முன்அனுப்பும் போதும் கையோப்பமிடு';
-$labels['belowquote'] = 'மேற்கோளுக்கு கீழே';
-$labels['abovequote'] = 'மேற்கோளுக்கு மேலே';
 $labels['insertsignature'] = 'கையோப்பமிடு';
 $labels['previewpanemarkread']  = 'Mark previewed messages as read';
 $labels['afternseconds']  = 'after $n seconds';

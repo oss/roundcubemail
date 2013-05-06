@@ -64,6 +64,7 @@ $labels['copy']     = 'Kopeeri';
 $labels['move']     = 'Liiguta';
 $labels['moveto']   = 'liiguta kausta...';
 $labels['download'] = 'laadi arvutisse';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Näita';
 $labels['showanyway'] = 'Näita ikka';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Praegune leht';
 $labels['unread'] = 'Lugemata';
 $labels['flagged'] = 'Märgistatud';
 $labels['unanswered'] = 'Vastamata';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Kustutatud';
 $labels['undeleted'] = 'Pole kustutatud';
 $labels['invert'] = 'Vaheta';
@@ -204,6 +206,8 @@ $labels['body']  = 'Keha';
 
 $labels['openinextwin'] = 'Ava uues aknas';
 $labels['emlsave'] = 'Salvesta (.eml)';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Kasuta uue kirja põhjana';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Vastates eemalda kirjast esialgne allkiri';
 $labels['autoaddsignature'] = 'Lisa allkiri automaatselt';
 $labels['newmessageonly'] = 'ainult uutele';
 $labels['replyandforwardonly'] = 'ainult vastates ja edastades';
-$labels['replysignaturepos'] = 'Vastates või edastades aseta allkiri';
-$labels['belowquote'] = 'tsiteeritu alla';
-$labels['abovequote'] = 'tsiteeritu kohale';
 $labels['insertsignature'] = 'Sisesta allkiri';
 $labels['previewpanemarkread']  = 'Märgi eelvaadatud kirjad loetuks';
 $labels['afternseconds']  = '$n sekundi pärast';

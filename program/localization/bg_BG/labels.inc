@@ -64,6 +64,7 @@ $labels['copy']     = 'Копиране';
 $labels['move']     = 'Преместване';
 $labels['moveto']   = 'Премести в...';
 $labels['download'] = 'Изтегли';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Показване';
 $labels['showanyway'] = 'Показване въпреки това';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Страница';
 $labels['unread'] = 'Нови';
 $labels['flagged'] = 'Отбелязано';
 $labels['unanswered'] = 'Без отговор';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Изтрито';
 $labels['undeleted'] = 'Не е изтрит';
 $labels['invert'] = 'Инвертирай';
@@ -204,6 +206,8 @@ $labels['body']  = 'Основен текст';
 
 $labels['openinextwin'] = 'Отвори в нов прозорец';
 $labels['emlsave'] = 'Изтегли като .eml';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Промени като ново';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Премахване на предишния 
 $labels['autoaddsignature'] = 'Автоматично добавяне на подпис';
 $labels['newmessageonly'] = 'само на нови съобщения';
 $labels['replyandforwardonly'] = 'само на отговори и препратени';
-$labels['replysignaturepos'] = 'Поставяне на подпис при отговор или препращане';
-$labels['belowquote'] = 'над цитатът';
-$labels['abovequote'] = 'под цитатът';
 $labels['insertsignature'] = 'Вмъкване на подпис';
 $labels['previewpanemarkread']  = 'Маркиране на прегледаните съобщения като прочетени';
 $labels['afternseconds']  = 'след $n секунди';

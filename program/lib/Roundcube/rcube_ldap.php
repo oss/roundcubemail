@@ -1396,6 +1396,10 @@ class rcube_ldap extends rcube_addressbook
      */
     protected function add_autovalues(&$attrs)
     {
+        if (empty($this->prop['autovalues'])) {
+            return;
+        }
+
         $attrvals = array();
         foreach ($attrs as $k => $v) {
             $attrvals['{'.$k.'}'] = is_array($v) ? $v[0] : $v;
@@ -1403,13 +1407,24 @@ class rcube_ldap extends rcube_addressbook
 
         foreach ((array)$this->prop['autovalues'] as $lf => $templ) {
             if (empty($attrs[$lf])) {
-                // replace {attr} placeholders with concrete attribute values
-                $templ = preg_replace('/\{\w+\}/', '', strtr($templ, $attrvals));
+                if (strpos($templ, '(') !== false) {
+                    // replace {attr} placeholders with (escaped!) attribute values to be safely eval'd
+                    $code = preg_replace('/\{\w+\}/', '', strtr($templ, array_map('addslashes', $attrvals)));
+                    $fn   = create_function('', "return ($code);");
+                    if (!$fn) {
+                        rcube::raise_error(array(
+                            'code' => 505, 'type' => 'php',
+                            'file' => __FILE__, 'line' => __LINE__,
+                            'message' => "Expression parse error on: ($code)"), true, false);
+                        continue;
+                    }
 
-                if (strpos($templ, '(') !== false)
-                    $attrs[$lf] = eval("return ($templ);");
-                else
-                    $attrs[$lf] = $templ;
+                    $attrs[$lf] = $fn();
+                }
+                else {
+                    // replace {attr} placeholders with concrete attribute values
+                    $attrs[$lf] = preg_replace('/\{\w+\}/', '', strtr($templ, $attrvals));
+                }
             }
         }
     }
@@ -1715,9 +1730,14 @@ class rcube_ldap extends rcube_addressbook
      * List all active contact groups of this source
      *
      * @param string  Optional search string to match group name
+     * @param int     Matching mode:
+     *                0 - partial (*abc*),
+     *                1 - strict (=),
+     *                2 - prefix (abc*)
+     *
      * @return array  Indexed list of contact groups, each a hash array
      */
-    function list_groups($search = null)
+    function list_groups($search = null, $mode = 0)
     {
         if (!$this->groups)
             return array();
@@ -1729,10 +1749,10 @@ class rcube_ldap extends rcube_addressbook
 
         $groups = array();
         if ($search) {
-            $search = mb_strtolower($search);
             foreach ($group_cache as $group) {
-                if (strpos(mb_strtolower($group['name']), $search) !== false)
+                if ($this->compare_search_value('name', $group['name'], $search, $mode)) {
                     $groups[] = $group;
+                }
             }
         }
         else
@@ -1921,9 +1941,10 @@ class rcube_ldap extends rcube_addressbook
     /**
      * Add the given contact records the a certain group
      *
-     * @param string  Group identifier
-     * @param array   List of contact identifiers to be added
-     * @return int    Number of contacts added
+     * @param string       Group identifier
+     * @param array|string List of contact identifiers to be added
+     *
+     * @return int Number of contacts added
      */
     function add_to_group($group_id, $contact_ids)
     {
@@ -1937,8 +1958,8 @@ class rcube_ldap extends rcube_addressbook
         $group_name  = $group_cache[$group_id]['name'];
         $member_attr = $group_cache[$group_id]['member_attr'];
         $group_dn    = "cn=$group_name,$base_dn";
+        $new_attrs   = array();
 
-        $new_attrs = array();
         foreach ($contact_ids as $id)
             $new_attrs[$member_attr][] = self::dn_decode($id);
 
@@ -1949,28 +1970,32 @@ class rcube_ldap extends rcube_addressbook
 
         $this->cache->remove('groups');
 
-        return count($new_attrs['member']);
+        return count($new_attrs[$member_attr]);
     }
 
     /**
      * Remove the given contact records from a certain group
      *
-     * @param string  Group identifier
-     * @param array   List of contact identifiers to be removed
-     * @return int    Number of deleted group members
+     * @param string       Group identifier
+     * @param array|string List of contact identifiers to be removed
+     *
+     * @return int Number of deleted group members
      */
     function remove_from_group($group_id, $contact_ids)
     {
         if (($group_cache = $this->cache->get('groups')) === null)
             $group_cache = $this->_fetch_groups();
 
+        if (!is_array($contact_ids))
+            $contact_ids = explode(',', $contact_ids);
+
         $base_dn     = $this->groups_base_dn;
         $group_name  = $group_cache[$group_id]['name'];
         $member_attr = $group_cache[$group_id]['member_attr'];
         $group_dn    = "cn=$group_name,$base_dn";
+        $del_attrs   = array();
 
-        $del_attrs = array();
-        foreach (explode(",", $contact_ids) as $id)
+        foreach ($contact_ids as $id)
             $del_attrs[$member_attr][] = self::dn_decode($id);
 
         if (!$this->ldap_mod_del($group_dn, $del_attrs)) {
@@ -1980,7 +2005,7 @@ class rcube_ldap extends rcube_addressbook
 
         $this->cache->remove('groups');
 
-        return count($del_attrs['member']);
+        return count($del_attrs[$member_attr]);
     }
 
     /**

@@ -64,6 +64,7 @@ $labels['copy']     = 'Copiază';
 $labels['move']     = 'Mută';
 $labels['moveto']   = 'Mută in...';
 $labels['download'] = 'Descarcă';
+$labels['open']     = 'Open';
 $labels['showattachment'] = 'Arată';
 $labels['showanyway'] = 'Arată oricum';
 
@@ -161,6 +162,7 @@ $labels['currpage'] = 'Pagina curentă';
 $labels['unread'] = 'Necitite';
 $labels['flagged'] = 'Marcat';
 $labels['unanswered'] = 'Fără răspuns';
+$labels['withattachment'] = 'With attachment';
 $labels['deleted'] = 'Şterse';
 $labels['undeleted'] = 'Nu a fost șters';
 $labels['invert'] = 'Inversează';
@@ -204,6 +206,8 @@ $labels['body']  = 'Corp';
 
 $labels['openinextwin'] = 'Deschide într-o fereastră nouă';
 $labels['emlsave'] = 'Salvează în format .eml';
+$labels['changeformattext'] = 'Display in plain text format';
+$labels['changeformathtml'] = 'Display in HTML format';
 
 // message compose
 $labels['editasnew']      = 'Editează ca nou';
@@ -451,9 +455,6 @@ $labels['replyremovesignature'] = 'Când răspundeţi, se şterge semnătura ori
 $labels['autoaddsignature'] = 'Adăugarea automată a semnăturii';
 $labels['newmessageonly'] = 'numai la mesajele noi';
 $labels['replyandforwardonly'] = 'numai la răspunsuri si cele trimise mai departe';
-$labels['replysignaturepos'] = 'Când răspundeţi sau trimiteţi mai departe, semnătura se va plasa';
-$labels['belowquote'] = 'dedesubtul citatului';
-$labels['abovequote'] = 'deasupra citatului';
 $labels['insertsignature'] = 'Introduce o semnătură';
 $labels['previewpanemarkread']  = 'Marchează mesajele previzualizate ca citite';
 $labels['afternseconds']  = 'după $n secunde';
