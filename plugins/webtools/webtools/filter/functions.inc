@@ -307,10 +307,10 @@ function make_filter_config ($data) // generate actual maildrop script crap
       if (($data['rule-type'][$i] == 'subject') || ($data['rule-type'][$i] == 'from') || ($data['rule-type'][$i] == 'to'))
       {
          $if_statement .= "/^";   // regex for beginning of a line
-         if ($data['rule-type'][$i] == 'subject') $if_statement .= "Subject:";
-         else if ($data['rule-type'][$i] == 'from') $if_statement .= "From:";
-         else if ($data['rule-type'][$i] == 'to') $if_statement .= "To:"; 
-         $data['rule-standard-field'][$i] .= "/";                          // added to the end of standard-field cause this must end the regex
+         if ($data['rule-type'][$i] == 'subject') $if_statement .= "Subject: ";
+         else if ($data['rule-type'][$i] == 'from') $if_statement .= "From: ";
+         else if ($data['rule-type'][$i] == 'to') $if_statement .= "To: ";
+         $data['rule-standard-field'][$i] .= "$/";                          // added to the end of standard-field cause this must end the regex
          if ($data['rule-logic-standard'][$i] == 'in') $if_statement .= ".*";         // contains, so there can be * between To: or whatevre and the text the user supplied
          else if ($data['rule-logic-standard'][$i] == 'notin') { $if_statement .= ".*"; $data['rule-standard-field'][$i] .= " == 0"; } // for notin i just put == 0 at the end of the regex
          else if ($data['rule-logic-standard'][$i] == 'neq') $data['rule-standard-field'][$i] .= " == 0";                              // it appeared to work while i was testing
