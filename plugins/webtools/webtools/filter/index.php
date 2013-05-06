@@ -115,8 +115,11 @@ $current_dest_style = 0;
    {
       return "<select id='folders-"+id+"' name='dest-folder[]' style='display:none'>" +
       <?php $rc = rcmail::get_instance(); $rc->imap_init(true);
-            foreach($rc->imap->list_unsubscribed() as $folder)
-            {
+	  		$storage = $rc->get_storage();
+			$folders = $storage->list_folders();
+			foreach($folders as $i => $folder)
+			{
+			   $folder = $storage->mod_folder($folder);
                if (strlen($folder) > 40) 
                   $nicefolder = substr($folder, 0, 15) . " .. " . substr($folder, -15, strlen($folder));
                else

@@ -4,13 +4,19 @@ function make_folder_select ($id, $selected, $hide) // php func to make a folder
 {
    $rc = rcmail::get_instance();
    $rc->imap_init (true);
+   $storage = $rc->get_storage();
    $found = 0;
-   foreach($rc->imap->list_unsubscribed() as $folder) if ($folder == $selected) $found = 1;
+   foreach($storage->list_folders() as $i => $folder) 
+   {
+	   $folder = $storage->mod_folder($folder);
+	   if ($folder == $selected) $found = 1;
+   }
    $nonexist = '';
    if ($found == 0) $nonexist = $selected;
    $return = "<select id='folders-" . $id . "' name='dest-folder[]' onchange='select_check(self, \"" . $id . "\", \"$nonexist\")' ".$hide.">";
-   foreach($rc->imap->list_unsubscribed() as $folder)
+   foreach($storage->list_folders() as $i => $folder)
    {
+      $folder = $storage->mod_folder($folder);
       if (strlen($folder) > 40) 
          $nicefolder = substr($folder, 0, 15) . " .. " . substr($folder, -15, strlen($folder));
       else
