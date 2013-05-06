@@ -12,7 +12,7 @@ function restore_post_handler() {
     $RUNAS_CMD = $rcmail->config->get('RUNAS_CMD');
     $MF = $rcmail->config->get('MF');
 	$SCRIPT_LOG_FACILITY = $rcmail->config->get('SCRIPT_LOG_FACILITY');
-	$MV_CMD = $rcmail->config->get('MV_CMD');
+	$MV_CMD = $rcmail->config->get('MV');
 
     $response = array('message' => '', 'folder_select' => '', 'update_folders' => 'no');
     
@@ -121,6 +121,7 @@ function restore_post_handler() {
 			$exec_cmd = "$RUNAS_CMD $USERNAME $MV_CMD Maildir/.RESTOREMaildir Maildir/.RESTORE.$newname";
 			unset($res_arr);
 			exec($exec_cmd, $res_arr, $status);
+			$newfolder = ".$newname";
 		}
 		$subsfolder="$PREFIX.RESTORE$newfolder";
 		$imap->subscribe(array($subsfolder));
