@@ -1092,12 +1092,13 @@ div.message-partheaders .headers-table td.header {
 }
 
 #messagebody p.image-attachment a.image-link {
-	float: left;
+	display: none;
+/*	float: left;
 	display: block;
 	margin-right: 2em;
 	min-width: 160px;
 	min-height: 60px;
-	text-align: center;
+	text-align: center;*/
 }
 
 #messagebody p.image-attachment .image-filename {
