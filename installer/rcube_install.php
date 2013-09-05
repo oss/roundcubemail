@@ -217,10 +217,12 @@ class rcube_install
       // save change
       $this->config[$prop] = $value;
 
+      $dump = self::_dump_var($value, $prop);
+
       // replace the matching line in config file
       $out = preg_replace(
-        '/(\$rcmail_config\[\''.preg_quote($prop).'\'\])\s+=\s+(.+);/Uie',
-        "'\\1 = ' . rcube_install::_dump_var(\$value, \$prop) . ';'",
+        '/(\$rcmail_config\[\''.preg_quote($prop).'\'\])\s+=\s+(.+);/Ui',
+        "\\1 = $dump;",
         $out);
     }
 
@@ -455,7 +457,8 @@ class rcube_install
         '0.6-beta', '0.6',
         '0.7-beta', '0.7', '0.7.1', '0.7.2', '0.7.3', '0.7.4',
         '0.8-beta', '0.8-rc', '0.8.0', '0.8.1', '0.8.2', '0.8.3', '0.8.4', '0.8.5', '0.8.6',
-        '0.9-beta', '0.9-rc', '0.9-rc2', '0.9.0',
+        '0.9-beta', '0.9-rc', '0.9-rc2',
+        // Note: Do not add newer versions here
     ));
     return $select;
   }
@@ -494,10 +497,13 @@ class rcube_install
    * @param string Test name
    * @param string Error message
    * @param string URL for details
+   * @param bool   Do not count this failure
    */
-  function fail($name, $message = '', $url = '')
+  function fail($name, $message = '', $url = '', $optional=false)
   {
-    $this->failures++;
+    if (!$optional) {
+      $this->failures++;
+    }
 
     echo Q($name) . ':&nbsp; <span class="fail">NOT OK</span>';
     $this->_showhint($message, $url);

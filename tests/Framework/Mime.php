@@ -39,6 +39,8 @@ class Framework_Mime extends PHPUnit_Framework_TestCase
             19 => 'Test <"test test"@domain.tld>',
             20 => '<"test test"@domain.tld>',
             21 => '"test test"@domain.tld',
+            // invalid (#1489092)
+            22 => '"John Doe @ SomeBusinessName" <MAILER-DAEMON>',
         );
 
         $results = array(
@@ -64,6 +66,8 @@ class Framework_Mime extends PHPUnit_Framework_TestCase
             19 => array(1, 'Test', '"test test"@domain.tld'),
             20 => array(1, '', '"test test"@domain.tld'),
             21 => array(1, '', '"test test"@domain.tld'),
+            // invalid (#1489092)
+            22 => array(1, 'John Doe @ SomeBusinessName', 'MAILER-DAEMON'),
         );
 
         foreach ($headers as $idx => $header) {
@@ -188,6 +192,10 @@ class Framework_Mime extends PHPUnit_Framework_TestCase
             array(
                 array("-------\nabc def", 5),
                 "-------\nabc\ndef",
+            ),
+            array(
+                array("http://xx.xxx.xx.xxx:8080/addressbooks/roundcubexxxxx%40xxxxxxxxxxxxxxxxxxxxxxx.xx.xx/testing/", 70),
+                "http://xx.xxx.xx.xxx:8080/addressbooks/roundcubexxxxx%40xxxxxxxxxxxxxxxxxxxxxxx.xx.xx/testing/",
             ),
         );
 

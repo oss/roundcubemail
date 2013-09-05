@@ -47,12 +47,25 @@ class Framework_Washtml extends PHPUnit_Framework_TestCase
         $html   = "<!--[if gte mso 10]><p>p1</p><!--><p>p2</p>";
         $washed = $washer->wash($html);
 
-        $this->assertEquals('<!-- html ignored --><!-- body ignored --><p>p2</p>', $washed, "HTML conditional comments (#1489004)");
+        $this->assertEquals('<!-- node type 8 --><!-- html ignored --><!-- body ignored --><p>p2</p>', $washed, "HTML conditional comments (#1489004)");
 
         $html   = "<!--TestCommentInvalid><p>test</p>";
         $washed = $washer->wash($html);
 
         $this->assertEquals('<!-- html ignored --><!-- body ignored --><p>test</p>', $washed, "HTML invalid comments (#1487759)");
+    }
+
+    /**
+     * Test fixing of invalid self-closing elements (#1489137)
+     */
+    function test_self_closing()
+    {
+        $html = "<textarea>test";
+
+        $washer = new rcube_washtml;
+        $washed = $washer->wash($html);
+
+        $this->assertRegExp('|<textarea>test</textarea>|', $washed, "Self-closing textarea (#1489137)");
     }
 
 }
