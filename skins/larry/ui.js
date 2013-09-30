@@ -1124,7 +1124,7 @@ function rcube_mail_ui()
       .attr('frameborder', '0')
       .appendTo(document.body);
 
-    var h = Math.floor($(window).height() * 0.75);
+    console.log(h);
     var buttons = {};
     var supportln = $('#supportlink');
     if (supportln.length && (env.supporturl = supportln.attr('href')))
@@ -1140,7 +1140,7 @@ function rcube_mail_ui()
       },
       buttons: buttons,
       width: 640,
-      height: h
+      height: 253
     }).width(640);
   }
 }
