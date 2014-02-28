@@ -1,32 +1,26 @@
 <?php
 
-/*
- +-------------------------------------------------------------------------+
- | Password Plugin for Roundcube                                           |
- | @version @package_version@                                              |
- |                                                                         |
- | Copyright (C) 2009-2010, Roundcube Dev.                                 |
- |                                                                         |
- | This program is free software; you can redistribute it and/or modify    |
- | it under the terms of the GNU General Public License version 2          |
- | as published by the Free Software Foundation.                           |
- |                                                                         |
- | This program is distributed in the hope that it will be useful,         |
- | but WITHOUT ANY WARRANTY; without even the implied warranty of          |
- | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           |
- | GNU General Public License for more details.                            |
- |                                                                         |
- | You should have received a copy of the GNU General Public License along |
- | with this program; if not, write to the Free Software Foundation, Inc., |
- | 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.             |
- |                                                                         |
- +-------------------------------------------------------------------------+
- | Author: Aleksander Machniak <alec@alec.pl>                              |
- +-------------------------------------------------------------------------+
-
- $Id: index.php 2645 2009-06-15 07:01:36Z alec $
-
-*/
+/**
+ * Password Plugin for Roundcube
+ *
+ * @version @package_version@
+ * @author Aleksander Machniak <alec@alec.pl>
+ *
+ * Copyright (C) 2005-2013, The Roundcube Dev Team
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see http://www.gnu.org/licenses/.
+ */
 
 define('PASSWORD_CRYPT_ERROR', 1);
 define('PASSWORD_ERROR', 2);
@@ -75,11 +69,17 @@ class password extends rcube_plugin
             }
         }
 
-        // add Tab label
-        $rcmail->output->add_label('password');
+        $this->add_hook('settings_actions', array($this, 'settings_actions'));
         $this->register_action('plugin.password', array($this, 'password_init'));
         $this->register_action('plugin.password-save', array($this, 'password_save'));
         $this->include_script('password.js');
+    }
+
+    function settings_actions($args)
+    {
+        // register as settings action
+        $args['actions'][] = array('action' => 'plugin.password', 'class' => 'password', 'label' => 'password', 'domain' => 'password');
+        return $args;
     }
 
     function password_init()

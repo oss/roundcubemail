@@ -15,18 +15,18 @@
  *
  * Copyright (C) 2011, Kolab Systems AG
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2
- * as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see http://www.gnu.org/licenses/.
  */
 
 class newmail_notifier extends rcube_plugin
@@ -123,6 +123,23 @@ class newmail_notifier extends rcube_plugin
             }
         }
 
+        $type = 'desktop_timeout';
+        $key = 'newmail_notifier_' . $type;
+        if (!in_array($key, $dont_override)) {
+            $field_id = '_' . $key;
+            $select   = new html_select(array('name' => $field_id, 'id' => $field_id));
+
+            foreach (array(5, 10, 15, 30, 45, 60) as $sec) {
+                $label = $this->rc->gettext(array('name' => 'afternseconds', 'vars' => array('n' => $sec)));
+                $select->add($label, $sec);
+            }
+
+            $args['blocks']['new_message']['options'][$key] = array(
+                'title'   => html::label($field_id, rcube::Q($this->gettext('desktoptimeout'))),
+                'content' => $select->show((int) $this->rc->config->get($key))
+            );
+        }
+
         return $args;
     }
 
@@ -145,6 +162,13 @@ class newmail_notifier extends rcube_plugin
             $key = 'newmail_notifier_' . $type;
             if (!in_array($key, $dont_override)) {
                 $args['prefs'][$key] = rcube_utils::get_input_value('_'.$key, rcube_utils::INPUT_POST) ? true : false;
+            }
+        }
+
+        $option = 'newmail_notifier_desktop_timeout';
+        if (!in_array($option, $dont_override)) {
+            if ($value = (int) rcube_utils::get_input_value('_' . $option, rcube_utils::INPUT_POST)) {
+                $args['prefs'][$option] = $value;
             }
         }
 
@@ -180,6 +204,7 @@ class newmail_notifier extends rcube_plugin
         if ($unseen->count()) {
             $this->notified = true;
 
+            $this->rc->output->set_env('newmail_notifier_timeout', $this->rc->config->get('newmail_notifier_desktop_timeout'));
             $this->rc->output->command('plugin.newmail_notifier',
                 array(
                     'basic'   => $this->opt['basic'],

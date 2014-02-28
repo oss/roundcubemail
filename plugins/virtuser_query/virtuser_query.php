@@ -3,7 +3,7 @@
 /**
  * DB based User-to-Email and Email-to-User lookup
  *
- * Add it to the plugins list in config/main.inc.php and set
+ * Add it to the plugins list in config.inc.php and set
  * SQL queries to resolve usernames, e-mail addresses and hostnames from the database
  * %u will be replaced with the current username for login.
  * %m will be replaced with the current e-mail address for login.
@@ -12,17 +12,19 @@
  * The email query could optionally select identity data columns in specified order:
  *    name, organization, reply-to, bcc, signature, html_signature
  *
- * $rcmail_config['virtuser_query'] = array('email' => '', 'user' => '', 'host' => '');
+ * $config['virtuser_query'] = array('email' => '', 'user' => '', 'host' => '', 'alias' => '');
  *
  * The email query can return more than one record to create more identities.
  * This requires identities_level option to be set to value less than 2.
  *
  * By default Roundcube database is used. To use different database (or host)
- * you can specify DSN string in $rcmail_config['virtuser_query_dsn'] option.
+ * you can specify DSN string in $config['virtuser_query_dsn'] option.
  *
  * @version @package_version@
  * @author Aleksander Machniak <alec@alec.pl>
  * @author Steffen Vogel
+ * @author Tim Gerundt
+ * @license GNU GPLv3+
  */
 class virtuser_query extends rcube_plugin
 {
@@ -48,6 +50,9 @@ class virtuser_query extends rcube_plugin
             }
             if ($this->config['host']) {
                 $this->add_hook('authenticate', array($this, 'user2host'));
+            }
+            if ($this->config['alias']) {
+                $this->add_hook('authenticate', array($this, 'alias2user'));
             }
         }
     }
@@ -122,6 +127,22 @@ class virtuser_query extends rcube_plugin
     }
 
     /**
+     * Alias > User
+     */
+    function alias2user($p)
+    {
+        $dbh = $this->get_dbh();
+
+        $sql_result = $dbh->query(preg_replace('/%u/', $dbh->escape($p['user']), $this->config['alias']));
+
+        if ($sql_arr = $dbh->fetch_array($sql_result)) {
+            $p['user'] = $sql_arr[0];
+        }
+
+        return $p;
+    }
+
+    /**
      * Initialize database handler
      */
     function get_dbh()
@@ -142,4 +163,3 @@ class virtuser_query extends rcube_plugin
     }
 
 }
-

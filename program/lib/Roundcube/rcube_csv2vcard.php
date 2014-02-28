@@ -47,7 +47,7 @@ class rcube_csv2vcard
         //'business_street_2'     => '',
         //'business_street_3'     => '',
         'car_phone'             => 'phone:car',
-        'categories'            => 'categories',
+        'categories'            => 'groups',
         //'children'              => '',
         'company'               => 'organization',
         //'company_main_phone'    => '',
@@ -145,6 +145,10 @@ class rcube_csv2vcard
         'work_mobile'           => 'phone:work,cell',
         'work_title'            => 'jobtitle',
         'work_zip'              => 'zipcode:work',
+        'group'                 => 'groups',
+
+        // GMail
+        'groups'                => 'groups',
     );
 
     /**
@@ -268,6 +272,7 @@ class rcube_csv2vcard
         'work_mobile'       => "Work Mobile",
         'work_title'        => "Work Title",
         'work_zip'          => "Work Zip",
+        'groups'            => "Group",
     );
 
     protected $local_label_map = array();
@@ -304,7 +309,6 @@ class rcube_csv2vcard
     {
         // convert to UTF-8
         $head     = substr($csv, 0, 4096);
-        $fallback = rcube::get_instance()->config->get('default_charset', 'ISO-8859-1'); // fallback to Latin-1?
         $charset  = rcube_charset::detect($head, RCUBE_CHARSET);
         $csv      = rcube_charset::convert($csv, $charset);
         $head     = '';
@@ -312,7 +316,7 @@ class rcube_csv2vcard
         $this->map = array();
 
         // Parse file
-        foreach (preg_split("/[\r\n]+/", $csv) as $i => $line) {
+        foreach (preg_split("/[\r\n]+/", $csv) as $line) {
             $elements = $this->parse_line($line);
             if (empty($elements)) {
                 continue;
@@ -424,6 +428,11 @@ class rcube_csv2vcard
         // Handle special values
         if (!empty($contact['birthday-d']) && !empty($contact['birthday-m']) && !empty($contact['birthday-y'])) {
             $contact['birthday'] = $contact['birthday-y'] .'-' .$contact['birthday-m'] . '-' . $contact['birthday-d'];
+        }
+
+        // categories/groups separator in vCard is ',' not ';'
+        if (!empty($contact['groups'])) {
+            $contact['groups'] = str_replace(';', ',', $contact['groups']);
         }
 
         // Empty dates, e.g. "0/0/00", "0000-00-00 00:00:00"

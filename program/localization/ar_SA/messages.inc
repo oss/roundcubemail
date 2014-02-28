@@ -15,9 +15,6 @@
 
  For translation see https://www.transifex.com/projects/p/roundcube-webmail/resource/messages/
 */
-
-$messages = array();
-$messages['errortitle']  = 'An error occurred!';
 $messages['loginfailed']  = 'فشل تسجيل الدخول';
 $messages['cookiesdisabled'] = 'المتصفح الخاص بك لا يقبل الكوكيز';
 $messages['sessionerror'] = 'انتهت صلاحية الجلسة الحالية أو أنها غيرصالحة';
@@ -25,15 +22,12 @@ $messages['storageerror'] = 'فشل الاتصال بخادم IMAP';
 $messages['servererror'] = 'خطأ في الخادم!';
 $messages['servererrormsg'] = 'خطأ خادم: $msg';
 $messages['dberror'] = 'خطأ في قاعدة البيانات!';
-$messages['requesttimedout'] = 'Request timed out';
 $messages['errorreadonly'] = 'تعذر تنفيذ العملية. المجلد للقراءة فقط.';
 $messages['errornoperm'] = 'تعذر تنفيذ العملية. ليست لديك الصلاحية.';
 $messages['invalidrequest'] = 'طلب غير صالح! لم تحفظ أية بيانات.';
-$messages['invalidhost'] = 'Invalid server name.';
 $messages['nomessagesfound'] = 'لم يعثر على أية رسائل في صندوق البريد هذا';
 $messages['loggedout'] = 'قمت بإنهاء هذه الجلسة بنجاح. إلى اللقاء!';
 $messages['mailboxempty'] = 'صندوق البريد فارغ';
-$messages['refreshing'] = 'Refreshing...';
 $messages['loading'] = 'جاري العمل...';
 $messages['uploading'] = 'جاري رفع الملف...';
 $messages['uploadingmany'] = 'جاري تحميل الملفات...';
@@ -54,8 +48,6 @@ $messages['contactnotfound'] = 'تعذر العثور على المراسل ال
 $messages['contactsearchonly'] = 'اكتب بعض كلمات البحث للعثور علىالمُراسلين';
 $messages['sendingfailed'] = 'فشل إرسال الرسالة';
 $messages['senttooquickly'] = 'رجاء انتظر $sec ثوان قبل إرسال هذه الرسالة';
-$messages['errorsavingsent'] = 'حدث خطأ أثناء حفظ الرسالة المُرسلة';
-$messages['errorsaving'] = 'حدث خطأ أثناء الحفظ';
 $messages['errormoving'] = 'تعذر نقل هذه الرسالة';
 $messages['errorcopying'] = 'تعذر نسخ الرسائل';
 $messages['errordeleting'] = 'تعذر حذف هذه الرسالة';
@@ -99,8 +91,6 @@ $messages['converting'] = 'إزالة التنسيق من الرسالة...';
 $messages['messageopenerror'] = 'تعذرت قراءة الرسالة من الخادم';
 $messages['fileuploaderror'] = 'فشل رفع الملف';
 $messages['filesizeerror'] = 'حجم الملف الذي تحاول رفعه أكبر من الحجمالأقصى $size';
-$messages['copysuccess'] = 'تم نسخ $nr رسائل بنجاح';
-$messages['copyerror'] = 'لم يمكن نسخ أية عناوين';
 $messages['sourceisreadonly'] = 'لا يمكن تعديل مصدر العنوان هذا';
 $messages['errorsavingcontact'] = 'تعذر حفظ عنوان المراسل';
 $messages['movingmessage'] = 'جاري نقل الرسالة...';
@@ -112,16 +102,13 @@ $messages['addingmember'] = 'جاري إضافة المُراسلين إلى ا�
 $messages['removingmember'] = 'جاري إزالة المراسلين من المجموعة...';
 $messages['receiptsent'] = 'أرسل إيصال الاستلام بنجاح';
 $messages['errorsendingreceipt'] = 'تعذر إرسال إيصال الاستلام';
-$messages['deleteidentityconfirm'] = 'Do you really want to delete this identity?';
 $messages['nodeletelastidentity'] = 'لا يمكن حذف هذا السجل حيث أنه الوحيدالمتبقي.';
 $messages['forbiddencharacter'] = 'اسم المجلّد يحتوي حروفاً ممنوعة';
 $messages['selectimportfile'] = 'رجاء اختر ملفاً لرفعه';
 $messages['addresswriterror'] = 'دفتر العناوين المحدد غير قابل للكتابة';
 $messages['contactaddedtogroup'] = 'تمت إضافة المراسلين إلى هذه المجموعةبنجاح';
 $messages['contactremovedfromgroup'] = 'تمت إزالة المراسلين من هذه المجموعةبنجاح';
-$messages['nogroupassignmentschanged'] = 'No group assignments changed.';
 $messages['importwait'] = 'جاري الاستيراد، رجاء انتظر...';
-$messages['importformaterror'] = 'Import failed! The uploaded file is not a valid import data file.';
 $messages['importconfirm'] = '<b>تم استيراد $inserted مراسلين بنجاح، وتجاهل$skipped موجودين مسبقاً</b>:<p><em>$names</em></p>';
 $messages['importconfirmskipped'] = '<b>تم تجاهل $skipped عناصر موجودة</b>';
 $messages['opnotpermitted'] = 'العملية ممنوعة!';
@@ -137,7 +124,6 @@ $messages['smtperror'] = 'خطأ SMTP: $msg';
 $messages['emailformaterror'] = 'عنوان بريد إلكتروني غير صالح: $email';
 $messages['toomanyrecipients'] = 'عدد المرسل إليهم كبير. قلص العدد إلى $max.';
 $messages['maxgroupmembersreached'] = 'عدد أعضاء المجموعة أكثر من $max';
-$messages['internalerror'] = 'حدث خطأ داخلي. الرجاء المحاولة مرة أخرى';
 $messages['contactdelerror'] = 'تعذر حذف أسماء جهات الإتصال';
 $messages['contactdeleted'] = 'تم حذف أسماء جهات الإتصال بنجاح';
 $messages['contactrestoreerror'] = 'تعذر استعادة المُراسل المحذوف.';
@@ -163,7 +149,4 @@ $messages['invalidimageformat'] = 'ليست صيغة صورة صحيحة';
 $messages['mispellingsfound'] = 'عُثر على أخطاء إملائية في الرسالة';
 $messages['parentnotwritable'] = 'تعذر إنشاء/نقل المجلد إلى المجلد المحدد.ليست لديك الصلاحية.';
 $messages['messagetoobig'] = 'جزء الرسالة أكبر بكثير مما يمكن معالجته.';
-$messages['attachmentvalidationerror'] = 'WARNING! This attachment is suspicious because its type doesn\'t match the type declared in the message. If you do not trust the sender, you shouldn\'t open it in the browser because it may contain malicious contents.<br/><br/><em>Expected: $expected; found: $detected</em>';
-$messages['noscriptwarning'] = 'Warning: This webmail service requires Javascript! In order to use it please enable Javascript in your browser\'s settings.';
-
 ?>

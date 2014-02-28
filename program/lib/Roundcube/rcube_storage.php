@@ -39,7 +39,7 @@ abstract class rcube_storage
     protected $default_charset = 'ISO-8859-1';
     protected $default_folders = array('INBOX');
     protected $search_set;
-    protected $options = array('auth_method' => 'check');
+    protected $options = array('auth_type' => 'check');
     protected $page_size = 10;
     protected $threading = false;
 
@@ -61,8 +61,6 @@ abstract class rcube_storage
         'MAIL-FOLLOWUP-TO',
         'MAIL-REPLY-TO',
         'RETURN-PATH',
-        'DELIVERED-TO',
-        'ENVELOPE-TO',
     );
 
     const UNKNOWN       = 0;
@@ -362,6 +360,18 @@ abstract class rcube_storage
 
 
     /**
+     * Public method for listing message flags
+     *
+     * @param string $folder  Folder name
+     * @param array  $uids    Message UIDs
+     * @param int    $mod_seq Optional MODSEQ value
+     *
+     * @return array Indexed array with message flags
+     */
+    abstract function list_flags($folder, $uids, $mod_seq = null);
+
+
+    /**
      * Public method for listing headers.
      *
      * @param   string   $folder     Folder name
@@ -540,12 +550,13 @@ abstract class rcube_storage
     /**
      * Append a mail message (source) to a specific folder.
      *
-     * @param string  $folder  Target folder
-     * @param string  $message The message source string or filename
-     * @param string  $headers Headers string if $message contains only the body
-     * @param boolean $is_file True if $message is a filename
-     * @param array   $flags   Message flags
-     * @param mixed   $date    Message internal date
+     * @param string       $folder  Target folder
+     * @param string|array $message The message source string or filename
+     *                              or array (of strings and file pointers)
+     * @param string       $headers Headers string if $message contains only the body
+     * @param boolean      $is_file True if $message is a filename
+     * @param array        $flags   Message flags
+     * @param mixed        $date    Message internal date
      *
      * @return int|bool Appended message UID or True on success, False on error
      */
@@ -986,6 +997,6 @@ abstract class rcube_storage
     /**
      * Delete outdated cache entries
      */
-    abstract function expunge_cache();
+    abstract function cache_gc();
 
 }  // end class rcube_storage

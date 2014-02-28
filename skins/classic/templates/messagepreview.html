@@ -6,7 +6,7 @@
 <script type="text/javascript" src="/splitter.js"></script>
 <script type="text/javascript" src="/functions.js"></script>
 </head>
-<body class="iframe" onload="rcube_init_mail_ui()">
+<body class="iframe">
 
 <div class="messageheaderbox">
   <div id="messagelinks">
@@ -20,7 +20,7 @@
   </div>
 <roundcube:object name="messageHeaders" class="headers-table" cellspacing="0" cellpadding="2" addicon="/images/icons/silhouette.png" summary="Message headers" />
 <roundcube:object name="messageFullHeaders" id="full-headers" />
-<roundcube:object name="messageAttachments" id="attachment-list" />
+<roundcube:object name="messageAttachments" id="attachment-list" maxlength="50" />
 </div>
 
 <roundcube:object name="messageObjects" id="message-objects" />
@@ -33,6 +33,10 @@
     <roundcube:container name="attachmentmenu" id="attachmentmenu" />
   </ul>
 </div>
+
+<script type="text/javascript">
+rcube_init_mail_ui();
+</script>
 
 </body>
 </html>

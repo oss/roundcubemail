@@ -15,8 +15,6 @@
 
  For translation see https://www.transifex.com/projects/p/roundcube-webmail/resource/plugin-managesieve/
 */
-
-
 $labels['filters'] = 'Filtreler';
 $labels['managefilters'] = 'Gelen e-posta filtrelerini yönet';
 $labels['filtername'] = 'Filtre adı';
@@ -49,13 +47,14 @@ $labels['messagesendcopy'] = 'mesajın kopyasını gönder';
 $labels['messagereply'] = 'mesajla birlikte cevap ver';
 $labels['messagedelete'] = 'Mesajı sil';
 $labels['messagediscard'] = 'mesajı yok say';
+$labels['messagekeep'] = 'Mesajı Gelen Kutusunda tut.';
 $labels['messagesrules'] = 'Gelen e-postalar için:';
 $labels['messagesactions'] = '... aşağıdaki aksiyonları çalıştır:';
 $labels['add'] = 'Ekle';
 $labels['del'] = 'Sil';
 $labels['sender'] = 'Gönderici';
 $labels['recipient'] = 'Alıcı';
-$labels['vacationaddresses'] = 'İlave e-posta adreslerim(virgül ile ayrılmış)';
+$labels['vacationaddr'] = 'Ek e-posta adres(ler)im:';
 $labels['vacationdays'] = 'Ne sıklıkla mesajlar gönderilir(gün)';
 $labels['vacationinterval'] = 'Ne kadar sıklıkla mesaj gönderirsiniz:';
 $labels['days'] = 'günler';
@@ -83,7 +82,7 @@ $labels['countisgreaterthanequal'] = 'toplamı büyük veya eşit';
 $labels['countislessthan'] = 'toplamı az';
 $labels['countislessthanequal'] = 'toplamı daha az veya eşit';
 $labels['countequals'] = 'toplamı eşit';
-$labels['countnotequals'] = 'toplamı eşit degil';
+$labels['countnotequals'] = 'toplamı eşit değil';
 $labels['valueisgreaterthan'] = 'değeri büyük';
 $labels['valueisgreaterthanequal'] = 'değeri büyük veya eşit';
 $labels['valueislessthan'] = 'değer az';
@@ -121,6 +120,22 @@ $labels['filtercreate'] = 'Süzgeç oluştur';
 $labels['usedata'] = 'Aşağıdaki verileri süzgeçte kullan';
 $labels['nextstep'] = 'Sonraki adım';
 $labels['...'] = '...';
+$labels['currdate'] = 'Mevcut tarih';
+$labels['datetest'] = 'Tarih';
+$labels['dateheader'] = 'Başlık';
+$labels['year'] = 'yıl';
+$labels['month'] = 'ay';
+$labels['day'] = 'gün';
+$labels['date'] = 'tarih (yyyy-aa-gg)';
+$labels['julian'] = 'tarih (julian)';
+$labels['hour'] = 'saat';
+$labels['minute'] = 'dakika';
+$labels['second'] = 'saniye';
+$labels['time'] = 'saat (ss:dd:ss)';
+$labels['iso8601'] = 'tarih (ISO8601)';
+$labels['std11'] = 'tarih (RFC2822)';
+$labels['zone'] = 'saat-dilimi';
+$labels['weekday'] = 'Hafta günleri (0-6)';
 $labels['advancedopts'] = 'Gelişmiş seçenekler';
 $labels['body'] = 'Gövde';
 $labels['address'] = 'adres';
@@ -140,8 +155,8 @@ $labels['default'] = 'öntanımlı';
 $labels['octet'] = 'sıkı(oktet)';
 $labels['asciicasemap'] = 'büyük küçük harf duyarsız(ascii-casemap)';
 $labels['asciinumeric'] = 'sayı (ascii-numeric)';
-
-$messages = array();
+$labels['index'] = 'indeks:';
+$labels['indexlast'] = 'geriye yönelik';
 $messages['filterunknownerror'] = 'Bilinmeyen sunucu hatası.';
 $messages['filterconnerror'] = 'Sunucuya bağlanamıyor.';
 $messages['filterdeleteerror'] = 'Filtre silinemedi. Sunucuda hata oluştu.';
@@ -168,10 +183,10 @@ $messages['deactivateerror'] = 'Seçilen filtre(ler) pasifleştirilemedi. Sunucu
 $messages['deactivated'] = 'Filtre(ler) başarıyla etkinleştirildi.';
 $messages['activated'] = 'Filtre(ler) başarıyla iptal edildi.';
 $messages['moved'] = 'Filtre başarıyla taşındı.';
-$messages['moveerror'] = 'Seçilen filtre(ler) taşınamadı. Sunucuda hata oluştu.';
+$messages['moveerror'] = 'Seçilen filtre taşınamadı. Sunucuda hata oluştu.';
 $messages['nametoolong'] = 'İsim çok uzun.';
 $messages['namereserved'] = 'rezerve edilmiş isim.';
 $messages['setexist'] = 'Set zaten var.';
 $messages['nodata'] = 'En az bir pozisyon seçilmelidir.';
-
+$messages['invaliddateformat'] = 'geçersiz tarih veya tarih biçimi';
 ?>

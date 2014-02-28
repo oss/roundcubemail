@@ -361,6 +361,11 @@ class rcube_mime
                 $address = $m[1];
                 $name    = '';
             }
+            // special case (#1489092)
+            else if (preg_match('/(\s*<MAILER-DAEMON>)$/', $val, $m)) {
+                $address = 'MAILER-DAEMON';
+                $name    = substr($val, 0, -strlen($m[1]));
+            }
             else {
                 $name = $val;
             }
@@ -373,6 +378,10 @@ class rcube_mime
                 }
                 if ($decode) {
                     $name = self::decode_header($name, $fallback);
+                    // some clients encode addressee name with quotes around it
+                    if ($name[0] == '"' && $name[strlen($name)-1] == '"') {
+                        $name = substr($name, 1, -1);
+                    }
                 }
             }
 
@@ -582,23 +591,20 @@ class rcube_mime
      */
     public static function wordwrap($string, $width=75, $break="\n", $cut=false, $charset=null, $wrap_quoted=true)
     {
-        if (!$charset) {
-            $charset = RCUBE_CHARSET;
-        }
+        // Note: Never try to use iconv instead of mbstring functions here
+        //       Iconv's substr/strlen are 100x slower (#1489113)
 
-        // detect available functions
-        $strlen_func  = function_exists('iconv_strlen') ? 'iconv_strlen' : 'mb_strlen';
-        $strpos_func  = function_exists('iconv_strpos') ? 'iconv_strpos' : 'mb_strpos';
-        $strrpos_func = function_exists('iconv_strrpos') ? 'iconv_strrpos' : 'mb_strrpos';
-        $substr_func  = function_exists('iconv_substr') ? 'iconv_substr' : 'mb_substr';
+        if ($charset && $charset != RCUBE_CHARSET && function_exists('mb_internal_encoding')) {
+            mb_internal_encoding($charset);
+        }
 
         // Convert \r\n to \n, this is our line-separator
         $string       = str_replace("\r\n", "\n", $string);
         $separator    = "\n"; // must be 1 character length
         $result       = array();
 
-        while (($stringLength = $strlen_func($string, $charset)) > 0) {
-            $breakPos = $strpos_func($string, $separator, 0, $charset);
+        while (($stringLength = mb_strlen($string)) > 0) {
+            $breakPos = mb_strpos($string, $separator, 0);
 
             // quoted line (do not wrap)
             if ($wrap_quoted && $string[0] == '>') {
@@ -607,7 +613,7 @@ class rcube_mime
                     $cutLength = null;
                 }
                 else {
-                    $subString = $substr_func($string, 0, $breakPos, $charset);
+                    $subString = mb_substr($string, 0, $breakPos);
                     $cutLength = $breakPos + 1;
                 }
             }
@@ -618,55 +624,54 @@ class rcube_mime
                     $cutLength = null;
                 }
                 else {
-                    $subString = $substr_func($string, 0, $breakPos, $charset);
+                    $subString = mb_substr($string, 0, $breakPos);
                     $cutLength = $breakPos + 1;
                 }
             }
             else {
-                $subString = $substr_func($string, 0, $width, $charset);
+                $subString = mb_substr($string, 0, $width);
 
                 // last line
                 if ($breakPos === false && $subString === $string) {
                     $cutLength = null;
                 }
                 else {
-                    $nextChar = $substr_func($string, $width, 1, $charset);
+                    $nextChar = mb_substr($string, $width, 1);
 
                     if ($nextChar === ' ' || $nextChar === $separator) {
-                        $afterNextChar = $substr_func($string, $width + 1, 1, $charset);
+                        $afterNextChar = mb_substr($string, $width + 1, 1);
 
-                        if ($afterNextChar === false) {
+                        // Note: mb_substr() does never return False
+                        if ($afterNextChar === false || $afterNextChar === '') {
                             $subString .= $nextChar;
                         }
 
-                        $cutLength = $strlen_func($subString, $charset) + 1;
+                        $cutLength = mb_strlen($subString) + 1;
                     }
                     else {
-                        if ($strrpos_func[0] == 'm') {
-                            $spacePos = $strrpos_func($subString, ' ', 0, $charset);
-                        }
-                        else {
-                            $spacePos = $strrpos_func($subString, ' ', $charset);
-                        }
+                        $spacePos = mb_strrpos($subString, ' ', 0);
 
                         if ($spacePos !== false) {
-                            $subString = $substr_func($subString, 0, $spacePos, $charset);
+                            $subString = mb_substr($subString, 0, $spacePos);
                             $cutLength = $spacePos + 1;
                         }
                         else if ($cut === false) {
-                            $spacePos = $strpos_func($string, ' ', 0, $charset);
+                            $spacePos = mb_strpos($string, ' ', 0);
 
-                            if ($spacePos !== false && $spacePos < $breakPos) {
-                                $subString = $substr_func($string, 0, $spacePos, $charset);
+                            if ($spacePos !== false && ($breakPos === false || $spacePos < $breakPos)) {
+                                $subString = mb_substr($string, 0, $spacePos);
                                 $cutLength = $spacePos + 1;
                             }
+                            else if ($breakPos === false) {
+                                $subString = $string;
+                                $cutLength = null;
+                            }
                             else {
-                                $subString = $substr_func($string, 0, $breakPos, $charset);
+                                $subString = mb_substr($string, 0, $breakPos);
                                 $cutLength = $breakPos + 1;
                             }
                         }
                         else {
-                            $subString = $substr_func($subString, 0, $width, $charset);
                             $cutLength = $width;
                         }
                     }
@@ -676,11 +681,15 @@ class rcube_mime
             $result[] = $subString;
 
             if ($cutLength !== null) {
-                $string = $substr_func($string, $cutLength, ($stringLength - $cutLength), $charset);
+                $string = mb_substr($string, $cutLength, ($stringLength - $cutLength));
             }
             else {
                 break;
             }
+        }
+
+        if ($charset && $charset != RCUBE_CHARSET && function_exists('mb_internal_encoding')) {
+            mb_internal_encoding(RCUBE_CHARSET);
         }
 
         return implode($break, $result);
@@ -703,12 +712,20 @@ class rcube_mime
      */
     public static function file_content_type($path, $name, $failover = 'application/octet-stream', $is_stream = false, $skip_suffix = false)
     {
+        static $mime_ext = array();
+
         $mime_type = null;
-        $mime_magic = rcube::get_instance()->config->get('mime_magic');
-        $mime_ext = $skip_suffix ? null : @include(RCUBE_CONFIG_DIR . '/mimetypes.php');
+        $config = rcube::get_instance()->config;
+        $mime_magic = $config->get('mime_magic');
+
+        if (!$skip_suffix && empty($mime_ext)) {
+            foreach ($config->resolve_paths('mimetypes.php') as $fpath) {
+                $mime_ext = array_merge($mime_ext, (array) @include($fpath));
+            }
+        }
 
         // use file name suffix with hard-coded mime-type map
-        if (is_array($mime_ext) && $name) {
+        if (!$skip_suffix && is_array($mime_ext) && $name) {
             if ($suffix = substr($name, strrpos($name, '.')+1)) {
                 $mime_type = $mime_ext[strtolower($suffix)];
             }
@@ -790,14 +807,14 @@ class rcube_mime
         }
 
         foreach ($file_paths as $fp) {
-            if (is_readable($fp)) {
+            if (@is_readable($fp)) {
                 $lines = file($fp, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                 break;
             }
         }
 
         $mime_types = $mime_extensions = array();
-        $regex = "/([\w\+\-\.\/]+)\t+([\w\s]+)/i"; 
+        $regex = "/([\w\+\-\.\/]+)\s+([\w\s]+)/i";
         foreach((array)$lines as $line) {
              // skip comments or mime types w/o any extensions
             if ($line[0] == '#' || !preg_match($regex, $line, $matches))
@@ -813,7 +830,9 @@ class rcube_mime
 
         // fallback to some well-known types most important for daily emails
         if (empty($mime_types)) {
-            $mime_extensions = (array) @include(RCUBE_CONFIG_DIR . '/mimetypes.php');
+            foreach (rcube::get_instance()->config->resolve_paths('mimetypes.php') as $fpath) {
+                $mime_extensions = array_merge($mime_extensions, (array) @include($fpath));
+            }
 
             foreach ($mime_extensions as $ext => $mime) {
                 $mime_types[$mime][] = $ext;

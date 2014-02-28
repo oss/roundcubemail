@@ -1,6 +1,6 @@
 [main]
 host = https://www.transifex.com
-lang_map = be: be_BE, sr: sr_CS, fa: fa_AF
+lang_map = be: be_BE, sr: sr_CS, fa: fa_AF, lb: lb_LU
 type = PHP_ALT_ARRAY
 
 [roundcube-webmail.labels]
@@ -21,6 +21,11 @@ source_lang = en_US
 [roundcube-webmail.plugin-archive]
 file_filter = plugins/archive/localization/<lang>.inc
 source_file = plugins/archive/localization/en_US.inc
+source_lang = en_US
+
+[roundcube-webmail.plugin-attachment_reminder]
+file_filter = plugins/attachment_reminder/localization/<lang>.inc
+source_file = plugins/attachment_reminder/localization/en_US.inc
 source_lang = en_US
 
 [roundcube-webmail.plugin-help]

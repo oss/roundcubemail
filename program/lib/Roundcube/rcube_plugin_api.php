@@ -35,8 +35,9 @@ class rcube_plugin_api
     public $url = 'plugins/';
     public $task = '';
     public $output;
-    public $handlers = array();
-    public $allowed_prefs = array();
+    public $handlers              = array();
+    public $allowed_prefs         = array();
+    public $allowed_session_prefs = array();
 
     protected $plugins = array();
     protected $tasks = array();
@@ -167,10 +168,11 @@ class rcube_plugin_api
      * Load the specified plugin
      *
      * @param string Plugin name
+     * @param boolean Force loading of the plugin even if it doesn't match the filter
      *
      * @return boolean True on success, false if not loaded or failure
      */
-    public function load_plugin($plugin_name)
+    public function load_plugin($plugin_name, $force = false)
     {
         static $plugins_dir;
 
@@ -196,7 +198,7 @@ class rcube_plugin_api
                 // check inheritance...
                 if (is_subclass_of($plugin, 'rcube_plugin')) {
                     // ... task, request type and framed mode
-                    if ((!$plugin->task || preg_match('/^('.$plugin->task.')$/i', $this->task))
+                    if (($force || !$plugin->task || preg_match('/^('.$plugin->task.')$/i', $this->task))
                         && (!$plugin->noajax || (is_object($this->output) && $this->output->type == 'html'))
                         && (!$plugin->noframe || empty($_REQUEST['_framed']))
                     ) {
@@ -282,6 +284,7 @@ class rcube_plugin_api
         $composer = INSTALL_PATH . "/plugins/$plugin_name/composer.json";
         if (file_exists($composer) && ($json = @json_decode(file_get_contents($composer), true))) {
           list($info['vendor'], $info['name']) = explode('/', $json['name']);
+          $info['version'] = $json['version'];
           $info['license'] = $json['license'];
           if ($license_uri = $license_uris[$info['license']])
             $info['license_uri'] = $license_uri;
@@ -313,7 +316,6 @@ class rcube_plugin_api
           $doc->loadXML($file);
           $xpath = new DOMXPath($doc);
           $xpath->registerNamespace('rc', "http://pear.php.net/dtd/package-2.0");
-          $data = array();
 
           // XPaths of plugin metadata elements
           $metadata = array(
@@ -404,7 +406,7 @@ class rcube_plugin_api
                 $args = $ret + $args;
             }
 
-            if ($args['abort']) {
+            if ($args['break']) {
                 break;
             }
         }

@@ -16,9 +16,6 @@
 	<roundcube:button command="list" type="link" class="button back disabled" classAct="button back" classSel="button back pressed" label="back" />
 <roundcube:endif />
 	<roundcube:include file="/includes/mailtoolbar.html" />
-	<div class="toolbarselect">
-		<roundcube:object name="mailboxlist" type="select" noSelection="moveto" maxlength="25" onchange="rcmail.command('moveto', this.options[this.selectedIndex].value)" class="mailboxlist decorated" folder_filter="mail" />
-	</div>
 </div>
 
 <roundcube:if condition="!env:extwin" />
@@ -41,6 +38,7 @@
 
 <div id="mailview-right" class="offset uibox">
 <roundcube:else />
+<roundcube:object name="mailboxlist" folder_filter="mail" type="js" />
 
 <div id="mailview-right" class="offset fullwidth uibox">
 <roundcube:endif />
@@ -49,7 +47,9 @@
 <span class="moreheaderstoggle"></span>
 
 <h2 class="subject"><roundcube:object name="messageHeaders" valueOf="subject" /></h2>
+<div class="message-headers">
 <roundcube:object name="messageHeaders" class="headers-table" addicon="/images/addcontact.png" exclude="subject" max="20" />
+</div>
 <roundcube:object name="messageFullHeaders" id="full-headers" />
 
 <!-- record navigation -->
@@ -86,8 +86,6 @@
 <roundcube:object name="messageBody" id="messagebody" headertableclass="message-partheaders headers-table" />
 </div>
 </div>
-
-<roundcube:object name="message" id="message" class="statusbar" />
 
 </div><!-- end mailview-right -->
 

@@ -171,6 +171,12 @@ class Framework_Utils extends PHPUnit_Framework_TestCase
         $this->assertRegExp('/#rcmbody h1\s\{/', $mod, "Prefix tag styles (single)");
         $this->assertRegExp('/#rcmbody h1, #rcmbody h2, #rcmbody h3, #rcmbody textarea\s+\{/', $mod, "Prefix tag styles (multiple)");
         $this->assertRegExp('/#rcmbody \.noscript\s+\{/', $mod, "Prefix class styles");
+
+        $css = file_get_contents(TESTS_DIR . 'src/media.css');
+        $mod = rcube_utils::mod_css_styles($css, 'rcmbody');
+
+        $this->assertContains('#rcmbody table[class=w600]', $mod, 'Replace styles nested in @media block');
+        $this->assertContains('#rcmbody {width:600px', $mod, 'Replace body selector nested in @media block');
     }
 
     /**
@@ -192,6 +198,23 @@ class Framework_Utils extends PHPUnit_Framework_TestCase
 
         $mod = rcube_utils::mod_css_styles("background:\\0075\\0072\\006c( javascript:alert(&#039;xss&#039;) )", 'rcmbody');
         $this->assertEquals("/* evil! */", $mod, "Don't allow encoding quirks (2)");
+    }
+
+    /**
+     * Check rcube_utils::explode_quoted_string()
+     */
+    function test_explode_quoted_string()
+    {
+        $data = array(
+            '"a,b"' => array('"a,b"'),
+            '"a,b","c,d"' => array('"a,b"','"c,d"'),
+            '"a,\\"b",d' => array('"a,\\"b"', 'd'),
+        );
+
+        foreach ($data as $text => $res) {
+            $result = rcube_utils::explode_quoted_string(',', $text);
+            $this->assertSame($res, $result);
+        }
     }
 
     /**
@@ -229,4 +252,86 @@ class Framework_Utils extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * rcube:utils::file2class()
+     */
+    function test_file2class()
+    {
+        $test = array(
+            array('', '', 'unknown'),
+            array('text', 'text', 'text'),
+            array('image/png', 'image.png', 'image png'),
+        );
+
+        foreach ($test as $v) {
+            $result = rcube_utils::file2class($v[0], $v[1]);
+            $this->assertSame($v[2], $result);
+        }
+    }
+
+    /**
+     * rcube:utils::strtotime()
+     */
+    function test_strtotime()
+    {
+        $test = array(
+            '1' => 1,
+            '' => 0,
+            '2013-04-22' => 1366581600,
+            '2013/04/22' => 1366581600,
+            '2013.04.22' => 1366581600,
+            '22-04-2013' => 1366581600,
+            '22/04/2013' => 1366581600,
+            '22.04.2013' => 1366581600,
+            '22.4.2013'  => 1366581600,
+            '20130422'   => 1366581600,
+        );
+
+        foreach ($test as $datetime => $ts) {
+            $result = rcube_utils::strtotime($datetime);
+            $this->assertSame($ts, $result, "Error parsing date: $datetime");
+        }
+    }
+
+    /**
+     * rcube:utils::anytodatetime()
+     */
+    function test_anytodatetime()
+    {
+        $test = array(
+            '2013-04-22' => '2013-04-22',
+            '2013/04/22' => '2013-04-22',
+            '2013.04.22' => '2013-04-22',
+            '22-04-2013' => '2013-04-22',
+            '22/04/2013' => '2013-04-22',
+            '22.04.2013' => '2013-04-22',
+            '04/22/2013' => '2013-04-22',
+            '22.4.2013'  => '2013-04-22',
+            '20130422'   => '2013-04-22',
+            '1900-10-10' => '1900-10-10',
+            '01-01-1900' => '1900-01-01',
+            '01/30/1960' => '1960-01-30'
+        );
+
+        foreach ($test as $datetime => $ts) {
+            $result = rcube_utils::anytodatetime($datetime);
+            $this->assertSame($ts, $result ? $result->format('Y-m-d') : '', "Error parsing date: $datetime");
+        }
+    }
+
+    /**
+     * rcube:utils::normalize _string()
+     */
+    function test_normalize_string()
+    {
+        $test = array(
+            '' => '',
+            'abc def' => 'abc def',
+        );
+
+        foreach ($test as $input => $output) {
+            $result = rcube_utils::normalize_string($input);
+            $this->assertSame($output, $result);
+        }
+    }
 }

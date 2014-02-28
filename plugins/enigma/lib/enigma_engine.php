@@ -92,9 +92,6 @@ class enigma_engine
         if ($this->smime_driver)
             return;
 
-        // NOT IMPLEMENTED!
-        return;
-
         $driver = 'enigma_driver_' . $this->rc->config->get('enigma_smime_driver', 'phpssl');
         $username = $this->rc->user->get_username();
 
@@ -246,7 +243,7 @@ class enigma_engine
 
         fclose($fh);
     }
-    
+
     /**
      * Handler for PGP/MIME signed message.
      * Verifies signature.
@@ -255,14 +252,14 @@ class enigma_engine
      */
     private function parse_pgp_signed(&$p)
     {
-        $this->load_pgp_driver();
-        $struct = $p['structure'];
-        
         // Verify signature
         if ($this->rc->action == 'show' || $this->rc->action == 'preview') {
+            $this->load_pgp_driver();
+            $struct = $p['structure'];
+
             $msg_part = $struct->parts[0];
             $sig_part = $struct->parts[1];
-        
+
             // Get bodies
             $this->set_part_body($msg_part, $p['object']->uid);
             $this->set_part_body($sig_part, $p['object']->uid);
@@ -294,7 +291,31 @@ class enigma_engine
      */
     private function parse_smime_signed(&$p)
     {
-        $this->load_smime_driver();
+        // Verify signature
+        if ($this->rc->action == 'show' || $this->rc->action == 'preview') {
+            $this->load_smime_driver();
+
+            $struct   = $p['structure'];
+            $msg_part = $struct->parts[0];
+
+            // Verify
+            $sig = $this->smime_driver->verify($struct, $p['object']);
+
+            // Store signature data for display
+            $this->signatures[$struct->mime_id] = $sig;
+
+            // Message can be multipart (assign signature to each subpart)
+            if (!empty($msg_part->parts)) {
+                foreach ($msg_part->parts as $part)
+                    $this->signed_parts[$part->mime_id] = $struct->mime_id;
+            }
+            else {
+                $this->signed_parts[$msg_part->mime_id] = $struct->mime_id;
+            }
+
+            // Remove signature file from attachments list
+            unset($struct->parts[1]);
+        }
     }
 
     /**
@@ -306,22 +327,22 @@ class enigma_engine
     {
         $this->load_pgp_driver();
         $part = $p['structure'];
-        
+
         // Get body
         $this->set_part_body($part, $p['object']->uid);
 
-        // Decrypt 
+        // Decrypt
         $result = $this->pgp_decrypt($part->body);
-        
+
         // Store decryption status
         $this->decryptions[$part->mime_id] = $result;
-        
+
         // Parse decrypted message
         if ($result === true) {
             // @TODO
         }
     }
-    
+
     /**
      * Handler for PGP/MIME encrypted message.
      *
@@ -359,7 +380,7 @@ class enigma_engine
      */
     private function parse_smime_encrypted(&$p)
     {
-        $this->load_smime_driver();
+//        $this->load_smime_driver();
     }
 
     /**
@@ -497,9 +518,11 @@ class enigma_engine
         $uid     = rcube_utils::get_input_value('_uid', rcube_utils::INPUT_POST);
         $mbox    = rcube_utils::get_input_value('_mbox', rcube_utils::INPUT_POST);
         $mime_id = rcube_utils::get_input_value('_part', rcube_utils::INPUT_POST);
+        $storage = $this->rc->get_storage();
 
         if ($uid && $mime_id) {
-            $part = $this->rc->storage->get_message_part($uid, $mime_id);
+            $storage->set_folder($mbox);
+            $part = $storage->get_message_part($uid, $mime_id);
         }
 
         if ($part && is_array($result = $this->import_key($part))) {
@@ -527,17 +550,5 @@ class enigma_engine
             $part->body = $this->rc->storage->get_message_part(
                 $uid, $part->mime_id, $part);
         }
-    }
-
-    /**
-     * Adds CSS style file to the page header.
-     */
-    private function add_css()
-    {
-        $skin = $this->rc->config->get('skin');
-        if (!file_exists($this->home . "/skins/$skin/enigma.css"))
-            $skin = 'default';
-
-        $this->include_stylesheet("skins/$skin/enigma.css");                                                
     }
 }

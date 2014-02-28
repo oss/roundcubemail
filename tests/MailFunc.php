@@ -17,8 +17,6 @@ class MailFunc extends PHPUnit_Framework_TestCase
         $RCMAIL->storage_init(false);
 
         require_once INSTALL_PATH . 'program/steps/mail/func.inc';
-
-        $GLOBALS['EMAIL_ADDRESS_PATTERN'] = $EMAIL_ADDRESS_PATTERN;
     }
 
     /**
@@ -147,7 +145,7 @@ class MailFunc extends PHPUnit_Framework_TestCase
         // render HTML in normal mode
         $html = rcmail_html4inline(rcmail_print_body($part, array('safe' => false)), 'foo');
 
-        $mailto = '<a href="mailto:me@me.com?subject=this is the subject&amp;body=this is the body"'
+        $mailto = '<a href="mailto:me@me.com"'
             .' onclick="return rcmail.command(\'compose\',\'me@me.com?subject=this is the subject&amp;body=this is the body\',this)" rel="noreferrer">e-mail</a>';
 
         $this->assertRegExp('|'.preg_quote($mailto, '|').'|', $html, "Extended mailto links");
@@ -182,5 +180,89 @@ class MailFunc extends PHPUnit_Framework_TestCase
         // base resolving exceptions
         $this->assertRegExp('|src="cid:theCID"|', $html, "URI base resolving exception [1]");
         $this->assertRegExp('|src="http://other\.domain\.tld/img3\.gif"|', $html, "URI base resolving exception [2]");
+    }
+
+    /**
+     * Test identities selection using Return-Path header
+     */
+    function test_rcmail_identity_select()
+    {
+        $identities = array(
+            array(
+                'name' => 'Test',
+                'email_ascii' => 'addr@domain.tld',
+                'ident' => 'Test <addr@domain.tld>',
+            ),
+            array(
+                'name' => 'Test',
+                'email_ascii' => 'thing@domain.tld',
+                'ident' => 'Test <thing@domain.tld>',
+            ),
+            array(
+                'name' => 'Test',
+                'email_ascii' => 'other@domain.tld',
+                'ident' => 'Test <other@domain.tld>',
+            ),
+        );
+
+        $message = new stdClass;
+        $message->headers = new rcube_message_header;
+        $message->headers->set('Return-Path', '<some_thing@domain.tld>');
+        $res = rcmail_identity_select($message, $identities);
+
+        $this->assertSame($identities[0], $res);
+
+        $message->headers->set('Return-Path', '<thing@domain.tld>');
+        $res = rcmail_identity_select($message, $identities);
+
+        $this->assertSame($identities[1], $res);
+    }
+
+    /**
+     * Test identities selection (#1489378)
+     */
+    function test_rcmail_identity_select2()
+    {
+        $identities = array(
+            array(
+                'name' => 'Test 1',
+                'email_ascii' => 'addr1@domain.tld',
+                'ident' => 'Test 1 <addr1@domain.tld>',
+            ),
+            array(
+                'name' => 'Test 2',
+                'email_ascii' => 'addr2@domain.tld',
+                'ident' => 'Test 2 <addr2@domain.tld>',
+            ),
+            array(
+                'name' => 'Test 3',
+                'email_ascii' => 'addr3@domain.tld',
+                'ident' => 'Test 3 <addr3@domain.tld>',
+            ),
+            array(
+                'name' => 'Test 4',
+                'email_ascii' => 'addr2@domain.tld',
+                'ident' => 'Test 4 <addr2@domain.tld>',
+            ),
+        );
+
+        $message = new stdClass;
+        $message->headers = new rcube_message_header;
+
+        $message->headers->set('From', '<addr2@domain.tld>');
+        $res = rcmail_identity_select($message, $identities);
+        $this->assertSame($identities[1], $res);
+
+        $message->headers->set('From', 'Test 2 <addr2@domain.tld>');
+        $res = rcmail_identity_select($message, $identities);
+        $this->assertSame($identities[1], $res);
+
+        $message->headers->set('From', 'Other <addr2@domain.tld>');
+        $res = rcmail_identity_select($message, $identities);
+        $this->assertSame($identities[1], $res);
+
+        $message->headers->set('From', 'Test 4 <addr2@domain.tld>');
+        $res = rcmail_identity_select($message, $identities);
+        $this->assertSame($identities[3], $res);
     }
 }

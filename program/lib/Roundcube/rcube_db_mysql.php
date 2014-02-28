@@ -30,13 +30,37 @@ class rcube_db_mysql extends rcube_db
     public $db_provider = 'mysql';
 
     /**
-     * Driver initialization/configuration
+     * Object constructor
+     *
+     * @param string $db_dsnw DSN for read/write operations
+     * @param string $db_dsnr Optional DSN for read only operations
+     * @param bool   $pconn   Enables persistent connections
      */
-    protected function init()
+    public function __construct($db_dsnw, $db_dsnr = '', $pconn = false)
     {
+        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+            rcube::raise_error(array('code' => 600, 'type' => 'db',
+                'line' => __LINE__, 'file' => __FILE__,
+                'message' => "MySQL driver requires PHP >= 5.3, current version is " . PHP_VERSION),
+                true, true);
+        }
+
+        parent::__construct($db_dsnw, $db_dsnr, $pconn);
+
         // SQL identifiers quoting
         $this->options['identifier_start'] = '`';
         $this->options['identifier_end'] = '`';
+    }
+
+    /**
+     * Driver-specific configuration of database connection
+     *
+     * @param array $dsn DSN for DB connections
+     * @param PDO   $dbh Connection handler
+     */
+    protected function conn_configure($dsn, $dbh)
+    {
+        $dbh->query("SET NAMES 'utf8'");
     }
 
     /**
@@ -127,7 +151,7 @@ class rcube_db_mysql extends rcube_db
         $result[PDO::MYSQL_ATTR_FOUND_ROWS] = true;
 
         // Enable AUTOCOMMIT mode (#1488902)
-        $dsn_options[PDO::ATTR_AUTOCOMMIT] = true;
+        $result[PDO::ATTR_AUTOCOMMIT] = true;
 
         return $result;
     }
@@ -153,6 +177,31 @@ class rcube_db_mysql extends rcube_db
         }
 
         return isset($this->variables[$varname]) ? $this->variables[$varname] : $default;
+    }
+
+    /**
+     * Handle DB errors, re-issue the query on deadlock errors from InnoDB row-level locking
+     *
+     * @param string Query that triggered the error
+     * @return mixed Result to be stored and returned
+     */
+    protected function handle_error($query)
+    {
+        $error = $this->dbh->errorInfo();
+
+        // retry after "Deadlock found when trying to get lock" errors
+        $retries = 2;
+        while ($error[1] == 1213 && $retries >= 0) {
+            usleep(50000);  // wait 50 ms
+            $result = $this->dbh->query($query);
+            if ($result !== false) {
+                return $result;
+            }
+            $error = $this->dbh->errorInfo();
+            $retries--;
+        }
+
+        return parent::handle_error($query);
     }
 
 }

@@ -15,8 +15,6 @@
 
  For translation see https://www.transifex.com/projects/p/roundcube-webmail/resource/messages/
 */
-
-$messages = array();
 $messages['errortitle']  = 'Noko gjekk feil.';
 $messages['loginfailed']  = 'Feil ved innlogging.';
 $messages['cookiesdisabled'] = 'Nettlesaren din tillet ikkje informasjonskapslar (cookies).';
@@ -54,8 +52,6 @@ $messages['contactnotfound'] = 'Fann ikkje kontakten du såg etter.';
 $messages['contactsearchonly'] = 'Skriv søkeord for å finna kontaktar';
 $messages['sendingfailed'] = 'Klarte ikkje senda meldinga.';
 $messages['senttooquickly'] = 'Du må venta $sec sekund for å senda meldinga.';
-$messages['errorsavingsent'] = 'Klarte ikkje lagra den sende meldinga.';
-$messages['errorsaving'] = 'Det skjedde ein feil ved lagring.';
 $messages['errormoving'] = 'Klarte ikkje flytte meldinga(r).';
 $messages['errorcopying'] = 'Klarte ikkje kopiera meldinga(r).';
 $messages['errordeleting'] = 'Klarte ikkje sletta meldinga(r).';
@@ -99,8 +95,6 @@ $messages['converting'] = 'Fjernar formatering frå meldinga …';
 $messages['messageopenerror'] = 'Klarte ikkje lasta meldinga frå tenaren.';
 $messages['fileuploaderror'] = 'Filopplasting feila.';
 $messages['filesizeerror'] = 'Fila du lasta opp, er større enn største tillatne filstorleik, $size.';
-$messages['copysuccess'] = 'Kopierte $nr adresser.';
-$messages['copyerror'] = 'Klarte ikkje kopiera nokon adresser.';
 $messages['sourceisreadonly'] = 'Denne adressekjelda er berre lesbar.';
 $messages['errorsavingcontact'] = 'Klarte ikkje lagra kontaktadressa.';
 $messages['movingmessage'] = 'Flyttar melding(ar) …';
@@ -137,7 +131,6 @@ $messages['smtperror'] = 'SMTP-feil: $msg';
 $messages['emailformaterror'] = 'Ugyldig e-postadresse: $email';
 $messages['toomanyrecipients'] = 'For mange mottakarar. Senk talet til $max.';
 $messages['maxgroupmembersreached'] = 'Ei gruppe kan ikkje ha fleire enn $max medlemmer.';
-$messages['internalerror'] = 'Intern feil. Prøv igjen.';
 $messages['contactdelerror'] = 'Klarte ikkje sletta kontakt(ar).';
 $messages['contactdeleted'] = 'Kontakt(ar) sletta utan feil.';
 $messages['contactrestoreerror'] = 'Klarte ikkje gjenoppretta kontakt(ar).';
@@ -165,5 +158,4 @@ $messages['parentnotwritable'] = 'Klarte ikkje laga/flytte mappa i vald overordn
 $messages['messagetoobig'] = 'Meldingsdelen er for stor til å prosesserast.';
 $messages['attachmentvalidationerror'] = 'ÅTVARING: Dette vedlegget er mistenkjeleg fordi det er av ein  type som ikkje stemmer med det som er deklarert i meldinga. Viss du ikkje stolar på avsendaren bør du ikkje opna det i nettlesaren. Det kan ha skadeleg innhald.<br/><br/><em>Venta: $expected; fann: $detected</em>';
 $messages['noscriptwarning'] = 'NB: Denne webmail-klienten krev JavaScript. Skru på JavaScript i nettlesaren din for å kunna bruka klienten.';
-
 ?>

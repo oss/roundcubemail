@@ -5,7 +5,7 @@
  | program/steps/mail/search_contacts.inc                                |
  |                                                                       |
  | This file is part of the Roundcube Webmail client                     |
- | Copyright (C) 2013, The Roundcube Dev Team                            |
+ | Copyright (C) 2013-2014, The Roundcube Dev Team                       |
  |                                                                       |
  | Licensed under the GNU General Public License version 3 or            |
  | any later version with exceptions for skins & plugins.                |
@@ -19,20 +19,25 @@
  +-----------------------------------------------------------------------+
 */
 
-$search  = get_input_value('_q', RCUBE_INPUT_GPC, true);
-$sources = $RCMAIL->get_address_sources();
-$search_mode = (int) $RCMAIL->config->get('addressbook_search_mode');
-$sort_col = $RCMAIL->config->get('addressbook_sort_col', 'name');
-$afields = $RCMAIL->config->get('contactlist_fields');
+$search        = rcube_utils::get_input_value('_q', rcube_utils::INPUT_GPC, true);
+$sources       = $RCMAIL->get_address_sources();
+$search_mode   = (int) $RCMAIL->config->get('addressbook_search_mode');
+$addr_sort_col = $RCMAIL->config->get('addressbook_sort_col', 'name');
+$afields       = $RCMAIL->config->get('contactlist_fields');
+$page_size     = $RCMAIL->config->get('addressbook_pagesize', $RCMAIL->config->get('pagesize', 50));
+$records       = array();
+$search_set    = array();
+$jsresult      = array();
 
-$page = 1;
-$page_size = $RCMAIL->config->get('addressbook_pagesize', $RCMAIL->config->get('pagesize', 50));
-
-$records = $search_set = array();
 foreach ($sources as $s) {
     $source = $RCMAIL->get_address_book($s['id']);
     $source->set_page(1);
     $source->set_pagesize(9999);
+
+    // list matching groups of this source
+    if ($source->groups) {
+        $jsresult += rcmail_compose_contact_groups($source, $s['id'], $search, $search_mode);
+    }
 
     // get contacts count
     $result = $source->search($afields, $search, $search_mode, true, true, 'email');
@@ -46,13 +51,15 @@ foreach ($sources as $s) {
 
     while ($row = $result->next()) {
         $row['sourceid'] = $s['id'];
-        $key = rcube_addressbook::compose_contact_key($row, $sort_col);
+        $key = rcube_addressbook::compose_contact_key($row, $addr_sort_col);
         $records[$key] = $row;
     }
 
     $search_set[$s['id']] = $source->get_search_set();
     unset($result);
 }
+
+$group_count = count($jsresult);
 
 // sort the records
 ksort($records, SORT_LOCALE_STRING);
@@ -77,11 +84,11 @@ if (!empty($result) && $result->count > 0) {
         // (same as in list_contacts.inc)
         $emails = $source->get_col_values('email', $row, true);
         foreach ($emails as $i => $email) {
-            $row_id = $row['ID'].$i;
+            $row_id = $row['ID'].'-'.$i;
             $jsresult[$row_id] = format_email_recipient($email, $name);
             $OUTPUT->command('add_contact_row', $row_id, array(
-                'contact' => html::span(array('title' => $email), Q($name ? $name : $email) .
-                    ($name && count($emails) > 1 ? '&nbsp;' . html::span('email', Q($email)) : '')
+                'contact' => html::span(array('title' => $email), rcube::Q($name ? $name : $email) .
+                    ($name && count($emails) > 1 ? '&nbsp;' . html::span('email', rcube::Q($email)) : '')
                 )), 'person');
         }
     }
@@ -99,7 +106,7 @@ if (!empty($result) && $result->count > 0) {
     $OUTPUT->command('set_env', 'source', '');
     $OUTPUT->command('unselect_directory');
 }
-else {
+else if (!$group_count) {
     $OUTPUT->show_message('nocontactsfound', 'notice');
 }
 

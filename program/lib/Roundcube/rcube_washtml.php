@@ -113,10 +113,9 @@ class rcube_washtml
         'type', 'rows', 'cols', 'disabled', 'readonly', 'checked', 'multiple', 'value'
     );
 
-    /* Block elements which could be empty but cannot be returned in short form (<tag />) */
-    static $block_elements = array('div', 'p', 'pre', 'blockquote', 'a', 'font', 'center',
-        'table', 'ul', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'dl', 'strong',
-        'i', 'b', 'u', 'span',
+    /* Elements which could be empty and be returned in short form (<tag />) */
+    static $void_elements = array('area', 'base', 'br', 'col', 'command', 'embed', 'hr',
+        'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'
     );
 
     /* State for linked objects in HTML */
@@ -134,11 +133,14 @@ class rcube_washtml
     /* Ignore these HTML tags but process their content */
     private $_ignore_elements = array();
 
-    /* Block elements which could be empty but cannot be returned in short form (<tag />) */
-    private $_block_elements = array();
+    /* Elements which could be empty and be returned in short form (<tag />) */
+    private $_void_elements = array();
 
     /* Allowed HTML attributes */
     private $_html_attribs = array();
+
+    /* Max nesting level */
+    private $max_nesting_level;
 
 
     /**
@@ -149,9 +151,9 @@ class rcube_washtml
         $this->_html_elements   = array_flip((array)$p['html_elements']) + array_flip(self::$html_elements) ;
         $this->_html_attribs    = array_flip((array)$p['html_attribs']) + array_flip(self::$html_attribs);
         $this->_ignore_elements = array_flip((array)$p['ignore_elements']) + array_flip(self::$ignore_elements);
-        $this->_block_elements  = array_flip((array)$p['block_elements']) + array_flip(self::$block_elements);
+        $this->_void_elements   = array_flip((array)$p['void_elements']) + array_flip(self::$void_elements);
 
-        unset($p['html_elements'], $p['html_attribs'], $p['ignore_elements'], $p['block_elements']);
+        unset($p['html_elements'], $p['html_attribs'], $p['ignore_elements'], $p['void_elements']);
 
         $this->config = $p + array('show_washed' => true, 'allow_remote' => false, 'cid_map' => array());
     }
@@ -182,7 +184,7 @@ class rcube_washtml
                         '|rgb\(\s*[0-9]+\s*,\s*[0-9]+\s*,\s*[0-9]+\s*\)'.
                         '|-?[0-9.]+\s*(em|ex|px|cm|mm|in|pt|pc|deg|rad|grad|ms|s|hz|khz|%)?'.
                         '|#[0-9a-f]{3,6}'.
-                        '|[a-z0-9", -]+'.
+                        '|[a-z0-9"\', -]+'.
                         ')\s*/i', $str, $match)
                 ) {
                     if ($match[2]) {
@@ -284,10 +286,24 @@ class rcube_washtml
      * It output only allowed tags with allowed attributes
      * and allowed inline styles
      */
-    private function dumpHtml($node)
+    private function dumpHtml($node, $level = 0)
     {
         if (!$node->hasChildNodes()) {
             return '';
+        }
+
+        $level++;
+
+        if ($this->max_nesting_level > 0 && $level == $this->max_nesting_level - 1) {
+            // log error message once
+            if (!$this->max_nesting_level_error) {
+                $this->max_nesting_level_error = true;
+                rcube::raise_error(array('code' => 500, 'type' => 'php',
+                    'line' => __LINE__, 'file' => __FILE__,
+                    'message' => "Maximum nesting level exceeded (xdebug.max_nesting_level={$this->max_nesting_level})"),
+                    true, false);
+            }
+            return '<!-- ignored -->';
         }
 
         $node = $node->firstChild;
@@ -299,19 +315,19 @@ class rcube_washtml
                 $tagName = strtolower($node->tagName);
                 if ($callback = $this->handlers[$tagName]) {
                     $dump .= call_user_func($callback, $tagName,
-                        $this->wash_attribs($node), $this->dumpHtml($node), $this);
+                        $this->wash_attribs($node), $this->dumpHtml($node, $level), $this);
                 }
                 else if (isset($this->_html_elements[$tagName])) {
-                    $content = $this->dumpHtml($node);
+                    $content = $this->dumpHtml($node, $level);
                     $dump .= '<' . $tagName . $this->wash_attribs($node) .
-                        ($content != '' || isset($this->_block_elements[$tagName]) ? ">$content</$tagName>" : ' />');
+                        ($content === '' && isset($this->_void_elements[$tagName]) ? ' />' : ">$content</$tagName>");
                 }
                 else if (isset($this->_ignore_elements[$tagName])) {
                     $dump .= '<!-- ' . htmlspecialchars($tagName, ENT_QUOTES) . ' not allowed -->';
                 }
                 else {
                     $dump .= '<!-- ' . htmlspecialchars($tagName, ENT_QUOTES) . ' ignored -->';
-                    $dump .= $this->dumpHtml($node); // ignore tags not its content
+                    $dump .= $this->dumpHtml($node, $level); // ignore tags not its content
                 }
                 break;
 
@@ -324,14 +340,14 @@ class rcube_washtml
                 break;
 
             case XML_HTML_DOCUMENT_NODE:
-                $dump .= $this->dumpHtml($node);
+                $dump .= $this->dumpHtml($node, $level);
                 break;
 
             case XML_DOCUMENT_TYPE_NODE:
                 break;
 
             default:
-                $dump . '<!-- node type ' . $node->nodeType . ' -->';
+                $dump .= '<!-- node type ' . $node->nodeType . ' -->';
             }
         } while($node = $node->nextSibling);
 
@@ -358,7 +374,17 @@ class rcube_washtml
             $this->config['base_url'] = '';
         }
 
-        @$node->loadHTML($html);
+        // Detect max nesting level (for dumpHTML) (#1489110)
+        $this->max_nesting_level = (int) @ini_get('xdebug.max_nesting_level');
+
+        // Use optimizations if supported
+        if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
+            @$node->loadHTML($html, LIBXML_PARSEHUGE | LIBXML_COMPACT);
+        }
+        else {
+            @$node->loadHTML($html);
+        }
+
         return $this->dumpHtml($node);
     }
 
@@ -391,6 +417,25 @@ class rcube_washtml
         );
         $html = preg_replace($html_search, $html_replace, trim($html));
 
+        //-> Replace all of those weird MS Word quotes and other high characters
+        $badwordchars = array(
+            "\xe2\x80\x98", // left single quote
+            "\xe2\x80\x99", // right single quote
+            "\xe2\x80\x9c", // left double quote
+            "\xe2\x80\x9d", // right double quote
+            "\xe2\x80\x94", // em dash
+            "\xe2\x80\xa6" // elipses
+        );
+        $fixedwordchars = array(
+            "'",
+            "'",
+            '"',
+            '"',
+            '&mdash;',
+            '...'
+        );
+        $html = str_replace($badwordchars, $fixedwordchars, $html);
+
         // PCRE errors handling (#1486856), should we use something like for every preg_* use?
         if ($html === null && ($preg_error = preg_last_error()) != PREG_NO_ERROR) {
             $errstr = "Could not clean up HTML message! PCRE Error: $preg_error.";
@@ -405,16 +450,20 @@ class rcube_washtml
             rcube::raise_error(array('code' => 620, 'type' => 'php',
                 'line' => __LINE__, 'file' => __FILE__,
                 'message' => $errstr), true, false);
+
             return '';
         }
 
         // fix (unknown/malformed) HTML tags before "wash"
-        $html = preg_replace_callback('/(<[\/]*)([^\s>]+)/', array($this, 'html_tag_callback'), $html);
+        $html = preg_replace_callback('/(<(?!\!)[\/]*)([^\s>]+)([^>]*)/', array($this, 'html_tag_callback'), $html);
 
         // Remove invalid HTML comments (#1487759)
         // Don't remove valid conditional comments
         // Don't remove MSOutlook (<!-->) conditional comments (#1489004)
         $html = preg_replace('/<!--[^->\[\n]+>/', '', $html);
+
+        // fix broken nested lists
+        self::fix_broken_lists($html);
 
         // turn relative into absolute urls
         $html = self::resolve_base($html);
@@ -433,7 +482,12 @@ class rcube_washtml
             '/[^a-z0-9_\[\]\!-]/i', // forbidden characters
         ), '', $tagname);
 
-        return $matches[1] . $tagname;
+        // fix invalid closing tags - remove any attributes (#1489446)
+        if ($matches[1] == '</') {
+            $matches[3] = '';
+        }
+
+        return $matches[1] . $tagname . $matches[3];
     }
 
     /**
@@ -449,5 +503,77 @@ class rcube_washtml
 
         return $body;
     }
-}
 
+    /**
+     * Fix broken nested lists, they are not handled properly by DOMDocument (#1488768)
+     */
+    public static function fix_broken_lists(&$html)
+    {
+        // do two rounds, one for <ol>, one for <ul>
+        foreach (array('ol', 'ul') as $tag) {
+            $pos = 0;
+            while (($pos = stripos($html, '<' . $tag, $pos)) !== false) {
+                $pos++;
+
+                // make sure this is an ol/ul tag
+                if (!in_array($html[$pos+2], array(' ', '>'))) {
+                    continue;
+                }
+
+                $p      = $pos;
+                $in_li  = false;
+                $li_pos = 0;
+
+                while (($p = strpos($html, '<', $p)) !== false) {
+                    $tt = strtolower(substr($html, $p, 4));
+
+                    // li open tag
+                    if ($tt == '<li>' || $tt == '<li ') {
+                        $in_li = true;
+                        $p += 4;
+                    }
+                    // li close tag
+                    else if ($tt == '</li' && in_array($html[$p+4], array(' ', '>'))) {
+                        $li_pos = $p;
+                        $p += 4;
+                        $in_li = false;
+                    }
+                    // ul/ol closing tag
+                    else if ($tt == '</' . $tag && in_array($html[$p+4], array(' ', '>'))) {
+                        break;
+                    }
+                    // nested ol/ul element out of li
+                    else if (!$in_li && $li_pos && ($tt == '<ol>' || $tt == '<ol ' || $tt == '<ul>' || $tt == '<ul ')) {
+                        // find closing tag of this ul/ol element
+                        $element = substr($tt, 1, 2);
+                        $cpos    = $p;
+                        do {
+                            $tpos = stripos($html, '<' . $element, $cpos+1);
+                            $cpos = stripos($html, '</' . $element, $cpos+1);
+                        }
+                        while ($tpos !== false && $cpos !== false && $cpos > $tpos);
+
+                        // not found, this is invalid HTML, skip it
+                        if ($cpos === false) {
+                            break;
+                        }
+
+                        // get element content
+                        $end     = strpos($html, '>', $cpos);
+                        $len     = $end - $p + 1;
+                        $element = substr($html, $p, $len);
+
+                        // move element to the end of the last li
+                        $html    = substr_replace($html, '', $p, $len);
+                        $html    = substr_replace($html, $element, $li_pos, 0);
+
+                        $p = $end;
+                    }
+                    else {
+                        $p++;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -50,6 +50,8 @@ textarea {
 
 input[type="text"]:focus,
 input[type="password"]:focus,
+input[type="text"]:required,
+input[type="password"]:required,
 input.button:focus,
 textarea:focus {
 	border-color: #848589;
@@ -507,6 +509,7 @@ a.iconlink.upload {
 }
 
 #message.statusbar {
+	display: none;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -524,6 +527,102 @@ a.iconlink.upload {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+#messagestack {
+	position: absolute;
+	bottom: 20px;
+	right: 12px;
+	z-index: 50000;
+	width: auto;
+	height: auto;
+	max-height: 85%;
+	overflow-y: auto;
+	padding: 2px;
+}
+
+#messagestack div {
+	display: block;
+	position: relative;
+	width: 280px;
+	height: auto;
+	min-height: 16px;
+	margin: 3px 2px 5px 2px;
+	padding: 8px 10px 7px 30px;
+	cursor: default;
+	font-size: 12px;
+	font-weight: bold;
+	border-radius: 4px;
+	border: 1px solid #444;
+	color: #ebebeb;
+	text-shadow: 0 1px 1px #000;
+
+	background: rgba(64,64,64,0.85);
+	background: -moz-linear-gradient(top, rgba(64,64,64,0.85) 0%, rgba(48,48,48,0.9) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(64,64,64,0.85)), color-stop(100%,rgba(48,48,48,0.9)));
+	background: -webkit-linear-gradient(top, rgba(64,64,64,0.85) 0%, rgba(48,48,48,0.85) 100%);
+	background: -o-linear-gradient(top, rgba(64,64,64,0.85) 0%, rgba(48,48,48,0.85) 100%);
+	background: -ms-linear-gradient(top, rgba(64,64,64,0.85) 0%, rgba(48,48,48,0.85) 100%);
+	background: linear-gradient(to bottom, rgba(64,64,64,0.85) 0%, rgba(48,48,48,0.85) 100%);
+
+	-moz-box-shadow: 0 1px 4px 0 rgba(50,50,50,0.8), inset 0px 1px 0 0px #888;
+	-webkit-box-shadow: 0 1px 4px 0 rgba(50,50,50,0.8), inset 0px 1px 0 0px #888;
+	-o-box-shadow: 0 1px 4px 0 rgba(50,50,50,0.8), inset 0px 1px 0 0px #888;
+	box-shadow: 0 1px 4px 0 rgba(50,50,50,0.8), inset 0px 1px 0 0px #888;
+}
+
+#messagestack div:after {
+	content: "";
+	position: absolute;
+	display: block;
+	top: 0;
+	left: 4px;
+	width: 20px;
+	height: 24px;
+	background: url(images/messages_dark.png) 0 7px no-repeat;
+}
+
+#messagestack div.error {
+	color: #ff615d;
+}
+
+#messagestack div.error:after {
+	background-position: 0 -55px;
+}
+
+#messagestack div.warning {
+	color: #f4bf0e;
+}
+
+#messagestack div.warning:after {
+	background-position: 0 -84px;
+}
+
+#messagestack div.confirmation {
+	color: #00e05a;
+}
+
+#messagestack div.confirmation:after {
+	background-position: 0 -25px;
+}
+
+#messagestack div.loading {
+	color: #ddd;
+}
+
+#messagestack div.loading:after {
+	top: 4px;
+	left: 6px;
+	background: url(images/ajaxloader_dark.gif) 0 4px no-repeat;
+}
+
+#messagestack div a {
+	color: #94c0da;
+}
+
+#messagestack div a:hover {
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .ui-dialog.error .ui-dialog-title,
@@ -613,6 +712,7 @@ a.iconlink.upload {
 	height: 55px;
 	cursor: pointer;
 	/*padding-top: 2px;*/
+	border: none;
 }
 
 .topleft {
@@ -692,17 +792,6 @@ a.iconlink.upload {
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
 	opacity: 0.999;
-}
-
-.partwin #topline {
-	position: absolute;
-	right: 6px;
-	top: 18px;
-	width: auto;
-	z-index: 100;
-	background: transparent;
-	background: none;
-	border: 0;
 }
 
 .minimal #topline a.button-logout {
@@ -887,10 +976,6 @@ a.iconlink.upload {
 	top: 102px;
 }
 
-.partwin #mainscreen {
-	top: 60px
-}
-
 .extwin #mainscreen {
 	top: 40px;
 }
@@ -900,7 +985,7 @@ a.iconlink.upload {
 }
 
 #mainscreen .offset {
-	margin-top: 42px;
+	top: 42px;
 }
 
 .uibox {
@@ -944,6 +1029,15 @@ a.iconlink.upload {
 	background-position: center;
 	background-repeat: no-repeat;
 }
+
+/* fix scrolling within iframes in webkit browsers on touch devices */
+@media screen and (-webkit-min-device-pixel-ratio:0) and (max-device-width:1024px) {
+	.iframebox {
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+}
+
 
 /*** lists ***/
 
@@ -1052,6 +1146,9 @@ ul.listing {
 
 ul.listing li {
 	background-color: #f5f5f5;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 ul.listing li ul {
@@ -1061,6 +1158,10 @@ ul.listing li ul {
 ul.listing li.droptarget,
 table.listing tr.droptarget td {
 	background-color: #e8e798;
+}
+
+.listbox table.listing {
+	background-color: #d9ecf4;
 }
 
 table.listing,
@@ -1244,7 +1345,6 @@ table.records-table {
 	display: table;
 	width: 100%;
 	table-layout: fixed;
-	border-collapse: collapse;
 	border-spacing: 0;
 	border: 1px solid #bbd3da;
 }
@@ -1294,9 +1394,21 @@ table.records-table {
 	background-color: #fff;
 }
 
+/* This padding-left minus the focused padding left should be half of the focused border-left */
 .records-table thead tr td:first-child,
 .records-table tbody tr td:first-child {
 	border-left: 0;
+	padding-left: 6px;
+}
+
+/* because of border-collapse, we make the left border twice what we want it to be - half will be hidden to the left */
+.records-table tbody tr.focused > td:first-child {
+	border-left: 2px solid #b0ccd7;
+	padding-left: 4px;
+}
+
+.records-table tbody tr.selected.focused > td:first-child {
+	border-left-color: #49b3d2;
 }
 
 .records-table tr.selected td {
@@ -1328,7 +1440,6 @@ table.records-table {
 .records-table tr.deleted td a {
 	color: #ccc !important;
 }
-
 
 /*** iFrames ***/
 
@@ -1408,7 +1519,7 @@ body.iframe .footerleft.floating:before,
 	top: 34px;
 	left: 0;
 	right: 0;
-	bottom: 28px;
+	bottom: 0px;
 	overflow: auto;
 }
 
@@ -1417,7 +1528,7 @@ body.iframe .footerleft.floating:before,
 	top: 0;
 	left: 0;
 	right: 0;
-	bottom: 28px;
+	bottom: 0px;
 }
 
 .footerleft {
@@ -1441,6 +1552,20 @@ body.iframe .footerleft.floating:before,
 .propform fieldset fieldset legend {
 	color: #666;
 	font-size: 12px;
+}
+
+.propform div.prop {
+	margin-bottom: 0.5em;
+}
+
+.propform div.prop.block label {
+	display: block;
+	margin-bottom: 0.3em;
+}
+
+.propform div.prop.block input,
+.propform div.prop.block textarea {
+	width: 95%;
 }
 
 fieldset.floating {
@@ -1593,17 +1718,20 @@ ul.proplist li {
 
 #login-form #logo {
 	margin-bottom: 20px;
+	border: none;
 }
 
 #login-form #message {
 	min-height: 40px;
 	padding: 5px 25px;
 	text-align: center;
+	font-size: 1.1em;
 }
 
 #login-form #message div {
 	display: inline-block;
 	padding-right: 0;
+	font-size: 12px;
 }
 
 #bottomline {
@@ -1622,7 +1750,7 @@ ul.proplist li {
 
 #quicksearchbar {
 	position: absolute;
-	right: 1px;
+	right: 2px;
 	top: 2px;
 	width: 240px;
 }
@@ -1681,6 +1809,7 @@ ul.proplist li {
 	-o-box-shadow: none;
 	background: url(images/buttons.png) -100px 0 no-repeat transparent;
 	border: 0;
+	border-radius: 0;
 }
 
 .toolbar a.button.disabled {
@@ -1817,6 +1946,14 @@ ul.proplist li {
 	background-position: 0 -1745px;
 }
 
+.toolbar a.button.download {
+	background-position: center -1892px;
+}
+
+.toolbar a.button.responses {
+	background-position: center -1932px;
+}
+
 a.menuselector {
 	display: inline-block;
 	border: 1px solid #ababab;
@@ -1862,6 +1999,7 @@ select.decorated {
 	filter: alpha(opacity=0);
 	-khtml-appearance: none;
 	-webkit-appearance: none;
+	border: 0;
 }
 
 html.opera select.decorated {
@@ -1877,6 +2015,7 @@ select.decorated option {
 	text-shadow: 0px 1px 1px #333;
 	padding: 4px 6px;
 	outline: none;
+	cursor: default;
 }
 
 /* added to hide bug with the selected attribute not dynamically changing
@@ -1890,11 +2029,11 @@ select.decorated option[selected="selected"] {
 
 #quotadisplay {
 	left: 6px;
+	height: 18px;
 	font-size: 12px;
 	font-weight: bold;
 	text-shadow: 0px 1px 1px #fff;
 	padding-left: 30px;
-	height: 18px;
 	background: url(images/quota.png) -100px 0 no-repeat;
 }
 
@@ -1907,6 +2046,9 @@ select.decorated option[selected="selected"] {
 	top: 32px;
 	left: 90px;
 	width: auto;
+	max-height: 70%;
+	overflow: -moz-scrollbars-vertical;
+	overflow-y: auto;
 	background: #444;
 	border: 1px solid #999;
 	z-index: 240;
@@ -1923,6 +2065,7 @@ select.decorated option[selected="selected"] {
 }
 
 ul.toolbarmenu,
+ul.toolbarmenu ul,
 #rcmKSearchpane ul {
 	margin: 0;
 	padding: 0;
@@ -1941,13 +2084,13 @@ ul.toolbarmenu li,
 }
 
 .googie_list tr:first-child td,
-ul.toolbarmenu li:first-child,
+ul.toolbarmenu > li:first-child,
 select.decorated option:first-child {
 	border-top: 0;
 }
 
 .googie_list tr:last-child td,
-ul.toolbarmenu li:last-child,
+ul.toolbarmenu > li:last-child,
 select.decorated option:last-child {
 	border-bottom: 0;
 }
@@ -1999,6 +2142,11 @@ ul.toolbarmenu li label {
 	color: #fff;
 	padding: 4px 8px;
 	text-shadow: 0px 1px 1px #333;
+}
+
+ul.toolbarmenu li.separator label {
+	color: #bbb;
+	font-style: italic;
 }
 
 ul.toolbarmenu li a.icon {
@@ -2077,6 +2225,23 @@ ul.toolbarmenu li span.extwin {
 
 ul.toolbarmenu li span.conversation {
 	background-position: 0 -1532px;
+}
+
+ul.toolbarmenu li span.move {
+	background-position: 0 -2126px;
+}
+
+ul.toolbarmenu li span.copy {
+	background-position: 0 -2150px;
+}
+
+#snippetslist {
+	max-width: 200px;
+}
+
+#snippetslist li a {
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #rcmKSearchpane {
@@ -2182,6 +2347,38 @@ ul.toolbarmenu li span.conversation {
 	z-index: 255;
 }
 
+/*** folder selector ***/
+
+#folder-selector li a span {
+	background: url("images/listicons.png") 4px -2021px no-repeat;
+	display: block;
+	height: 17px;
+	min-height: 14px;
+	padding: 4px 4px 1px 28px;
+	overflow: hidden;
+	max-width: 120px;
+	text-overflow: ellipsis;
+}
+
+#folder-selector li a.virtual {
+	opacity: .2;
+}
+
+#folder-selector li a.inbox span {
+	background-position: 4px -2049px;
+}
+#folder-selector li a.drafts span {
+	background-position: 4px -1388px;
+}
+#folder-selector li a.sent span {
+	background-position: 4px -2074px;
+}
+#folder-selector li a.trash span {
+	background-position: 4px -1508px;
+}
+#folder-selector li a.junk span {
+	background-position: 4px -2100px;
+}
 
 /*** attachment list ***/
 
@@ -2288,17 +2485,30 @@ ul.toolbarmenu li span.conversation {
 	background-position: 0 -494px;
 }
 
+.attachmentslist li.ppt,
+.attachmentslist li.pptx,
+.attachmentslist li.ppsx,
+.attachmentslist li.vnd.mspowerpoint {
+	background-position: 0 -520px;
+}
+
+.attachmentslist li.odp,
+.attachmentslist li.otp {
+	background-position: 0 -546px;
+}
+
 .attachmentslist li a,
 #compose-attachments ul li {
 	display: block;
 	color: #333;
 	font-weight: bold;
-	padding: 8px 15px 3px 30px;
+	padding: 3px 15px 3px 30px;
 	text-shadow: 0px 1px 1px #fff;
 	text-decoration: none;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	line-height: 20px;
 }
 
 .attachmentslist li a.drop {
@@ -2327,9 +2537,9 @@ ul.toolbarmenu li span.conversation {
 .attachmentslist li a.delete,
 .attachmentslist li a.cancelupload {
 	position: absolute;
-	top: 6px;
+	top: 4px;
 	right: 0;
-	width: 24px;
+	width: 20px;
 	height: 18px;
 	padding: 0;
 	text-decoration: none;

@@ -10,10 +10,10 @@
  * Setup xmail_host, xmail_user, xmail_pass and xmail_port into
  * config.inc.php of password plugin as follows:
  *
- * $rcmail_config['xmail_host'] = 'localhost';
- * $rcmail_config['xmail_user'] = 'YourXmailControlUser';
- * $rcmail_config['xmail_pass'] = 'YourXmailControlPass';
- * $rcmail_config['xmail_port'] = 6017;
+ * $config['xmail_host'] = 'localhost';
+ * $config['xmail_user'] = 'YourXmailControlUser';
+ * $config['xmail_pass'] = 'YourXmailControlPass';
+ * $config['xmail_port'] = 6017;
  *
  */
 
@@ -67,7 +67,7 @@ class XMail {
     function send($msg)
     {
         socket_write($this->socket,$msg);
-        if (substr($in = socket_read($this->socket, 512, PHP_BINARY_READ),0,1) != "+") {
+        if (substr(socket_read($this->socket, 512, PHP_BINARY_READ),0,1) != "+") {
             return false;
         }
         return true;
@@ -85,7 +85,7 @@ class XMail {
             return false;
         }
 
-        if (substr($in = socket_read($this->socket, 512, PHP_BINARY_READ),0,1) != "+") {
+        if (substr(socket_read($this->socket, 512, PHP_BINARY_READ),0,1) != "+") {
             socket_close($this->socket);
             return false;
         }

@@ -15,7 +15,6 @@
 
  For translation see https://www.transifex.com/projects/p/roundcube-webmail/resource/plugin-acl/
 */
-
 $labels['sharing'] = 'Dalinimasis';
 $labels['myrights'] = 'Prieigos teisės';
 $labels['username'] = 'Vartotojas:';
@@ -25,7 +24,6 @@ $labels['actions'] = 'Prieigos teisių veiksmai...';
 $labels['anyone'] = 'Visi vartotojai (bet kas)';
 $labels['anonymous'] = 'Svečias (anonimas)';
 $labels['identifier'] = 'Identifikatorius';
-
 $labels['acll'] = 'Paieška';
 $labels['aclr'] = 'Perskaityti pranešimus';
 $labels['acls'] = 'Palikti būseną "Žiūrėtas"';
@@ -39,13 +37,11 @@ $labels['aclt'] = 'Ištrinti žinutes';
 $labels['acle'] = 'Išbraukti';
 $labels['aclx'] = 'Ištrinti aplanką';
 $labels['acla'] = 'Valdyti';
-
 $labels['aclfull'] = 'Visiška kontrolė';
 $labels['aclother'] = 'Kita';
 $labels['aclread'] = 'Skaityti';
 $labels['aclwrite'] = 'Įrašyti';
 $labels['acldelete'] = 'Trinti';
-
 $labels['shortacll'] = 'Paieška';
 $labels['shortaclr'] = 'Skaityti';
 $labels['shortacls'] = 'Palikti';
@@ -59,18 +55,16 @@ $labels['shortaclt'] = 'Trinti';
 $labels['shortacle'] = 'Išbraukti';
 $labels['shortaclx'] = 'Ištrinti aplanką';
 $labels['shortacla'] = 'Valdyti';
-
 $labels['shortaclother'] = 'Kita';
 $labels['shortaclread'] = 'Skaityti';
 $labels['shortaclwrite'] = 'Įrašyti';
 $labels['shortacldelete'] = 'Trinti';
-
 $labels['longacll'] = 'Aplankas yra matomas sąrašuose ir gali būti prenumeruojamas';
 $labels['longaclr'] = 'Aplanką galima peržiūrėti';
 $labels['longacls'] = 'Pranešimų vėliavėlė "Matyta" gali būti pakeista';
 $labels['longaclw'] = 'Pranešimų vėliavėlės ir raktažodžiai gali būti pakeisti, išskyrus "Matytas" ir "Ištrintas"';
 $labels['longacli'] = 'Pranešimai gali būti įrašyti arba nukopijuoti į aplanką';
-$labels['longaclp'] = 'Messages can be posted to this folder';
+$labels['longaclp'] = 'Į šį aplanką galima dėti laiškus.';
 $labels['longaclc'] = 'Nauji aplankai gali būti kuriami (arba pervadinami) šioje direktorijoje';
 $labels['longaclk'] = 'Nauji aplankai gali būti kuriami (arba pervadinami) šioje direktorijoje';
 $labels['longacld'] = 'Pranešimų vėliavėlė "Ištrintas" gali būti pakeista';
@@ -78,22 +72,19 @@ $labels['longaclt'] = 'Pranešimų vėliavėlė "Ištrintas" gali būti pakeista
 $labels['longacle'] = 'Pranešimai gali būti išbraukti';
 $labels['longaclx'] = 'Aplankas gali būti pašalintas arba pervadintas';
 $labels['longacla'] = 'Aplanko prieigos teisės gali būti pakeistos';
-
 $labels['longaclfull'] = 'Visiška kontrolė įskaitant aplanko administravimą';
 $labels['longaclread'] = 'Aplanką galima peržiūrėti';
 $labels['longaclwrite'] = 'Pranešimai gali būti pažymėti, įrašyti arba nukopijuoti į aplanką';
 $labels['longacldelete'] = 'Pranešimai gali būti ištrinti';
-
 $messages['deleting'] = 'Panaikinamos prieigos teisės';
 $messages['saving'] = 'Išsaugomos prieigos teisės';
 $messages['updatesuccess'] = 'Prieigos teisės sėkmingai pakeistos';
 $messages['deletesuccess'] = 'Prieigos teisės sėkmingai panaikintos';
 $messages['createsuccess'] = 'Prieigos teisės sėkmingai pridėtos';
-$messages['updateerror'] = 'Neįmanoma atnaujinti prieigos teises';
+$messages['updateerror'] = 'Nepavyko pakeisti prieigos teisių';
 $messages['deleteerror'] = 'Neįmanoma panaikinti prieigos teises';
 $messages['createerror'] = 'Neišeina pridėti prieigos teises';
 $messages['deleteconfirm'] = 'Ar jūs esate įsitikinę, jog norite panaikinti prieigos teises pažymėtiems vartotojams(-ui)?';
 $messages['norights'] = 'Nenurodytos jokios teisės!';
 $messages['nouser'] = 'Nenurodytas joks vartotojas!';
-
 ?>

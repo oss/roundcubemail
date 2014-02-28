@@ -15,8 +15,6 @@
 
  For translation see https://www.transifex.com/projects/p/roundcube-webmail/resource/messages/
 */
-
-$messages = array();
 $messages['errortitle']  = 'Սխա՛լ';
 $messages['loginfailed']  = 'Մուտքը ձախողվեց';
 $messages['cookiesdisabled'] = 'Сookies–ների ապահովվումը բացակայում է';
@@ -29,11 +27,9 @@ $messages['requesttimedout'] = 'Հարցման թույլատրելի ժաման
 $messages['errorreadonly'] = 'Գործողությունը անհնար է։ Պանակը միայն ընթերցման համար է։';
 $messages['errornoperm'] = 'Գործողության կատարման իրավունքը մերժված է։';
 $messages['invalidrequest'] = 'Սխալ հարցում, ապարդյուն։';
-$messages['invalidhost'] = 'Invalid server name.';
 $messages['nomessagesfound'] = 'Այս փոստարկղում նամակներ չկան';
 $messages['loggedout'] = 'Դուք բարեհաջող ավարտեցիք աշխատանքը։ Ցտեսություն…';
 $messages['mailboxempty'] = 'Փոստարկղը դատարկ է';
-$messages['refreshing'] = 'Refreshing...';
 $messages['loading'] = 'Բեռնում...';
 $messages['uploading'] = 'Ֆայլի վերբեռնում…';
 $messages['uploadingmany'] = 'Վերբեռնվում են ֆայլերը…';
@@ -54,8 +50,6 @@ $messages['contactnotfound'] = 'Որոնվող հասցեն չգտնվեց';
 $messages['contactsearchonly'] = 'Ներմուծեք տվյալներ անձանց որոնման համար';
 $messages['sendingfailed'] = 'Նամակի ուղարկումը ձախողվեց';
 $messages['senttooquickly'] = 'Խնդրում ենք սպասել $sec վարկյան մինչ այս նամակն ուղարկելը';
-$messages['errorsavingsent'] = 'Ուղարկված նամակի արխիվացումը խափանվեց';
-$messages['errorsaving'] = 'Գրանցման սխալ';
 $messages['errormoving'] = 'Նամակի տեղափոխման ձախողում';
 $messages['errorcopying'] = 'Հաղորդագրության պատճենումը ձախողվեց։';
 $messages['errordeleting'] = 'Նամակի ջնջման ձախողում';
@@ -99,8 +93,6 @@ $messages['converting'] = 'Նամակի ձևավորման հեռացում…';
 $messages['messageopenerror'] = 'Նամակի բեռնվումը սերվերից ձախողվեց';
 $messages['fileuploaderror'] = 'Ֆայլի կցումն ձախողվեց';
 $messages['filesizeerror'] = 'Ֆայլի չափը գերազանցում է մաքսիմալը՝ $size';
-$messages['copysuccess'] = '$nr հասցեների կրկնօրինակումը ավարտված է';
-$messages['copyerror'] = 'Հասցեների կրկնօրինակումը ձախողվեց';
 $messages['sourceisreadonly'] = 'Այս հասցեն պաշտպանված է';
 $messages['errorsavingcontact'] = 'Հասցեի գրանցումն ձախողվեց';
 $messages['movingmessage'] = 'Նամակը տեղափոխվում է…';
@@ -119,9 +111,7 @@ $messages['selectimportfile'] = 'Ընտրեք ուղարկվող ֆայլը';
 $messages['addresswriterror'] = 'Ընտրված հասցեագիրքը ենթակա չէ փոփոխման';
 $messages['contactaddedtogroup'] = 'Անձինք բարեհաջող ավելացվեցին խմբին։';
 $messages['contactremovedfromgroup'] = 'Անձինք բարեհաջող հանվեցին խմբից։';
-$messages['nogroupassignmentschanged'] = 'No group assignments changed.';
 $messages['importwait'] = 'Ներկրումն ընթացքի մեջ է...';
-$messages['importformaterror'] = 'Import failed! The uploaded file is not a valid import data file.';
 $messages['importconfirm'] = '$inserted նոր ներկրված հասցեներ, $skipped արդեն առկա հասցեներ՝ <p><em>$names</em></p>';
 $messages['importconfirmskipped'] = '<b>Բաց թողնվեց $skipped առկա գրառում</b>';
 $messages['opnotpermitted'] = 'Գործողությունը անթույլատրելի է։';
@@ -137,7 +127,6 @@ $messages['smtperror'] = 'SMTP սխալ` $msg';
 $messages['emailformaterror'] = 'Սխալ էլփոստի հասցե` $email';
 $messages['toomanyrecipients'] = 'Ստացողների քանակը չափազանց մեծ է։ Նվազեցրեք մինչև $max-ը։';
 $messages['maxgroupmembersreached'] = 'Խմբի անդամների քանաքը գերազանցում է թույլատրելի $max-ը։';
-$messages['internalerror'] = 'Ներքին սխալ, կրկին փորձեք։';
 $messages['contactdelerror'] = 'Անձանց ջնջումը ձախողվեց։';
 $messages['contactdeleted'] = 'Անձանց ջնջումը հաջողվեց։';
 $messages['contactrestoreerror'] = 'Ջնջված անձանց վերականգնումը ձախողվեց։';
@@ -163,7 +152,4 @@ $messages['invalidimageformat'] = 'Պատկերի սխալ ձևաչափ։';
 $messages['mispellingsfound'] = 'Հաղորդագրության մեջ կան տառասխալներ։';
 $messages['parentnotwritable'] = 'Նշված պանակի մեջ պանակի ստեղծումը կամ տեղափոխումը անհնար է անբավարար իրավունքների պատճառով։';
 $messages['messagetoobig'] = 'Հաղորդագրության մասը չափազանց մեծ է սպասարկման համար։';
-$messages['attachmentvalidationerror'] = 'WARNING! This attachment is suspicious because its type doesn\'t match the type declared in the message. If you do not trust the sender, you shouldn\'t open it in the browser because it may contain malicious contents.<br/><br/><em>Expected: $expected; found: $detected</em>';
-$messages['noscriptwarning'] = 'Warning: This webmail service requires Javascript! In order to use it please enable Javascript in your browser\'s settings.';
-
 ?>
