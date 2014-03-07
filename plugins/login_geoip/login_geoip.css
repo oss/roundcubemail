@@ -1,12 +1,10 @@
+
 #login_time{
 	width: 100%;
 	margin-left:auto;
 	margin-right:auto;
 	padding-top: 10px;
-}
-
-#mailboxcontainer {
-	bottom: 157px;
+	bottom: 0px;
 }
 
 .login_history {

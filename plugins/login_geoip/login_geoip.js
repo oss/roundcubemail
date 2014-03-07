@@ -11,9 +11,10 @@ function make_popup (msg)
 }
 
 $(window).resize( function resize() {
-	var mbox=$("#mailboxcontainer");
-	try{
-		$("#login_time").css("top", (mbox.position().top + mbox.height() + 10)+"px");
-	}catch(e) {
-	}
+    var mbox=$("#mailboxcontainer");
+    var login=$("#login_time");
+    try{
+        // note: #login_time's bottom attribute set to 0px in .css file
+        mbox.css("bottom", (login.height()+20)+"px");
+    }catch(e) {}
 });
