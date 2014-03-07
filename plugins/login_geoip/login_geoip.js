@@ -10,9 +10,10 @@ function make_popup (msg)
    });
 }
 
-	$(window).resize( function resize() {
-		var mbox=$("#mailboxcontainer");
-		try{
-			$("#login_time").css("top", (mbox.position().top + mbox.height() + 10)+"px");
-		}catch(e){}
-	});
+$(window).resize( function resize() {
+	var mbox=$("#mailboxcontainer");
+	try{
+		$("#login_time").css("top", (mbox.position().top + mbox.height() + 10)+"px");
+	}catch(e) {
+	}
+});
