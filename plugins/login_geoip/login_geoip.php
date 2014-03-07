@@ -35,7 +35,7 @@ function init ()
    // hook logins, so login_after will be called after the login is successfull
    $this->add_hook ('login_after', array($this, 'login_after'));
    // for checking if the user is within their expected country when creating/modifying an identity
-   $this->add_hook ('create_identity', array($this, 'identity_create'));
+   $this->add_hook ('identity_create', array($this, 'identity_create'));
    $this->add_hook ('identity_update', array($this, 'identity_create'));
    $this->add_hook ('update_identity', array($this, 'identity_create'));
    // for checking if the user is within their expected country when sending mail with a reply-to header
