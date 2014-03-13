@@ -1124,7 +1124,6 @@ function rcube_mail_ui()
       .attr('frameborder', '0')
       .appendTo(document.body);
 
-    console.log(h);
     var buttons = {};
     var supportln = $('#supportlink');
     if (supportln.length && (env.supporturl = supportln.attr('href')))
