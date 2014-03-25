@@ -279,7 +279,7 @@ function rcube_mail_ui()
 
       if (rcmail.env.action == '') {
         new rcube_splitter({ id:'addressviewsplitterd', p1:'#addressview-left', p2:'#addressview-right',
-          orientation:'v', relative:true, start:226, min:225, size:12, render:resize_leftcol }).init();
+          orientation:'v', relative:true, start:226, min:150, size:12, render:resize_leftcol }).init();
         new rcube_splitter({ id:'addressviewsplitter', p1:'#addresslist', p2:'#contacts-box',
           orientation:'v', relative:true, start:286, min:270, size:12 }).init();
       }
@@ -1124,6 +1124,7 @@ function rcube_mail_ui()
       .attr('frameborder', '0')
       .appendTo(document.body);
 
+    var h = Math.floor($(window).height() * 0.75);
     var buttons = {};
     var supportln = $('#supportlink');
     if (supportln.length && (env.supporturl = supportln.attr('href')))
@@ -1139,7 +1140,7 @@ function rcube_mail_ui()
       },
       buttons: buttons,
       width: 640,
-      height: 253
+      height: h
     }).width(640);
   }
 }
