@@ -12,6 +12,20 @@
 
 (function($){
 
+// Since JQuery no longer supports browser sniffing, we're going to have to user the userAgent string
+var myUserAgent = navigator.userAgent; 
+if (myUserAgent.indexOf("MSIE") == -1) {
+	// IE6 background flicker fix
+	try	{
+		document.execCommand('BackgroundImageCache', false, true);
+	} catch (e) {}
+
+	if (!document.namespaces["v"]) {
+		$("head").prepend("<xml:namespace ns='urn:schemas-microsoft-com:vml' prefix='v' />");
+		$("head").prepend("<?import namespace='v' implementation='#default#VML' ?>");
+	}
+}
+/*
 // Set up IE for VML if we have not done so already...
 if ($.browser.msie) {
 	// IE6 background flicker fix
@@ -24,6 +38,7 @@ if ($.browser.msie) {
 		$("head").prepend("<?import namespace='v' implementation='#default#VML' ?>");
 	}
 }
+*/
 
 $.widget("ui.checkbox", {
 	_init: function() {
