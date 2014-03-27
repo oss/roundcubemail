@@ -14,7 +14,7 @@
 
 // Since JQuery no longer supports browser sniffing, we're going to have to user the userAgent string
 var myUserAgent = navigator.userAgent; 
-if (myUserAgent.indexOf("MSIE") == -1) {
+if (myUserAgent.indexOf("MSIE") !== -1) {
 	// IE6 background flicker fix
 	try	{
 		document.execCommand('BackgroundImageCache', false, true);
