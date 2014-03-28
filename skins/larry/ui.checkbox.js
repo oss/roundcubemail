@@ -25,20 +25,6 @@ if (navigator.userAgent.search("MSIE") >= 0) {
 		$("head").prepend("<?import namespace='v' implementation='#default#VML' ?>");
 	}
 }
-/*
-// Set up IE for VML if we have not done so already...
-if ($.browser.msie) {
-	// IE6 background flicker fix
-	try	{
-		document.execCommand('BackgroundImageCache', false, true);
-	} catch (e) {}
-
-	if (!document.namespaces["v"]) {
-		$("head").prepend("<xml:namespace ns='urn:schemas-microsoft-com:vml' prefix='v' />");
-		$("head").prepend("<?import namespace='v' implementation='#default#VML' ?>");
-	}
-}
-*/
 
 $.widget("ui.checkbox", {
 	_init: function() {

@@ -27,7 +27,6 @@ class webtools extends rcube_plugin
     {
       $this->load_config();
 
-      //$this->include_script("$jqueryui/jquery-ui-1.9.1.custom.min.js");
       $this->add_texts('localization/', false);
       // register actions
       $this->register_action('plugin.webtools', array($this, 'action'));
@@ -83,7 +82,6 @@ class webtools extends rcube_plugin
       $this->include_stylesheet("$rutgers_skin/jquery-ui-1.7.2.custom.css");
       $this->include_stylesheet("$rutgers_skin/ui.checkbox.css");
       $this->include_stylesheet("$rutgers_skin/ui.selectmenu.css");
-      //$this->include_script("$jqueryui/jquery-ui-1.9.1.custom.min.js");
       $this->include_script("$rutgers_skin/ui.checkbox.js");
       $this->include_script("$rutgers_skin/ui.selectmenu.js");
       $this->include_script("js/webtools.js");
@@ -96,7 +94,6 @@ class webtools extends rcube_plugin
       $this->include_stylesheet("$rutgers_skin/jquery.pnotify.default.css");
 
 	  //hook for vacation notify
-	  //$this->add_hook('login_after', array($this, 'after_login'));
 	  $this->add_hook('messages_list', array($this, 'vacation_notify'));
 	  $this->add_hook('session_destroy', array($this, 'destroy_cookie'));
 
@@ -107,13 +104,10 @@ class webtools extends rcube_plugin
     {
       $rcmail = rcmail::get_instance();
 
-      //$this->load_config();
-
       // register UI objects
       $rcmail->output->add_handlers(array(
 	    'webtoolscontent' => array($this, 'content'),
       ));
-      //include ($this->home.'/webtools/webtools/filter/ajax.php');
       if ($rcmail->action == 'plugin.webtoolsforward')
 	    $rcmail->output->set_pagetitle($this->gettext('forward'));
       else if ($rcmail->action == 'plugin.webtoolsvacation')
@@ -162,10 +156,6 @@ class webtools extends rcube_plugin
       else if ($rcmail->action == 'plugin.webtoolsrestore') {
 	    return get_include_contents($this->home.'/webtools/restore/index.php');
       }
-
-      // default content: iframe
-      /*if ($src = $rcmail->config->get('webtools_source'))
-            $attrib['src'] = $src;*/
 
       if (empty($attrib['id']))
         $attrib['id'] = 'rcmailwebtoolscontent';

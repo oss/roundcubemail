@@ -32,19 +32,8 @@ $(function() {
       	$('.webtools-accordion').accordion( { header: 'h3', collapsible: 'true', active: 'false' } );
 	}
 	else {
-	  	// replace this with an exception
 		console.log("Something bad happened");
 	}
-   //making it jquery-like
-   //var browser = BrowserDetect.browser;
-   //var version = BrowserDetect.version;
-   //if (!((browser=="Explorer") && (version==7)))
-	
-	
-/*
-    if (!(($.browser.msie) && ($.browser.version))) 
-      $('.webtools-accordion').accordion( { header: 'h3', collapsible: 'true', active: 'false' } );
-*/
 });
 
 rcmail.addEventListener('plugin.webtools.vacation.notify.response', 'vacation_notify');
