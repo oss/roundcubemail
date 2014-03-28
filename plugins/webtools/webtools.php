@@ -27,6 +27,7 @@ class webtools extends rcube_plugin
     {
       $this->load_config();
 
+      //$this->include_script("$jqueryui/jquery-ui-1.9.1.custom.min.js");
       $this->add_texts('localization/', false);
       // register actions
       $this->register_action('plugin.webtools', array($this, 'action'));
@@ -78,10 +79,11 @@ class webtools extends rcube_plugin
 
       // add style for taskbar button (must be here) and Help UI    
       $this->include_stylesheet("skins/$skin/webtools.css");
+      $this->include_script("$jqueryui/jquery-ui-1.9.2.custom.min.js");
       $this->include_stylesheet("$rutgers_skin/jquery-ui-1.7.2.custom.css");
       $this->include_stylesheet("$rutgers_skin/ui.checkbox.css");
       $this->include_stylesheet("$rutgers_skin/ui.selectmenu.css");
-      $this->include_script("$jqueryui/jquery-ui-1.9.1.custom.min.js");
+      //$this->include_script("$jqueryui/jquery-ui-1.9.1.custom.min.js");
       $this->include_script("$rutgers_skin/ui.checkbox.js");
       $this->include_script("$rutgers_skin/ui.selectmenu.js");
       $this->include_script("js/webtools.js");

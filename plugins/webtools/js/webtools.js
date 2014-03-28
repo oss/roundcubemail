@@ -14,6 +14,8 @@ $(function() {
 });
 
 $(function() {
+  	// parse the user agent string. if it contains the substring "MSIE", the browser is
+	// Internet Explorer
 	var myUserAgent = navigator.userAgent; 
 	if (myUserAgent.indexOf("MSIE") !== -1) {
 		// IE6 background flicker fix
@@ -25,6 +27,13 @@ $(function() {
 			$("head").prepend("<xml:namespace ns='urn:schemas-microsoft-com:vml' prefix='v' />");
 			$("head").prepend("<?import namespace='v' implementation='#default#VML' ?>");
 		}
+	}
+	else if (myUserAgent.indexOf("MSIE") === -1) {
+      	$('.webtools-accordion').accordion( { header: 'h3', collapsible: 'true', active: 'false' } );
+	}
+	else {
+	  	// replace this with an exception
+		console.log("Something bad happened");
 	}
    //making it jquery-like
    //var browser = BrowserDetect.browser;
@@ -41,7 +50,6 @@ $(function() {
 rcmail.addEventListener('plugin.webtools.vacation.notify.response', 'vacation_notify');
 
 function vacation_notify(data) {
-	console.log("got here");
 	if(data.status) {
 		$.pnotify({
 			pnotify_title: "Alert",
