@@ -182,35 +182,43 @@ div#webtools-tabs span.listitem{
 	background: url(webtools_icons.png) no-repeat;
 	background-size: 27px;
 	background-position-x: 5px;
+	background-position: 0px 5px;
 }
 
 div#webtools-tabs span#webtoolstabforward{
 	background-position-y: 0px;
+	background-position: 0px 5px;
 }
 
 div#webtools-tabs span#webtoolstabvacation{
 	background-position-y: -25px;
+	background-position: 0px -25px;
 }
 
 div#webtools-tabs span#webtoolstabfilter{
 	background-position-y: -53px;
+	background-position: 0px -53px;
 }
 
 div#webtools-tabs span#webtoolstabspam{
 	background-position-y: -80px;
+	background-position: 0px -80px;
 }
 
 div#webtools-tabs span#webtoolstabquota{
 	background-position-y: -110px;
 	background-position-x: 4px;
+	background-position: 4px -110px;
 }
 
 div#webtools-tabs span#webtoolstabhushquota{
 	background-position-y: -138px;
+	background-position: 0px -138px;
 }
 
 div#webtools-tabs span#webtoolstabrestore{
 	background-position-y: -165px;
+	background-position: 0px -165px;
 }
 
 tr#rcmrowresetprefs td.section {

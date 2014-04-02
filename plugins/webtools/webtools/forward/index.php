@@ -121,7 +121,8 @@ $subhead = $rcmail->config->get('forward_subhead');
     <div>
         <h3 class="roundbox helpbox"><a id="instr-header" href="#">Help</a></h3>
         <div id="instr-content" class="helptext">
-	         <?=$rcmail->config->get('forward_help')?>
+			 <?=$rcmail->config->get('forward_help')?>
+		</div>
 	</div>
     </div>
 </div>

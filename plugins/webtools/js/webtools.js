@@ -14,7 +14,7 @@ $(function() {
 });
 
 $(function() {
-  	// parse the user agent string. if it contains the substring "MSIE", the browser is
+  	// jgr68 - parse the user agent string. if it contains the substring "MSIE", the browser is
 	// Internet Explorer
 	var myUserAgent = navigator.userAgent; 
 	if (myUserAgent.indexOf("MSIE") !== -1) {
