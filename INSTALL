@@ -14,7 +14,7 @@ REQUIREMENTS
 * PHP Version 5.2.1 or greater including
    - PCRE, DOM, JSON, XML, Session, Sockets (required)
    - PHP Data Objects (PDO) with driver for either MySQL, PostgreSQL or SQLite (required)
-     Note: MySQL database driver requires PHP 5.3 or newer.
+     Note: MySQL database driver requires PHP 5.3.7 or newer.
    - Libiconv, Zip (recommended)
    - Fileinfo, Mcrypt, mbstring (optional)
 * PEAR packages distributed with Roundcube or external:
@@ -35,6 +35,7 @@ REQUIREMENTS
    - mbstring.func_overload disabled
    - magic_quotes_runtime disabled
    - magic_quotes_sybase disabled
+   - register_globals disabled (PHP < 5.4)
 * PHP compiled with OpenSSL to connect to IMAPS and to use the spell checker
 * A MySQL (4.0.8 or newer), PostgreSQL, MS SQL Server (2005 or newer) database engine
   or SQLite support in PHP

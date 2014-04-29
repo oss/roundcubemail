@@ -37,7 +37,7 @@ if (!empty($_GET['_page'])) {
 
 $a_threading        = $RCMAIL->config->get('message_threading', array());
 $message_sort_col   = $RCMAIL->config->get('message_sort_col');
-$message_sort_order = $RCMAIL->config->get('message_sort_col');
+$message_sort_order = $RCMAIL->config->get('message_sort_order');
 
 // set default sort col/order to session
 if (!isset($_SESSION['sort_col'])) {
@@ -66,6 +66,10 @@ if (!empty($_REQUEST['_search']) && isset($_SESSION['search'])
 
     $OUTPUT->set_env('search_request', $_REQUEST['_search']);
     $OUTPUT->set_env('search_text', $_SESSION['last_text_search']);
+}
+
+if (!empty($_SESSION['browser_caps']) && !$OUTPUT->ajax_call) {
+    $OUTPUT->set_env('browser_capabilities', $_SESSION['browser_caps']);
 }
 
 // set main env variables, labels and page title
@@ -117,17 +121,13 @@ if (empty($RCMAIL->action) || $RCMAIL->action == 'list') {
     $RCMAIL->set_env_config(array('delete_junk', 'flag_for_deletion', 'read_when_deleted',
         'skip_deleted', 'display_next', 'message_extwin', 'compose_extwin', 'forward_attachment'));
 
-    if (!empty($_SESSION['browser_caps'])) {
-        $OUTPUT->set_env('browser_capabilities', $_SESSION['browser_caps']);
-    }
-
     if (!$OUTPUT->ajax_call) {
         $OUTPUT->add_label('checkingmail', 'deletemessage', 'movemessagetotrash',
             'movingmessage', 'copyingmessage', 'deletingmessage', 'markingmessage',
-            'copy', 'move', 'quota', 'replyall', 'replylist', 'importwait');
+            'copy', 'move', 'quota', 'replyall', 'replylist');
     }
 
-    $pagetitle = $RCMAIL->localize_foldername($RCMAIL->storage->mod_folder($mbox_name), true);
+    $pagetitle = $RCMAIL->localize_foldername($mbox_name, true);
     $pagetitle = str_replace($delimiter, " \xC2\xBB ", $pagetitle);
 
     $OUTPUT->set_pagetitle($pagetitle);
@@ -1984,7 +1984,7 @@ function rcmail_search_filter($attrib)
     $ctypes = array('application/', 'multipart/m', 'multipart/signed', 'multipart/report');
 
     // Build search string of "with attachment" filter
-    $attachment = str_repeat(' OR', count($ctypes)-1);
+    $attachment = trim(str_repeat(' OR', count($ctypes)-1));
     foreach ($ctypes as $type) {
         $attachment .= ' HEADER Content-Type ' . rcube_imap_generic::escape($type);
     }
@@ -2070,6 +2070,7 @@ function rcmail_message_import_form($attrib = array())
         $content);
 
     $RCMAIL->output->add_gui_object('importform', $attrib['id'].'Frm');
+    $RCMAIL->output->add_label('selectimportfile','importwait');
 
     return html::div($attrib, $out);
 }

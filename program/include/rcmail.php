@@ -431,7 +431,7 @@ class rcmail extends rcube
         }
 
         // add some basic labels to client
-        $this->output->add_label('loading', 'servererror', 'requesttimedout', 'refreshing');
+        $this->output->add_label('loading', 'servererror', 'connerror', 'requesttimedout', 'refreshing');
 
         return $this->output;
     }
@@ -846,6 +846,9 @@ class rcmail extends rcube
 
         // write performance stats to logs/console
         if ($this->config->get('devel_mode')) {
+            // make sure logged numbers use unified format
+            setlocale(LC_NUMERIC, 'en_US.utf8', 'en_US.UTF-8', 'en_US', 'C');
+
             if (function_exists('memory_get_usage'))
                 $mem = $this->show_bytes(memory_get_usage());
             if (function_exists('memory_get_peak_usage'))
@@ -1360,10 +1363,29 @@ class rcmail extends rcube
 
         $delimiter = $storage->get_hierarchy_delimiter();
 
-        foreach ($list as $folder) {
-            if (empty($p['exceptions']) || !in_array($folder, $p['exceptions'])) {
-                $this->build_folder_tree($a_mailboxes, $folder, $delimiter);
+        if (!empty($p['exceptions'])) {
+            $list = array_diff($list, (array) $p['exceptions']);
+        }
+
+        if (!empty($p['additional'])) {
+            foreach ($p['additional'] as $add_folder) {
+                $add_items = explode($delimiter, $add_folder);
+                $folder    = '';
+                while (count($add_items)) {
+                    $folder .= array_shift($add_items);
+
+                    // @TODO: sorting
+                    if (!in_array($folder, $list)) {
+                        $list[] = $folder;
+                    }
+
+                    $folder .= $delimiter;
+                }
             }
+        }
+
+        foreach ($list as $folder) {
+            $this->build_folder_tree($a_mailboxes, $folder, $delimiter);
         }
 
         $select = new html_select($p);
@@ -1599,9 +1621,13 @@ class rcmail extends rcube
      *
      * @return string Localized folder name in UTF-8 encoding
      */
-    public function localize_foldername($name, $with_path = true)
+    public function localize_foldername($name, $with_path = false)
     {
         $realnames = $this->config->get('show_real_foldernames');
+
+        if (!$realnames && ($folder_class = $this->folder_classname($name))) {
+            return $this->gettext($folder_class);
+        }
 
         // try to localize path of the folder
         if ($with_path && !$realnames) {
@@ -1611,7 +1637,7 @@ class rcmail extends rcube
             $count     = count($path);
 
             if ($count > 1) {
-                for ($i = 0; $i < $count; $i++) {
+                for ($i = 1; $i < $count; $i++) {
                     $folder = implode($delimiter, array_slice($path, 0, -$i));
                     if ($folder_class = $this->folder_classname($folder)) {
                         $name = implode($delimiter, array_slice($path, $count - $i));
@@ -1619,10 +1645,6 @@ class rcmail extends rcube
                     }
                 }
             }
-        }
-
-        if (!$realnames && ($folder_class = $this->folder_classname($name))) {
-            return $this->gettext($folder_class);
         }
 
         return rcube_charset::convert($name, 'UTF7-IMAP');

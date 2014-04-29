@@ -201,7 +201,7 @@ if (!empty($headers['Reply-To'])) {
     $headers['Mail-Reply-To'] = $headers['Reply-To'];
 }
 if ($hdr = rcube_utils::get_input_value('_followupto', rcube_utils::INPUT_POST, TRUE, $message_charset)) {
-    $headers['Mail-Followup-To'] = rcmail_email_input_format();
+    $headers['Mail-Followup-To'] = rcmail_email_input_format($hdr);
 }
 
 // remember reply/forward UIDs in special headers
@@ -209,7 +209,7 @@ if (!empty($COMPOSE['reply_uid']) && $savedraft) {
     $headers['X-Draft-Info'] = array('type' => 'reply', 'uid' => $COMPOSE['reply_uid']);
 }
 else if (!empty($COMPOSE['forward_uid']) && $savedraft) {
-    $headers['X-Draft-Info'] = array('type' => 'forward', 'uid' => $COMPOSE['forward_uid']);
+    $headers['X-Draft-Info'] = array('type' => 'forward', 'uid' => rcube_imap_generic::compressMessageSet($COMPOSE['forward_uid']));
 }
 
 if (!empty($COMPOSE['reply_msgid'])) {

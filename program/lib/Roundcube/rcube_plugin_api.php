@@ -182,7 +182,7 @@ class rcube_plugin_api
         }
 
         // plugin already loaded
-        if ($this->plugins[$plugin_name] || class_exists($plugin_name, false)) {
+        if ($this->plugins[$plugin_name]) {
             return true;
         }
 
@@ -190,7 +190,9 @@ class rcube_plugin_api
             . DIRECTORY_SEPARATOR . $plugin_name . '.php';
 
         if (file_exists($fn)) {
-            include $fn;
+            if (!class_exists($plugin_name, false)) {
+                include $fn;
+            }
 
             // instantiate class if exists
             if (class_exists($plugin_name, false)) {
@@ -231,7 +233,7 @@ class rcube_plugin_api
 
     /**
      * Get information about a specific plugin.
-     * This is either provided my a plugin's info() method or extracted from a package.xml or a composer.json file
+     * This is either provided by a plugin's info() method or extracted from a package.xml or a composer.json file
      *
      * @param string Plugin name
      * @return array Meta information about a plugin or False if plugin was not found
@@ -277,7 +279,7 @@ class rcube_plugin_api
         include($fn);
 
       if (class_exists($plugin_name))
-        $info = $plugin_name::info();
+        $info = call_user_func(array($plugin_name, 'info'));
 
       // fall back to composer.json file
       if (!$info) {

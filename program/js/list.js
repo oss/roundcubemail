@@ -300,11 +300,13 @@ insert_row: function(row, before)
     if (row.className) domrow.className = row.className;
     if (row.style) $.extend(domrow.style, row.style);
 
-    for (var domcell, col, i=0; row.cols && i < row.cols.length; i++) {
+    for (var e, domcell, col, i=0; row.cols && i < row.cols.length; i++) {
       col = row.cols[i];
       domcell = document.createElement(this.col_tagname());
       if (col.className) domcell.className = col.className;
       if (col.innerHTML) domcell.innerHTML = col.innerHTML;
+      for (e in col.events)
+        domcell['on' + e] = col.events[e];
       domrow.appendChild(domcell);
     }
 
@@ -365,7 +367,7 @@ focus: function(e)
 
   // Un-focus already focused elements (#1487123, #1487316, #1488600, #1488620)
   // It looks that window.focus() does the job for all browsers, but not Firefox (#1489058)
-  $(':focus:not(body)').blur();
+  $('iframe,:focus:not(body)').blur();
   window.focus();
 
   if (e || (e = window.event))
@@ -1035,7 +1037,7 @@ invert_selection: function()
 /**
  * Unselect selected row(s)
  */
-clear_selection: function(id)
+clear_selection: function(id, no_event)
 {
   var n, num_select = this.selection.length;
 
@@ -1057,7 +1059,7 @@ clear_selection: function(id)
     this.selection = [];
   }
 
-  if (num_select && !this.selection.length)
+  if (num_select && !this.selection.length && !no_event)
     this.triggerEvent('select');
 },
 
@@ -1110,7 +1112,7 @@ highlight_row: function(id, multiple, norecur)
 
   if (!multiple) {
     if (this.selection.length > 1 || !this.in_selection(id)) {
-      this.clear_selection();
+      this.clear_selection(null, true);
       this.selection[0] = id;
       $(this.rows[id].obj).addClass('selected');
     }
@@ -1345,7 +1347,7 @@ drag_mouse_move: function(e)
 
       var uid = RegExp.$1, row = self.rows[uid];
 
-      if ($.inArray(uid, selection) > -1)
+      if (!row || $.inArray(uid, selection) > -1)
         return;
 
       selection.push(uid);
