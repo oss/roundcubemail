@@ -1,19 +1,9 @@
 function forward_add() {
+
   	var email = document.getElementById("email").value;
   	var localcopy_check = document.getElementById("localcopy-check").value;
-	// next two lines for debugging only... remove when done
-	console.log("email: "+email);
-	console.log("localcopy_check: "+localcopy_check);
+
     if (validateEmail()) {
-        var a = $("#email").attr("value");
-        var b = $("#localcopy-check").attr("checked");
-		/*
-        rcmail.http_post("plugin.webtoolsforward-post", {
-            func: "add",
-            value: a,
-            check: b
-        })
-		*/
         rcmail.http_post("plugin.webtoolsforward-post", {
             func: "add",
             value: email,
