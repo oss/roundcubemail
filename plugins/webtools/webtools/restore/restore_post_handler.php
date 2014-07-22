@@ -56,7 +56,7 @@ function restore_post_handler() {
                                                   '.$date.'
                                               </label>
                                               <select name="folder" id="foldermenu" class="webtools-select">
-                                                  <option value="INBOX">INBOX</option>'
+//                                                  <option value="INBOX">INBOX</option>'
                                                   .$selects.
                                               '</select>
                                                <input type="hidden" name="path" value="'.$path.'" />
@@ -87,7 +87,8 @@ function restore_post_handler() {
         $folder = getvar('folder');
         $success = TRUE;
         $msg = '';
-
+	$is_inbox = false;
+	
         if (isset($path) && isset($folder)) {
             if (strcmp($folder, 'INBOX') != 0) {
                 $newfolder = ".$folder";
@@ -95,15 +96,9 @@ function restore_post_handler() {
             } 
             else {
                 $newfolder = null;
+		$is_inbox = true;
             }
 
-            if (strcmp($folder, 'INBOX') != 0) {
-                $newfolder = ".$folder";
-                $newfolder = preg_replace("/\//", ".", $newfolder);
-           	//$newfolder = preg_replace("/ /", "\\ ", $newfolder); 
-	   		} else {
-                $newfolder = null;
-            }
             // Handle any folders that contain spaces
             $snapshot_dir = escapeshellarg("$path/$newfolder");
             $user_cmd = "$RESTORE -f  $SCRIPT_LOG_FACILITY -p $snapshot_dir";
@@ -124,6 +119,13 @@ function restore_post_handler() {
 		}
 		$subsfolder="$PREFIX.RESTORE$newfolder";
 		$imap->subscribe(array($subsfolder));
+
+		#cludge
+		if ($is_inbox) 
+		  {
+		    $imap->subscribe(array($PREFIX.".RESTORE.Inbox"));
+		  }
+		
                 #$msg = 'Your mail folder "'.$folder.'" has now been restored. Use your favorite mail program to 
                  #       look for the new folder named "RESTORE", or just click on the Rutgers logo above to view it in webmail. To subscribe to the newly created folder. please <a href="?_task=settings&_action=folders"> subscribe to the folder </a> to see it in your default email view.';
 				#$msg = 'Your mail folder "'.$folder.'" was restored as a subfolder under "RESTORE".
